@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.owl.wifi.web.dao.TalkingdataPortLabelMapper" >
+  <resultMap id="BaseResultMap" type="com.owl.wifi.web.entity.TalkingdataPortLabelKey" >
+    <id column="label" property="label" jdbcType="CHAR" />
+    <id column="port_id" property="portId" jdbcType="SMALLINT" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="com.owl.wifi.web.entity.TalkingdataPortLabelKey" >
+    delete from t_talkingdata_port_label
+    where label = #{label,jdbcType=CHAR}
+      and port_id = #{portId,jdbcType=SMALLINT}
+  </delete>
+  <insert id="insert" parameterType="com.owl.wifi.web.entity.TalkingdataPortLabelKey" >
+    insert into t_talkingdata_port_label (label, port_id)
+    values (#{label,jdbcType=CHAR}, #{portId,jdbcType=SMALLINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.owl.wifi.web.entity.TalkingdataPortLabelKey" >
+    insert into t_talkingdata_port_label
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="label != null" >
+        label,
+      </if>
+      <if test="portId != null" >
+        port_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="label != null" >
+        #{label,jdbcType=CHAR},
+      </if>
+      <if test="portId != null" >
+        #{portId,jdbcType=SMALLINT},
+      </if>
+    </trim>
+  </insert>
+</mapper>

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.owl.wifi.web.dao.FaceMapper">
+	<resultMap id="BaseResultMap" type="com.owl.wifi.web.entity.Face">
+		<id column="face_id" jdbcType="INTEGER" property="faceId" />
+		<result column="male_ind" jdbcType="TINYINT" property="maleInd" />
+		<result column="age_val" jdbcType="TINYINT" property="ageVal" />
+		<result column="race_id" jdbcType="SMALLINT" property="raceId" />
+		<result column="lips_id" jdbcType="SMALLINT" property="lipsId" />
+		<result column="glasses_ind" jdbcType="TINYINT" property="glassesInd" />
+		<result column="images_txt" jdbcType="VARCHAR" property="imagesTxt" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		face_id, male_ind, age_val, race_id, lips_id, glasses_ind,
+		images_txt
+	</sql>
+	<select id="selectByPrimaryKey" parameterType="java.lang.Integer"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from t_face
+		where face_id = #{faceId,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from t_face
+		where face_id = #{faceId,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="com.owl.wifi.web.entity.Face">
+		insert into t_face (male_ind,
+		age_val,
+		race_id, lips_id, glasses_ind,
+		images_txt)
+		values
+		(#{maleInd,jdbcType=TINYINT},
+		#{ageVal,jdbcType=TINYINT},
+		#{raceId,jdbcType=SMALLINT}, #{lipsId,jdbcType=SMALLINT},
+		#{glassesInd,jdbcType=TINYINT},
+		#{imagesTxt,jdbcType=VARCHAR})
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.owl.wifi.web.entity.Face">
+		update t_face
+		<set>
+			<if test="maleInd != null">
+				male_ind = #{maleInd,jdbcType=TINYINT},
+			</if>
+			<if test="ageVal != null">
+				age_val = #{ageVal,jdbcType=TINYINT},
+			</if>
+			<if test="raceId != null">
+				race_id = #{raceId,jdbcType=SMALLINT},
+			</if>
+			<if test="lipsId != null">
+				lips_id = #{lipsId,jdbcType=SMALLINT},
+			</if>
+			<if test="glassesInd != null">
+				glasses_ind = #{glassesInd,jdbcType=TINYINT},
+			</if>
+			<if test="imagesTxt != null">
+				images_txt = #{imagesTxt,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where face_id = #{faceId,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.owl.wifi.web.entity.Face">
+		update t_face
+		set
+		male_ind = #{maleInd,jdbcType=TINYINT},
+		age_val =
+		#{ageVal,jdbcType=TINYINT},
+		race_id = #{raceId,jdbcType=SMALLINT},
+		lips_id = #{lipsId,jdbcType=SMALLINT},
+		glasses_ind =
+		#{glassesInd,jdbcType=TINYINT},
+		images_txt =
+		#{imagesTxt,jdbcType=VARCHAR}
+		where face_id =
+		#{faceId,jdbcType=INTEGER}
+	</update>
+</mapper>

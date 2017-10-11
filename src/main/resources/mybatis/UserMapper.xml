@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.owl.wifi.web.dao.UserMapper" >
+  <resultMap id="BaseResultMap" type="com.owl.wifi.web.entity.User" >
+    <id column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="user_name" property="userName" jdbcType="VARCHAR" />
+    <result column="user_pwd" property="userPwd" jdbcType="VARCHAR" />
+    <result column="industry_pic" property="industryPic" jdbcType="VARCHAR" />
+    <result column="hik_account" property="hikAccount" jdbcType="VARCHAR" />
+     <result column="n_create_id" property="nCreateId" jdbcType="INTEGER" />
+    <result column="t_create_time" property="tCreateTime" jdbcType="TIMESTAMP" />
+    <result column="n_update_id" property="nUpdateId" jdbcType="INTEGER" />
+    <result column="t_update_time" property="tUpdateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    user_id, user_name, user_pwd,industry_pic,hik_account, n_create_id, t_create_time, n_update_id, t_update_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_user
+    where user_id = #{userId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_user
+    where user_id = #{userId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.owl.wifi.web.entity.User" useGeneratedKeys="true" keyProperty="userId">
+    insert into t_user (user_id, user_name, user_pwd,industry_pic, n_create_id, t_create_time, n_update_id, 
+      t_update_time
+      )
+    values (#{userId,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR}, #{userPwd,jdbcType=VARCHAR}, #{industryPic,jdbcType=VARCHAR},#{nCreateId,jdbcType=INTEGER}, #{tCreateTime,jdbcType=TIMESTAMP}, #{nUpdateId,jdbcType=INTEGER}, 
+      #{tUpdateTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.owl.wifi.web.entity.User" useGeneratedKeys="true" keyProperty="userId">
+    insert into t_user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="userName != null" >
+        user_name,
+      </if>
+      <if test="userPwd != null" >
+        user_pwd,
+      </if>
+      <if test="industryPic != null" >
+        industry_pic,
+      </if>
+      <if test="nCreateId != null" >
+        n_create_id,
+      </if>
+      <if test="tCreateTime != null" >
+        t_create_time,
+      </if>
+      <if test="nUpdateId != null" >
+        n_update_id,
+      </if>
+      <if test="tUpdateTime != null" >
+        t_update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="userName != null" >
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userPwd != null" >
+        #{userPwd,jdbcType=VARCHAR},
+      </if>
+      <if test="industryPic != null" >
+        #{industryPic,jdbcType=VARCHAR},
+      </if>
+      <if test="nCreateId != null" >
+        #{nCreateId,jdbcType=INTEGER},
+      </if>
+      <if test="tCreateTime != null" >
+        #{tCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="nUpdateId != null" >
+        #{nUpdateId,jdbcType=INTEGER},
+      </if>
+      <if test="tUpdateTime != null" >
+        #{tUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.owl.wifi.web.entity.User" >
+    update t_user
+    <set >
+      <if test="userName != null" >
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userPwd != null" >
+        user_pwd = #{userPwd,jdbcType=VARCHAR},
+      </if>
+      <if test="industryPic != null" >
+        industry_pic = #{industryPic,jdbcType=VARCHAR},
+      </if>
+      <if test="nCreateId != null" >
+        n_create_id = #{nCreateId,jdbcType=INTEGER},
+      </if>
+      <if test="tCreateTime != null" >
+        t_create_time = #{tCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="nUpdateId != null" >
+        n_update_id = #{nUpdateId,jdbcType=INTEGER},
+      </if>
+      <if test="tUpdateTime != null" >
+        t_update_time = #{tUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where user_id = #{userId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.owl.wifi.web.entity.User" >
+    update t_user
+    set user_name = #{userName,jdbcType=VARCHAR},
+      user_pwd = #{userPwd,jdbcType=VARCHAR},
+      industry_pic = #{industryPic,jdbcType=VARCHAR},
+       n_create_id = #{nCreateId,jdbcType=INTEGER},
+      t_create_time = #{tCreateTime,jdbcType=TIMESTAMP},
+      n_update_id = #{nUpdateId,jdbcType=INTEGER},
+      t_update_time = #{tUpdateTime,jdbcType=TIMESTAMP}
+    where user_id = #{userId,jdbcType=INTEGER}
+  </update>
+  
+  
+  <select id="login" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_user
+    where user_name = #{userName,jdbcType=VARCHAR} and user_pwd=#{userPwd}
+  </select>
+  <select id="findByUserName" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_user
+    where user_name = #{userName,jdbcType=VARCHAR} 
+  </select>
+  
+  <select id="findByParam" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_user
+    <where>
+    <if test="keyword!=null and keyword!=''">
+    and user_name like CONCAT('%',#{keyword},'%' )
+    </if>
+    <if test="userId != null" >
+      or user_id = #{userId,jdbcType=INTEGER}
+    </if>
+      <if test="nCreateId != null" >
+      or n_create_id = #{nCreateId,jdbcType=INTEGER}
+    </if>
+    </where>
+    <if test="startRow!=null">
+	limit #{startRow},#{pageSize}
+	</if>
+    </select>
+    <select id="countByParam" resultType="int" >
+    select 
+    count(*)
+    from t_user
+    <where>
+    <if test="keyword!=null and keyword!=''">
+    and user_name like CONCAT('%',#{keyword},'%' )
+    </if>
+    <if test="userId != null" >
+      or user_id = #{userId,jdbcType=INTEGER}
+    </if>
+     <if test="nCreateId != null" >
+      or n_create_id = #{nCreateId,jdbcType=INTEGER}
+    </if>
+    </where>
+  </select>
+  
+  <select id="selectUserName" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_user
+    <where>
+  	<if test="userName!=null and userName!=''">
+    and user_name = #{userName,jdbcType=VARCHAR}
+    </if>
+    </where>
+    </select>
+  
+</mapper>

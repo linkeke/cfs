@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.owl.wifi.web.dao.FaceRaceCodeMapper">
+	<resultMap id="BaseResultMap" type="com.owl.wifi.web.entity.FaceRaceCode">
+		<id column="race_id" jdbcType="SMALLINT" property="raceId" />
+		<result column="race_txt" jdbcType="VARCHAR" property="raceTxt" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		race_id, race_txt
+	</sql>
+	<select id="selectByPrimaryKey" parameterType="java.lang.Short"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from t_face_race_code
+		where race_id = #{raceId,jdbcType=SMALLINT}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Short">
+		delete from t_face_race_code
+		where race_id = #{raceId,jdbcType=SMALLINT}
+	</delete>
+	<insert id="insert" parameterType="com.owl.wifi.web.entity.FaceRaceCode">
+		insert into t_face_race_code (race_txt)
+		values (#{raceTxt,jdbcType=VARCHAR})
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.owl.wifi.web.entity.FaceRaceCode">
+		update t_face_race_code
+		<set>
+			<if test="raceTxt != null">
+				race_txt = #{raceTxt,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where race_id = #{raceId,jdbcType=SMALLINT}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.owl.wifi.web.entity.FaceRaceCode">
+		update t_face_race_code
+		set race_txt = #{raceTxt,jdbcType=VARCHAR}
+		where race_id = #{raceId,jdbcType=SMALLINT}
+	</update>
+</mapper>

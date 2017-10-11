@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:tiles="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8" />
+    <meta name="renderer" content="webkit|ie-comp|ie-stand" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <title>猫投鹰大数据精准营销系统 </title>
+    <link rel="icon" href="images/favicon.ico"/>
+    <!-- Bootstrap -->
+    <link href="vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet"/>
+    <!-- Font Awesome -->
+    <link href="vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet"/>
+    <!-- NProgress -->
+    <link href="vendors/nprogress/nprogress.css" rel="stylesheet"/>
+    <!-- jQuery custom content scroller -->
+    <link href="vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.min.css" rel="stylesheet"/>
+
+    <link rel="stylesheet" href="vendors/layui/css/layui.css" />
+
+    <!-- Custom Theme Style -->
+    <link href="build/css/custom.min.css" rel="stylesheet"/>
+    <link href="css/index.css" rel="stylesheet"/>
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?134c98453bebb63118c0338599528041";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+    <style type="text/css">
+        <!--
+
+
+        /* Clear fix */
+        .clearfix {
+            *zoom: 1;
+        }
+        .clearfix:before,
+        .clearfix:after {
+            display: table;
+            line-height: 0;
+            content: "";
+        }
+        .clearfix:after {
+            clear: both;
+        }
+        /* END */
+        /*#context {padding:5px; min-width:1024px;}*/
+
+        #today-info {text-align:center; margin-top:20px;}
+        #today-info .info {width:23%; height:110px; background-color:#2A3F54; float:left; margin-left:1%; border:1px dotted #FFF;}
+        #today-info .info dt:first-child{background-color:#2A3F54; height:70px;}
+        #today-info .info dt:first-child span{height:70px; line-height:70px;}
+        #today-info .info dt:last-child{background-color:#32B9B9; height:40px; line-height:40px; font-size:12pt; color:#FFF; text-align:left; padding-left:5px;}
+
+        #today-info .info dt .img {float:left;}
+        #today-info .info dt .data {float:right; font-size:25pt; color:#FFF; margin-right:10px;}
+
+        .photoinfo {height:300px; float:left; width:33%; margin-bottom:20px; border-bottom:2px solid #DFDFDF;}
+        .onlineImg { cursor:pointer; cursor: hand; }
+
+        #shopId {min-width:200px; padding:6px;}
+        -->
+    </style>
+</head>
+
+<body class="nav-md">
+<div class="container body">
+    <div class="main_container">
+        <div th:include="common/header::header"></div>
+
+        <!-- page content -->
+        <div class="right_col" role="main">
+
+            <div id="context">
+
+                <!-- 实时客流情况 -->
+                <div style="border:1px solid #2A3F54; margin-top:20px;">
+                    <div style="background-color:#2A3F54; font-size:12pt; color:#FFF; padding:6px;">车展日实时客流数据记录采样6月3日</div>
+                    <div style="height:300px;">
+                        <center>
+                        <img src="http://owl-so.oss-cn-shenzhen.aliyuncs.com/report_picture/shengangao/%E5%9B%BE%E7%89%871.png" style="width:1024px;height: 300px"/>
+                        </center>
+                    </div>
+               </div>
+                <!-- 实时客流情况 -->
+                <div style="border:1px solid #2A3F54; margin-top:20px;">
+                    <div style="background-color:#2A3F54; font-size:12pt; color:#FFF; padding:6px;">车展日实时客流数据记录采样6月4日</div>
+                    <div style="height:300px;">
+                        <center>
+                        <img src="http://owl-so.oss-cn-shenzhen.aliyuncs.com/report_picture/shengangao/%E5%9B%BE%E7%89%872.png" style="width:1024px;height: 300px"/>
+                        </center>
+
+                    </div>
+                </div>
+                <!-- 实时客流情况 -->
+                <div style="border:1px solid #2A3F54; margin-top:20px;">
+                    <div style="background-color:#2A3F54; font-size:12pt; color:#FFF; padding:6px;">车展日实时客流数据记录采样6月5日</div>
+                    <div style="height:300px;">
+                        <center>
+                        <img src="http://owl-so.oss-cn-shenzhen.aliyuncs.com/report_picture/shengangao/%E5%9B%BE%E7%89%873.png" style="width:1024px;height: 300px"/>
+                        </center>
+                    </div>
+                </div>
+                <!-- 实时客流情况 -->
+                <div style="border:1px solid #2A3F54; margin-top:20px;">
+                    <div style="background-color:#2A3F54; font-size:12pt; color:#FFF; padding:6px;">车展日实时客流数据记录采样6月6日</div>
+                    <div style="height:300px;">
+                        <center>
+                        <img src="http://owl-so.oss-cn-shenzhen.aliyuncs.com/report_picture/shengangao/%E5%9B%BE%E7%89%874.png" style="width:1024px;height: 300px"/>
+                        </center>
+                    </div>
+                </div>
+                <!-- 实时客流情况 -->
+                <div style="border:1px solid #2A3F54; margin-top:20px;">
+                    <div style="background-color:#2A3F54; font-size:12pt; color:#FFF; padding:6px;">车展日实时客流数据记录采样6月7日</div>
+                    <div style="height:300px;">
+                        <center>
+                        <img src="http://owl-so.oss-cn-shenzhen.aliyuncs.com/report_picture/shengangao/%E5%9B%BE%E7%89%875.png" style="width:1024px;height: 300px"/>
+                        </center>
+                    </div>
+                </div>
+                <!-- 实时客流情况 -->
+                <div style="border:1px solid #2A3F54; margin-top:20px;">
+                    <div style="background-color:#2A3F54; font-size:12pt; color:#FFF; padding:6px;">车展日实时客流数据记录采样6月8日</div>
+                    <div style="height:300px;">
+                        <center>
+                        <img src="http://owl-so.oss-cn-shenzhen.aliyuncs.com/report_picture/shengangao/%E5%9B%BE%E7%89%876.png" style="width:1024px;height: 300px"/>
+                        </center>
+                    </div>
+                </div>
+                <div style="border:1px solid #2A3F54; margin-top:20px;">
+                    <div style="background-color:#2A3F54; font-size:12pt; color:#FFF; padding:6px;">车展日实时客流数据记录采样6月9日</div>
+                    <div style="height:300px;">
+                        <center>
+                        <img src="http://owl-so.oss-cn-shenzhen.aliyuncs.com/report_picture/shengangao/%E5%9B%BE%E7%89%877.png" style="width:1024px;height: 300px"/>
+                        </center>
+                    </div>
+                </div>
+                <div style="border:1px solid #2A3F54; margin-top:20px;">
+                    <div style="background-color:#2A3F54; font-size:12pt; color:#FFF; padding:6px;">车展日实时客流数据记录采样6月10日</div>
+                    <div style="height:300px;">
+                        <center>
+                        <img src="http://owl-so.oss-cn-shenzhen.aliyuncs.com/report_picture/shengangao/%E5%9B%BE%E7%89%878.png" style="width:1024px;height: 300px"/>
+                        </center>
+                    </div>
+                </div>
+                <div style="border:1px solid #2A3F54; margin-top:20px;">
+                    <div style="background-color:#2A3F54; font-size:12pt; color:#FFF; padding:6px;">车展日实时客流数据记录采样6月11日</div>
+                    <div style="height:300px;">
+                        <center>
+                        <img src="http://owl-so.oss-cn-shenzhen.aliyuncs.com/report_picture/shengangao/%E5%9B%BE%E7%89%879.png" style="width:1024px;height: 300px"/>
+                        </center>
+                    </div>
+                </div>
+                <div style="border:1px solid #2A3F54; margin-top:20px;">
+                    <div style="background-color:#2A3F54; font-size:12pt; color:#FFF; padding:6px;">最近30天客流统计</div>
+                    <div style="height:300px;">
+                        <center>
+                            <img src="http://owl-so.oss-cn-shenzhen.aliyuncs.com/report_picture/shengangao/%E5%9B%BE%E7%89%8710.png" style="width:1024px;height: 300px"/>
+                        </center>
+                    </div>
+                </div>
+                <div style="border:1px solid #2A3F54; margin-top:20px;">
+                    <div style="background-color:#2A3F54; font-size:12pt; color:#FFF; padding:6px;">客流趋势</div>
+                    <div style="height:300px;">
+                        <center>
+                            <img src="http://owl-so.oss-cn-shenzhen.aliyuncs.com/report_picture/shengangao/%E5%9B%BE%E7%89%8711.png" style="width:838px;height: 300px"/>
+                        </center>
+                    </div>
+                </div>
+                <div style="border:1px solid #2A3F54; margin-top:20px;">
+                    <div style="background-color:#2A3F54; font-size:12pt; color:#FFF; padding:6px;">到访频次</div>
+                    <div style="height:300px;">
+                        <center>
+                            <img src="http://owl-so.oss-cn-shenzhen.aliyuncs.com/report_picture/shengangao/%E5%9B%BE%E7%89%8712.png" style="width:838px;height: 300px"/>
+                        </center>
+                    </div>
+                </div>
+                <div style="border:1px solid #2A3F54; margin-top:20px;">
+                    <div style="background-color:#2A3F54; font-size:12pt; color:#FFF; padding:6px;">首次到访到访时段</div>
+                    <div style="height:300px;">
+                        <center>
+                            <img src="http://owl-so.oss-cn-shenzhen.aliyuncs.com/report_picture/shengangao/%E5%9B%BE%E7%89%8713.png" style="width:840px;height: 300px"/>
+                        </center>
+                    </div>
+                </div>
+                <div style="border:1px solid #2A3F54; margin-top:20px;">
+                    <div style="background-color:#2A3F54; font-size:12pt; color:#FFF; padding:6px;">二次以上到访</div>
+                    <div style="height:300px;">
+                        <center>
+                            <img src="http://owl-so.oss-cn-shenzhen.aliyuncs.com/report_picture/shengangao/%E5%9B%BE%E7%89%8714.png" style="width:840px;height: 300px"/>
+                        </center>
+                    </div>
+                </div>
+                <div style="border:1px solid #2A3F54; margin-top:20px;">
+                    <div style="background-color:#2A3F54; font-size:12pt; color:#FFF; padding:6px;">停留时长</div>
+                    <div style="height:300px;">
+                        <center>
+                            <img src="http://owl-so.oss-cn-shenzhen.aliyuncs.com/report_picture/shengangao/%E5%9B%BE%E7%89%8715.png" style="width:840px;height: 300px"/>
+                        </center>
+                    </div>
+                </div>
+                <!-- 用户画像 -->
+                <div style="border:1px solid #2A3F54; margin-top:20px;">
+                    <div style="background-color:#2A3F54; font-size:12pt; color:#FFF; padding:6px;">客户洞察</div>
+                    <div style="height:300px;">
+                        <img src="http://owl-so.oss-cn-shenzhen.aliyuncs.com/report_picture/shengangao/%E5%9B%BE%E7%89%8716.png" style="width:760px;height: 300px"/>
+                        <img src="http://owl-so.oss-cn-shenzhen.aliyuncs.com/report_picture/shengangao/%E5%9B%BE%E7%89%8717.png" style="width:760px;height: 300px"/>
+                    </div>
+                    <div style="height:300px;">
+                        <img src="http://owl-so.oss-cn-shenzhen.aliyuncs.com/report_picture/shengangao/%E5%9B%BE%E7%89%8718.png" style="width:760px;height: 300px"/>
+                        <img src="http://owl-so.oss-cn-shenzhen.aliyuncs.com/report_picture/shengangao/%E5%9B%BE%E7%89%8719.png" style="width:760px;height: 300px"/>
+
+                    </div>
+                </div>
+                <div style="border:1px solid #2A3F54; margin-top:20px;">
+                    <div style="background-color:#2A3F54; font-size:12pt; color:#FFF; padding:6px;">参展人群消费者群体画像</div>
+                    <div style="height:300px;">
+                        <img src="http://owl-so.oss-cn-shenzhen.aliyuncs.com/report_picture/shengangao/%E5%9B%BE%E7%89%8720.png" style="width:760px;height: 300px"/>
+                        <img src="http://owl-so.oss-cn-shenzhen.aliyuncs.com/report_picture/shengangao/%E5%9B%BE%E7%89%8721.png" style="width:760px;height: 300px"/>
+                    </div>
+                    <div style="height:300px;">
+                        <img src="http://owl-so.oss-cn-shenzhen.aliyuncs.com/report_picture/shengangao/%E5%9B%BE%E7%89%8722.png" style="width:760px;height: 300px"/>
+                    </div>
+                </div>
+                <div style="border:1px solid #2A3F54; margin-top:20px;">
+                    <div style="background-color:#2A3F54; font-size:12pt; color:#FFF; padding:6px;">参展人群消费行为画像</div>
+                    <div style="height:300px;">
+                        <img src="http://owl-so.oss-cn-shenzhen.aliyuncs.com/report_picture/shengangao/%E5%9B%BE%E7%89%8723.png" style="width:760px;height: 300px"/>
+                        <img src="http://owl-so.oss-cn-shenzhen.aliyuncs.com/report_picture/shengangao/%E5%9B%BE%E7%89%8724.png" style="width:760px;height: 300px"/>
+                    </div>
+                    <div style="height:300px;">
+                        <img src="http://owl-so.oss-cn-shenzhen.aliyuncs.com/report_picture/shengangao/%E5%9B%BE%E7%89%8725.png" style="width:760px;height: 300px"/>
+                        <img src="http://owl-so.oss-cn-shenzhen.aliyuncs.com/report_picture/shengangao/%E5%9B%BE%E7%89%8726.png" style="width:760px;height: 300px"/>
+                    </div>
+                    <div style="height:300px;">
+                        <img src="http://owl-so.oss-cn-shenzhen.aliyuncs.com/report_picture/shengangao/%E5%9B%BE%E7%89%8727.png" style="width:760px;height: 300px"/>
+                        <img src="http://owl-so.oss-cn-shenzhen.aliyuncs.com/report_picture/shengangao/%E5%9B%BE%E7%89%8728.png" style="width:760px;height: 300px"/>
+                    </div>
+                    <div style="height:300px;">
+                        <img src="http://owl-so.oss-cn-shenzhen.aliyuncs.com/report_picture/shengangao/%E5%9B%BE%E7%89%8729.png" style="width:760px;height: 300px"/>
+                        <img src="http://owl-so.oss-cn-shenzhen.aliyuncs.com/report_picture/shengangao/%E5%9B%BE%E7%89%8730.png" style="width:760px;height: 300px"/>
+                    </div>
+                    <div style="height:400px;">
+                        <center>
+                        <img src="http://owl-so.oss-cn-shenzhen.aliyuncs.com/report_picture/shengangao/%E5%9B%BE%E7%89%8731.png" style="width:1650px;height: 400px"/>
+                        </center>
+                    </div>
+                    <div style="height:400px;">
+                        <img src="http://owl-so.oss-cn-shenzhen.aliyuncs.com/report_picture/shengangao/%E5%9B%BE%E7%89%8732.png" style="width:1650px;height: 400px"/>
+                    </div>
+                    <div style="height:400px;">
+                        <img src="http://owl-so.oss-cn-shenzhen.aliyuncs.com/report_picture/shengangao/%E5%9B%BE%E7%89%8733.png" style="width:1240px;height: 400px"/>
+                    </div>
+                    <div style="height:300px;">
+                        <img src="http://owl-so.oss-cn-shenzhen.aliyuncs.com/report_picture/shengangao/%E5%9B%BE%E7%89%8734.png" style="width:1240px;height: 300px"/>
+                    </div>
+                    <div style="height:300px;">
+                        <img src="http://owl-so.oss-cn-shenzhen.aliyuncs.com/report_picture/shengangao/%E5%9B%BE%E7%89%8735.png" style="width:1240px;height: 300px"/>
+                    </div>
+                    <div style="height:300px;">
+                        <img src="http://owl-so.oss-cn-shenzhen.aliyuncs.com/report_picture/shengangao/%E5%9B%BE%E7%89%8736.png" style="width:1240px;height: 300px"/>
+                    </div>
+                    <div style="height:300px;">
+                        <img src="http://owl-so.oss-cn-shenzhen.aliyuncs.com/report_picture/shengangao/%E5%9B%BE%E7%89%8737.png" style="width:1240px;height: 300px"/>
+                    </div>
+                    <div style="height:300px;">
+                        <img src="http://owl-so.oss-cn-shenzhen.aliyuncs.com/report_picture/shengangao/%E5%9B%BE%E7%89%8738.png" style="width:1240px;height: 300px"/>
+                    </div>
+                    <div style="height:300px;">
+                        <img src="http://owl-so.oss-cn-shenzhen.aliyuncs.com/report_picture/shengangao/%E5%9B%BE%E7%89%8739.png" style="width:1240px;height: 300px"/>
+                    </div>
+                </div>
+                <div style="border:1px solid #2A3F54; margin-top:20px;">
+                    <div style="background-color:#2A3F54; font-size:12pt; color:#FFF; padding:6px;">参展人群行为数据搜索(搜索关注的汽车品牌)</div>
+                    <div style="height:560px;">
+                        <center>
+                        <img src="http://owl-so.oss-cn-shenzhen.aliyuncs.com/report_picture/shengangao/%E5%9B%BE%E7%89%8740.png" style="width:560px;height: 560px"/>
+                        </center>
+                    </div>
+                </div>
+                <div style="border:1px solid #2A3F54; margin-top:20px;">
+                    <div style="background-color:#2A3F54; font-size:12pt; color:#FFF; padding:6px;">参展人群行为数据搜索(搜索汽车档次)</div>
+                    <div style="height:560px;">
+                        <center>
+                        <img src="http://owl-so.oss-cn-shenzhen.aliyuncs.com/report_picture/shengangao/%E5%9B%BE%E7%89%8741.png" style="width:560px;height: 560px"/>
+                        </center>
+                    </div>
+                </div>
+                <div style="border:1px solid #2A3F54; margin-top:20px;">
+                    <div style="background-color:#2A3F54; font-size:12pt; color:#FFF; padding:6px;">参展人群行为数据搜索(搜索汽车类型)</div>
+                    <div style="height:600px;">
+                        <center>
+                            <img src="http://owl-so.oss-cn-shenzhen.aliyuncs.com/report_picture/shengangao/%E5%9B%BE%E7%89%8742.png" style="width:560px;height: 560px"/>
+                        </center>
+                    </div>
+                </div>
+                <div style="border:1px solid #2A3F54; margin-top:20px;">
+                    <div style="background-color:#2A3F54; font-size:12pt; color:#FFF; padding:6px;">参展人群行为数据搜索(搜索行为反应其购车阶段)</div>
+                    <div style="height:600px;">
+                        <center>
+                            <img src="http://owl-so.oss-cn-shenzhen.aliyuncs.com/report_picture/shengangao/%E5%9B%BE%E7%89%8743.png" style="width:560px;height: 560px"/>
+                        </center>
+                    </div>
+                </div>
+                <div style="margin-top:60px;">
+                    <center>
+                        <a class='btn btn-primary' href="http://owl-so.oss-cn-shenzhen.aliyuncs.com/report_document/%E6%B7%B1%E6%B8%AF%E6%BE%B3%E8%BD%A6%E5%B1%95%E6%95%B0%E6%8D%AE%E8%A7%A3%E6%9E%90%E6%8A%A5%E5%91%8A.pdf" target="_blank">一键导出报表</a>
+                    </center>
+                </div>
+
+
+            </div>
+
+
+        </div>
+        <!-- /page content -->
+
+        <!-- footer content -->
+        <footer th:include="common/footer::copy"></footer>
+        <!-- /footer content -->
+    </div>
+</div>
+
+<!-- jQuery -->
+<script src="vendors/jquery/dist/jquery.min.js"></script>
+<!-- Bootstrap -->
+<script src="vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+<!-- FastClick -->
+<script src="vendors/fastclick/lib/fastclick.js"></script>
+<!-- NProgress -->
+<script src="vendors/nprogress/nprogress.js"></script>
+<!-- jQuery custom content scroller -->
+<script src="vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script>
+
+<!-- Custom Theme Scripts -->
+<script src="build/js/custom.min.js"></script>
+<script src="common/owl.js"></script>
+<script type="text/javascript" src="common/echarts.min.js"></script>
+<script type="text/javascript" src="vendors/layui/layui.js"></script>
+<script type="text/javascript" src="vendors/layer-v2.4/layer/layer.js"></script>
+<script type="text/javascript" src="vendors/layui/lay/modules/laydate.js"></script>
+<script type="text/javascript" src="talkingData/javascript/echartData.js"></script>
+</body>
+</html>

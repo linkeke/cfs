@@ -1,0 +1,339 @@
+﻿<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:tiles="http://www.thymeleaf.org">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <!-- Meta, title, CSS, favicons, etc. -->
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        
+        <title>猫投鹰大数据精准营销系统</title>
+        <meta name="keywords" content="猫投鹰,客流,客流统计系统" />
+        <meta name="description" content="猫投鹰客流统计系统" />
+        <link rel="icon" href="images/favicon.ico"/>
+        <!-- Bootstrap -->
+        <link href="vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+        <!-- Font Awesome -->
+        <link href="vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+        <!-- NProgress -->
+        <link href="vendors/nprogress/nprogress.css" rel="stylesheet" />
+        <!-- jQuery custom content scroller -->
+        <link href="vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.min.css" rel="stylesheet" />
+        
+        <!-- Custom Theme Style -->
+        <link href="build/css/custom.min.css" rel="stylesheet" />
+        
+        <link rel="stylesheet" href="vendors/layui/css/layui.css" />
+        <link rel="stylesheet"
+            href="bootstrapvalidator-master/dist/css/bootstrapValidator.css" />
+        <link rel="stylesheet" href="vendors/layer/skin/layer.css" />
+        <link rel="stylesheet" type="text/css" href="talkingData/css/style.css" />
+        <style type="text/css"> 
+		<!--
+			/* Clear fix */
+			.clearfix {
+				*zoom: 1;
+			}
+			.clearfix:before,
+			.clearfix:after {
+				display: table;
+				line-height: 0;
+				content: "";
+			}
+			.clearfix:after {
+				clear: both;
+			}
+			/* END */
+			.imgbox {float:left; width:200px; height:200px; display:block; margin-right:15px; margin:10px;}
+			.img-tip {height:30px; line-height:30px; background-color:#383838; display:block; width:100%; top:-30px; position:relative; 
+						color:#FFF; padding-left:5px; opacity:0.7; filter:alpha(opacity=70); -moz-opacity:0.7; -khtml-opacity: 0.7;}
+			.photo-label {display:block; color:#fff; float:left; width:20%; text-align:center; padding-top:8px; padding-bottom:8px;}			
+		-->
+		</style>
+	</head>
+
+<body class="nav-md">
+	<div class="container body">
+		<div class="main_container">
+        	<div th:include="common/header::header"></div>
+
+			<!-- page content -->
+			<div class="right_col" role="main">
+				<div class="container body">
+					<div class="main_container">
+						
+						<!-- page content -->
+						<div role="main">
+							<div class="">
+								<div class="clearfix"></div>
+								<div class="row">
+									<div class="col-md-12 col-sm-12 col-xs-12">
+										<div class="x_panel">
+											<div class="x_title">
+												<h2>人脸识别</h2>
+												<ul class="nav navbar-right panel_toolbox">
+													<li><a class="collapse-link"><i
+															class="fa fa-chevron-up"></i></a></li>
+													<li class="dropdown"><a href="#"
+														class="dropdown-toggle" data-toggle="dropdown"
+														role="button" aria-expanded="false"><i
+															class="fa fa-wrench"></i></a>
+														<ul class="dropdown-menu" role="menu">
+															<li><a href="#">Settings 1</a></li>
+															<li><a href="#">Settings 2</a></li>
+														</ul></li>
+													<li><a class="close-link"><i class="fa fa-close"></i></a>
+													</li>
+												</ul>
+												<div class="clearfix"></div>
+											</div>
+
+											<div class="x_title">
+												<div class="layui-form-pane" style="margin-top: 5px;">
+													<form class="layui-form">
+														<div class="layui-form-item">
+															<div class="layui-inline" style="padding-left:10px;">
+                                                            	<input id="startDate" name="startDate" class="layui-input" th:value="${startDate}" placeholder="开始日" 
+                                                                	onclick="layui.laydate({elem: this, istime: false, format: 'YYYY-MM-DD'})" />
+															</div>
+                                                            <div class="layui-inline">-</div>
+                                                            <div class="layui-inline">
+                                                            	<input id="endDate" name="endDate" class="layui-input" th:value="${endDate}" placeholder="截止日" 
+                                                               		onclick="layui.laydate({elem: this, istime: false, format: 'YYYY-MM-DD'})" />
+															</div>
+															<div class="layui-input-inline"><select id="shopId" name="shopId"></select></div>
+															<input type="button" class="layui-btn" id="search_usertag" value="查询" onclick="doSelectShopFace();" />
+														</div>
+													</form>
+												</div>
+											</div>
+
+											<div class="x_content">
+												<div class="row">
+                                                	<!-- LIST -->
+                                                    <div id="shopface_list" class="clearfix"></div>
+                                                    <div id="listPage"></div>
+                                                   <!-- END -->
+                                                </div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- /page content -->
+
+			<!-- footer content -->
+			<footer th:include="common/footer::copy"></footer>
+			<!-- /footer content -->
+		</div>
+	</div>
+
+	<!-- jQuery -->
+	<script src="vendors/jquery/dist/jquery.min.js"></script>
+	<!-- Bootstrap -->
+	<script src="vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+	<!-- FastClick -->
+	<script src="vendors/fastclick/lib/fastclick.js"></script>
+	<!-- NProgress -->
+	<script src="vendors/nprogress/nprogress.js"></script>
+	<!-- jQuery custom content scroller -->
+	<script src="vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script>
+
+	<!-- Custom Theme Scripts -->
+	<script src="build/js/custom.min.js"></script>
+
+	<script type="text/javascript" src="common/jquery.tmpl.min.js"></script>
+	<script type="text/javascript" src="vendors/layer-v2.4/layer/layer.js"></script>
+	<script src="vendors/layui/layui.js" charset="utf-8"></script>
+    <script type="text/javascript" src="vendors/layui/lay/modules/laydate.js"></script>
+	<script type="text/javascript" src="common/owl.js"></script>
+	<script src="system/basicInfo.js"></script>
+	<script language="javascript" type="text/javascript">
+	<!--
+		layui.use('laydate', function(){
+		  var laydate = layui.laydate;
+		  var date_param = {
+			 max : $("#endDate").val(),
+			 istoday : true
+		  };
+		  document.getElementById("startDate").onclick = function(){
+			  date_param.elem = this;
+			  laydate(date_param);
+		  };
+		  document.getElementById("endDate").onclick = function(){
+			  date_param.elem = this;
+			  laydate(date_param);
+		  };
+		});
+		
+		$(document).ready(function(e) {
+			basicObject.initIndustryPic();
+			// 初始化店铺列表			
+			owl.ajaxRequest("/userShopList.do", "", function(result) {
+				if(result.status == -1) {
+					alert("获取数据失败！");
+					return;	
+				}
+				var list = result.data;
+				for(var i = 0; i < list.length; i++) {
+					$("#shopId").append("<option value='" + list[i].shopId + "'>" + list[i].shopName + "</option>");
+					if(i == 0) {
+						// 离线数据初始化
+						loadListData();
+					}
+				}
+			});
+		 });
+		 
+		 function doSelectShopFace() {
+			 loadListData();
+		 }
+		 
+		  function loadListData() {
+			 var param = {
+				shopId: $("#shopId").val(),
+				startDate: $("#startDate").val(),
+				endDate: $("#endDate").val()
+			 };
+			 // Page
+			 owl.ajaxRequest("/get_shopface_list_pages.do", param, function(result) {
+				if(result.status == -1) {
+					alert("获取数据失败！");
+					return;	
+				}
+				// Layui page
+				$("#listPage").html("");
+				var totalPages = result.data;
+				if(totalPages > 1) {
+					layui.use(['laypage', 'layer'], function(){
+					  var laypage = layui.laypage,layer = layui.layer;
+					  laypage({
+						cont: 'listPage',
+						pages: totalPages, //总页数
+						groups: 10, //连续显示分页数
+						jump: function(obj, first) {
+							if(!first) {
+								facelist(obj.curr);
+								window.location.href="#";
+							}
+						}
+					  });
+					});	
+				}
+			 });
+			 
+			 // Mac List
+			facelist(1);
+		 }
+		 
+		 var shopFaceList = null;
+		 var upload_path = "facePhotos";
+		 var curimg_style = "4px solid #2DD70F";
+		 function facelist(page) {
+			 var param = {
+				shopId: $("#shopId").val(),
+				startDate: $("#startDate").val(),
+				endDate: $("#endDate").val(),
+				page: page
+			 };
+			$("#shopface_list").html("");
+			owl.ajaxRequest("/get_shopface_list.do", param, function(result) {
+				if(result.status == -1) {
+					alert("获取数据失败！");
+					return;	
+				}
+				shopFaceList = result.data;
+				if(shopFaceList.length == 0) {
+					$("#shopface_list").html("暂时没有访客！");
+					return;
+				}
+				
+				for(var i = 0; i < shopFaceList.length; i++) {
+					var face = shopFaceList[i];
+					var fid = face.face_id;
+					var imgs = face.images_txt;
+					var img_name = upload_path + "/" + imgs.split(",")[0];
+					var sex = face.male_ind == 1 ? "男" : "女";
+					var age = face.age_val+"岁";
+					var html = "<a href='javascript:void(0);' onclick='imgDetail(" + fid + ")' class='imgbox'>";
+						html += "<img src='" + img_name + "' alt='无法显示图片' style='width:100%; height:100%;' /><div class='img-tip'>" + sex + "&nbsp;&nbsp;" + age + "</div></a>";
+					$("#shopface_list").append(html);
+				}
+			});
+		 }
+		 
+		function imgDetail(fid) {
+			var face = null;
+			for(var i = 0; i < shopFaceList.length; i++) {
+				var face_v = shopFaceList[i];
+				var fid_v = face_v.face_id;	
+				if(fid == fid_v) {
+					face = face_v;
+					break;	
+				}
+			}
+			var img = face.images_txt;
+			var imgs = img.split(",");
+			var sex = face.male_ind == 1 ? "男" : "女";
+			var age = face.age_val+"岁";
+			var vdate = face.visit_date;
+			var vtime = face.visit_time;
+			var gls = face.glasses_ind == 0 ? "未戴眼镜" : "戴眼镜";
+			var lips = face.lipsCode;
+			var race = face.raceCode;
+			
+			var html = "<div class='clearfix' style='padding:10px;'>";
+				// 标签
+				html += "<div style='display:block; width:100%; float:left;'>";
+				html += "<span style='background-color:#5FB878;' class='photo-label'>" + sex + "</span>";
+				html += "<span style='background-color:#FF5722;' class='photo-label'>" + age + "</span>";
+				html += "<span style='background-color:#2F4056;' class='photo-label'>" + race + "</span>";
+				html += "<span style='background-color:#01AAED;' class='photo-label'>" + lips + "</span>";
+				html += "<span style='background-color:#F7B824;' class='photo-label'>" + gls + "</span>";								
+				html += "</div>";
+				
+    			html += "<div style='display:block; width:70%; float:left;'><img id='curimg' src='#' style='width:100%; height:400px;' /></div>";
+        		html += "<div id='imglist' style='display:block; width:30%; float:left;'>";
+				// 图片列表
+				var curimg = null;
+				for(var i = 0; i <  imgs.length; i++) {
+					var img_name = upload_path + "/" + imgs[i];
+					if(i == 0) {
+						curimg = img_name;
+					}	
+					html += "<a href='javascript:void(0);' style='display:block; border-left:" + (i == 0 ? curimg_style : "none") + "' onclick='displayimg(this);'><img src='" + img_name + "' alt='无法显示图片' style='width:100%; height:100px; margin-bottom:1px;' /></a>";	
+				}
+				html += "</div>";
+				html += "<div style='display:block; width:100%; float:left; margin-top:10px;'>[访问时间：" + vdate + "&nbsp;" + vtime + "]</div>";
+    			html += "</div>";
+			layer.open({
+				type: 1,
+				title: '人物标签',
+				area:['600px'],
+				shade: 0.5,
+				shift : 3,
+				content: html
+			});
+			$("#curimg").attr("src", curimg);
+		}
+		
+		function displayimg(obj) {
+			imgSetting($(obj).find("img").attr("src"));
+			var aImg = $("#imglist").find("a").css("border-left", "none");
+			$(obj).css("border-left", curimg_style);			
+		}
+		
+		function imgSetting(imgName) {
+			$("#curimg").animate({opacity:'toggle'},"slow",null,function(){
+				$("#curimg").attr("src", imgName);
+				$("#curimg").animate({opacity:'toggle'},"slow");
+			});	
+		}
+	-->
+	</script>
+</body>
+</html>

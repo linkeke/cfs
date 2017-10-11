@@ -1,0 +1,284 @@
+<!DOCTYPE html> 
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:tiles="http://www.thymeleaf.org">
+  <head>
+   <meta charset="utf-8" />
+	<meta name="renderer" content="webkit|ie-comp|ie-stand" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+	<meta http-equiv="Cache-Control" content="no-siteapp" />
+    <title>猫投鹰大数据精准营销系统 </title>
+    <link rel="icon" href="images/favicon.ico"/>
+    <!-- Bootstrap -->
+    <link href="vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet"/>
+    <!-- Font Awesome -->
+    <link href="vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet"/>
+    <!-- NProgress -->
+    <link href="vendors/nprogress/nprogress.css" rel="stylesheet"/>
+    <!-- jQuery custom content scroller -->
+    <link href="vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.min.css" rel="stylesheet"/>
+    
+    <link rel="stylesheet" href="vendors/layui/css/layui.css" />
+
+    <!-- Custom Theme Style -->
+    <link href="build/css/custom.min.css" rel="stylesheet"/>
+    <link href="css/index.css" rel="stylesheet"/>
+      <script>
+          var _hmt = _hmt || [];
+          (function() {
+              var hm = document.createElement("script");
+              hm.src = "https://hm.baidu.com/hm.js?134c98453bebb63118c0338599528041";
+              var s = document.getElementsByTagName("script")[0];
+              s.parentNode.insertBefore(hm, s);
+          })();
+      </script>
+
+      <style type="text/css">
+		<!--
+			
+			
+			/* Clear fix */
+			.clearfix {
+				*zoom: 1;
+			}
+			.clearfix:before,
+			.clearfix:after {
+				display: table;
+				line-height: 0;
+				content: "";
+			}
+			.clearfix:after {
+				clear: both;
+			}
+			/* END */
+			#context {padding:5px; min-width:1024px;}
+			
+			#today-info {text-align:center; margin-top:20px;}
+			#today-info .info {width:23%; height:110px; background-color:#2A3F54; float:left; margin-left:1%; border:1px dotted #FFF;}
+			#today-info .info dt:first-child{background-color:#2A3F54; height:70px;}
+			#today-info .info dt:first-child span{height:70px; line-height:70px;}
+			#today-info .info dt:last-child{background-color:#32B9B9; height:40px; line-height:40px; font-size:12pt; color:#FFF; text-align:left; padding-left:5px;}
+			
+			#today-info .info dt .img {float:left;}
+			#today-info .info dt .data {float:right; font-size:25pt; color:#FFF; margin-right:10px;}
+			
+			.photoinfo {height:300px; float:left; width:33%; margin-bottom:20px; border-bottom:2px solid #DFDFDF;}
+			.onlineImg { cursor:pointer; cursor: hand; }
+			
+			#shopId {min-width:200px; padding:6px;}
+		-->
+		</style>
+  </head>
+
+  <body class="nav-md">
+    <div class="container body">
+      <div class="main_container">
+		<div th:include="common/header::header"></div>
+		
+        <!-- page content -->
+        <div class="right_col" role="main">
+		
+			<div id="context">
+            <form id="myFrm" name="myFrm" role="myFrm" accept-charset="UTF-8" method="post">
+                <div class="clearfix" style="border-bottom:1px solid #CCC; padding-bottom:10px;">
+                    <span style="float:left"><select id="shopId" name="shopId"></select></span>
+                    <span style="float:left; margin-left:20px;">
+                    	<input id="myDate" name="myDate" class="layui-input" placeholder="~ 请选择日期 ~" onclick="layui.laydate({elem: this, istime: false, format: 'YYYY-MM-DD'})" 
+                           th:value="${date}" style="height:30px; line-height:30px;" />
+                    </span>
+                    <span style="float:left; margin-left:50px;"><input type="button" class="layui-btn" value="查询" onclick="doSelect();" /></span>
+                </div>
+            </form>
+
+                <div class="row tile_count">
+                    <div class="col-md-3 col-sm-4 col-xs-6 tile_stats_count">
+                        <span class="count_top"><i class="fa fa-user"></i> 今日客流</span>
+                        <div class="icon count green" ><span id="today_kl" class="count">0</span><i></i></div>
+
+
+                        <span class="count_bottom"><i class="green" id="todayKLRatio">0% </i> 对比昨日</span>
+                    </div>
+
+                    <div class="col-md-3 col-sm-4 col-xs-6 tile_stats_count">
+                        <span class="count_top"><i class="fa fa-clock-o"></i> 平均停留时间(分钟)</span>
+                        <div class="icon count green" ><span id="stayTime" class="count">0.00</span><i></i></div>
+                        <span class="count_bottom" ><i class="green" id="stayTimeRatio">0%</i> 对比昨日</span>
+                    </div>
+                    <div class="col-md-3 col-sm-4 col-xs-6 tile_stats_count">
+                        <span class="count_top"><i class="fa fa-user"></i> 重复访客</span>
+                        <div class="count green" ><span id="repeat_kl" class="count">0</span><i></i></div>
+                        <span class="count_bottom" ><i class="green" id="repeatCustomerRatio">0% </i> 重复占比</span>
+                    </div>
+                    <div class="col-md-3 col-sm-4 col-xs-6 tile_stats_count">
+                        <span class="count_top"><i class="fa fa-user"></i> 历史访客</span>
+                        <div class="icon count green" ><span id="vistedCustomerAmount" class="count">0</span><i></i></div>
+                        <span class="count_bottom" ><i class="green" id="newCustomerRatio">0%</i> 新增占比</span>
+                    </div>
+                </div>
+                <!-- /top tiles -->
+
+                <!-- 实时客流情况 -->
+             <div style="border:1px solid #2A3F54; margin-top:20px;">
+             	<div style="background-color:#2A3F54; font-size:12pt; color:#FFF; padding:6px;">实时客流量统计图</div>
+                <div id="realtimeReport" style="height:300px;"></div>
+             </div>
+             
+             <!--&lt;!&ndash; 客流停留情况 &ndash;&gt;-->
+             <!--<div style="border:1px solid #2A3F54; margin-top:20px;">-->
+             	<!--<div style="background-color:#2A3F54; font-size:12pt; color:#FFF; padding:6px;">客流停留时长统计图</div>-->
+                <!--<div id="stayTimeReport" style="height:300px;"></div>-->
+             <!--</div>-->
+
+             
+              <!-- 30天客流情况 -->
+             <div style="border:1px solid #2A3F54; margin-top:20px;">
+             	<div style="background-color:#2A3F54; font-size:12pt; color:#FFF; padding:6px;">最近30天客流量统计图</div>
+                <div id="weekReport" style="height:300px;"></div>
+             </div>
+                <!-- 客流停留情况 -->
+                <div style="border:1px solid #2A3F54; margin-top:20px;">
+                    <div style="background-color:#2A3F54; font-size:12pt; color:#FFF; padding:6px;">实时客流分析</div>
+                    <!--<div id="stayTimeReport" style="height:300px;"></div>-->
+                    <div class="container-fluid" style="padding:20px;">
+                        <div class="row-fluid">
+                            <div class="col-md-6">
+                                <div class="row">
+                                    <span class="col-md-offset-4">点击图标后显示顾客画像</span>
+                                    <div class="span2" style="width:300px; height:260px; margin-left:200px; margin-top:20px;">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div id="profileSelect" class="col-md-offset-6">
+                                <table class="layui-table" style="margin:0px; width:532px;">
+                                    <thead>
+                                    <tr>
+                                        <th style="text-align:center;">&nbsp;</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td style="height:230px; text-align:center; vertical-align:middle;">( 请选择顾客 )</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div id="profileData" style="display:none;">
+                                <table border="0" style="position:relative;">
+                                    <tr>
+                                        <td id="sex-container" style="vertical-align:top;">
+
+                                            <img id="avatar" alt="" src="images/male.gif" style="position:absolute; top:10px; left:18px;" />
+                                            <table class="layui-table" style="margin:0px;">
+                                                <thead>
+                                                <tr>
+                                                    <th style="width:135px;">&nbsp;</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr><td>
+                                                    <div id="sex-tbody">&nbsp;</div>
+                                                </td></tr>
+                                                </tbody>
+                                            </table>
+
+                                        </td>
+                                        <td id="userTag-container" style="vertical-align:top;">
+                                            <table class="layui-table" style="margin:0px;">
+                                                <thead>
+                                                <tr>
+                                                    <th style="min-width:200px; border-left:0px;">人口基本属性</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr>
+                                                    <td style="border-left:0px;">
+                                                        <div id="userTag-tbody"></div>
+                                                    </td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </td>
+                                        <td id="userTag-container" style="vertical-align:top;">
+                                            <table class="layui-table" style="margin:0px;">
+                                                <thead>
+                                                <tr>
+                                                    <th style="min-width:200px; border-left:0px;">应用兴趣</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr>
+                                                    <td style="border-left:0px;">
+                                                        <div id="appTag-tbody"></div>
+                                                    </td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+
+                        </div>
+                    </div>
+
+
+                    <!--</div>-->
+                </div>
+             <!-- 用户画像 -->
+             <div style="border:1px solid #2A3F54; margin-top:20px;">
+                <div style="background-color:#2A3F54; font-size:12pt; color:#FFF; padding:6px;">用户画像统计图</div>
+                <div class="clearfix">
+                    <div id="sexRpt" class="photoinfo"></div>
+                    <div id="ageRpt" class="photoinfo"></div>
+                    <div id="identityFamilyRpt" class="photoinfo"></div>
+                    <div id="shoppingRpt" class="photoinfo"></div>
+                    <div id="readingRpt" class="photoinfo"></div>
+                    <div id="informationRpt" class="photoinfo"></div>
+                    <div id="contactRpt" class="photoinfo"></div>
+                    <div id="lifeRpt" class="photoinfo"></div>
+                    <div id="manageBankingRpt" class="photoinfo"></div>
+                    <div id="estateRpt" class="photoinfo"></div>
+                    <div id="wearingRpt" class="photoinfo"></div>
+                    <div id="educationRpt" class="photoinfo"></div>
+                    <div id="xxylRpt" class="photoinfo"></div>
+                    <div id="carserviceRpt" class="photoinfo"></div>
+                    <div id="xfdwRpt" class="photoinfo"></div>
+                    <div id="financialRpt" class="photoinfo"></div>
+                </div>    
+            </div>
+        </div>
+
+
+        </div>
+        <!-- /page content -->
+
+        <!-- footer content -->
+        <footer th:include="common/footer::copy"></footer>
+        <!-- /footer content -->
+      </div>
+    </div>
+
+    <!-- jQuery -->
+    <script src="vendors/jquery/dist/jquery.min.js"></script>
+    <!-- Bootstrap -->
+    <script src="vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- FastClick -->
+    <script src="vendors/fastclick/lib/fastclick.js"></script>
+    <!-- NProgress -->
+    <script src="vendors/nprogress/nprogress.js"></script>
+    <!-- jQuery custom content scroller -->
+    <script src="vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script>
+
+    <!-- Custom Theme Scripts -->
+    <script src="build/js/custom.min.js"></script>
+    <script src="common/owl.js"></script> 
+    <script type="text/javascript" src="common/echarts.min.js"></script>
+    <script type="text/javascript" src="vendors/layui/layui.js"></script>
+    <script type="text/javascript" src="vendors/layer-v2.4/layer/layer.js"></script>
+    <script type="text/javascript" src="vendors/layui/lay/modules/laydate.js"></script>
+    <script type="text/javascript" src="talkingData/javascript/echartData.js"></script>
+    <script src="system/basicInfo.js"></script>
+    <script type="text/javascript" src="talkingData/javascript/index.js"></script>
+  </body>
+</html>

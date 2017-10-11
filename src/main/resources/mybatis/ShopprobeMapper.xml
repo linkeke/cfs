@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.owl.wifi.web.dao.ShopprobeMapper" >
+  <resultMap id="BaseResultMap" type="com.owl.wifi.web.entity.Shopprobe" >
+    <id column="shop_probe_id" property="shopProbeId" jdbcType="INTEGER" />
+    <result column="shop_id" property="shopId" jdbcType="INTEGER" />
+    <result column="install_date" property="installDate" jdbcType="DATE" />
+    <result column="active_ind" property="activeInd" jdbcType="TINYINT" />
+    <result column="rssi_filter" property="rssiFilter" jdbcType="INTEGER" />
+    <result column="probe_mac" property="probeMac" jdbcType="CHAR" />
+    <result column="probe_name" property="probeName" jdbcType="VARCHAR" />
+    <result column="probe_sn" property="probeSn" jdbcType="VARCHAR" />
+    <result column="probe_type" property="probeType" jdbcType="VARCHAR" />
+    <result column="probe_hardware_version" property="probeHardwareVersion" jdbcType="VARCHAR" />
+    <result column="probe_software_version" property="probeSoftwareVersion" jdbcType="VARCHAR" />
+    <result column="probe_datetime" property="probeDatetime" jdbcType="TIMESTAMP" />
+    <result column="probe_activity_interval" property="probeActivityInterval" jdbcType="INTEGER" />
+    <result column="probe_save_interval" property="probeSaveInterval" jdbcType="INTEGER" />
+    <result column="probe_upload_interval" property="probeUploadInterval" jdbcType="INTEGER" />
+    <result column="lastupload_time" property="lastuploadtime" jdbcType="TIMESTAMP" />
+    <result column="probe_wan_ip" property="probeWanIp" jdbcType="VARCHAR" />
+    <result column="probe_lan_ip" property="probeLanIp" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    shop_probe_id, shop_id, install_date, active_ind, rssi_filter, probe_mac, probe_name, 
+    probe_sn, probe_type, probe_hardware_version, probe_software_version, probe_datetime, 
+    probe_activity_interval, probe_save_interval, probe_upload_interval, lastupload_time, probe_wan_ip, 
+    probe_lan_ip
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_shop_probe
+    where shop_probe_id = #{shopProbeId,jdbcType=INTEGER}
+  </select>
+  <select id="findShopShopIdByDevice" resultMap="BaseResultMap"  parameterType="java.lang.String">
+      select shop_probe_id, shop_id , rssi_filter , probe_upload_interval  from t_shop_probe where LOWER(probe_mac) = #{mac , jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_shop_probe
+    where shop_probe_id = #{shopProbeId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.owl.wifi.web.entity.Shopprobe" >
+    insert into t_shop_probe (shop_probe_id, shop_id, install_date, 
+      active_ind, rssi_filter, probe_mac, 
+      probe_name, probe_sn, probe_type, 
+      probe_hardware_version, probe_software_version, 
+      probe_datetime, probe_activity_interval, 
+      probe_save_interval, probe_upload_interval, lastupload_time,
+      probe_wan_ip, probe_lan_ip)
+    values (#{shopProbeId,jdbcType=INTEGER}, #{shopId,jdbcType=INTEGER}, #{installDate,jdbcType=DATE}, 
+      #{activeInd,jdbcType=TINYINT}, #{rssiFilter,jdbcType=INTEGER}, #{probeMac,jdbcType=CHAR}, 
+      #{probeName,jdbcType=VARCHAR}, #{probeSn,jdbcType=VARCHAR}, #{probeType,jdbcType=VARCHAR}, 
+      #{probeHardwareVersion,jdbcType=VARCHAR}, #{probeSoftwareVersion,jdbcType=VARCHAR}, 
+      #{probeDatetime,jdbcType=TIMESTAMP}, #{probeActivityInterval,jdbcType=INTEGER}, 
+      #{probeSaveInterval,jdbcType=INTEGER}, #{probeUploadInterval,jdbcType=INTEGER}, #{lastuploadtime,jdbcType=TIMESTAMP},
+      #{probeWanIp,jdbcType=VARCHAR}, #{probeLanIp,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.owl.wifi.web.entity.Shopprobe" >
+    insert into t_shop_probe
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="shopProbeId != null" >
+        shop_probe_id,
+      </if>
+      <if test="shopId != null" >
+        shop_id,
+      </if>
+      <if test="installDate != null" >
+        install_date,
+      </if>
+      <if test="activeInd != null" >
+        active_ind,
+      </if>
+      <if test="rssiFilter != null" >
+        rssi_filter,
+      </if>
+      <if test="probeMac != null" >
+        probe_mac,
+      </if>
+      <if test="probeName != null" >
+        probe_name,
+      </if>
+      <if test="probeSn != null" >
+        probe_sn,
+      </if>
+      <if test="probeType != null" >
+        probe_type,
+      </if>
+      <if test="probeHardwareVersion != null" >
+        probe_hardware_version,
+      </if>
+      <if test="probeSoftwareVersion != null" >
+        probe_software_version,
+      </if>
+      <if test="probeDatetime != null" >
+        probe_datetime,
+      </if>
+      <if test="probeActivityInterval != null" >
+        probe_activity_interval,
+      </if>
+      <if test="probeSaveInterval != null" >
+        probe_save_interval,
+      </if>
+      <if test="probeUploadInterval != null" >
+        probe_upload_interval,
+      </if>
+      <if test="lastuploadtime != null" >
+        lastupload_time,
+      </if>
+      <if test="probeWanIp != null" >
+        probe_wan_ip,
+      </if>
+      <if test="probeLanIp != null" >
+        probe_lan_ip,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="shopProbeId != null" >
+        #{shopProbeId,jdbcType=INTEGER},
+      </if>
+      <if test="shopId != null" >
+        #{shopId,jdbcType=INTEGER},
+      </if>
+      <if test="installDate != null" >
+        #{installDate,jdbcType=DATE},
+      </if>
+      <if test="activeInd != null" >
+        #{activeInd,jdbcType=TINYINT},
+      </if>
+      <if test="rssiFilter != null" >
+        #{rssiFilter,jdbcType=INTEGER},
+      </if>
+      <if test="probeMac != null" >
+        #{probeMac,jdbcType=CHAR},
+      </if>
+      <if test="probeName != null" >
+        #{probeName,jdbcType=VARCHAR},
+      </if>
+      <if test="probeSn != null" >
+        #{probeSn,jdbcType=VARCHAR},
+      </if>
+      <if test="probeType != null" >
+        #{probeType,jdbcType=VARCHAR},
+      </if>
+      <if test="probeHardwareVersion != null" >
+        #{probeHardwareVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="probeSoftwareVersion != null" >
+        #{probeSoftwareVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="probeDatetime != null" >
+        #{probeDatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="probeActivityInterval != null" >
+        #{probeActivityInterval,jdbcType=INTEGER},
+      </if>
+      <if test="probeSaveInterval != null" >
+        #{probeSaveInterval,jdbcType=INTEGER},
+      </if>
+      <if test="probeUploadInterval != null" >
+        #{probeUploadInterval,jdbcType=INTEGER},
+      </if>
+      <if test="lastuploadtime != null" >
+        #{lastuploadtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="probeWanIp != null" >
+        #{probeWanIp,jdbcType=VARCHAR},
+      </if>
+      <if test="probeLanIp != null" >
+        #{probeLanIp,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.owl.wifi.web.entity.Shopprobe" >
+    update t_shop_probe
+    <set >
+      <if test="shopId != null" >
+        shop_id = #{shopId,jdbcType=INTEGER},
+      </if>
+      <if test="installDate != null" >
+        install_date = #{installDate,jdbcType=DATE},
+      </if>
+      <if test="activeInd != null" >
+        active_ind = #{activeInd,jdbcType=TINYINT},
+      </if>
+      <if test="rssiFilter != null" >
+        rssi_filter = #{rssiFilter,jdbcType=INTEGER},
+      </if>
+      <if test="probeMac != null" >
+        probe_mac = #{probeMac,jdbcType=CHAR},
+      </if>
+      <if test="probeName != null" >
+        probe_name = #{probeName,jdbcType=VARCHAR},
+      </if>
+      <if test="probeSn != null" >
+        probe_sn = #{probeSn,jdbcType=VARCHAR},
+      </if>
+      <if test="probeType != null" >
+        probe_type = #{probeType,jdbcType=VARCHAR},
+      </if>
+      <if test="probeHardwareVersion != null" >
+        probe_hardware_version = #{probeHardwareVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="probeSoftwareVersion != null" >
+        probe_software_version = #{probeSoftwareVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="probeDatetime != null" >
+        probe_datetime = #{probeDatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="probeActivityInterval != null" >
+        probe_activity_interval = #{probeActivityInterval,jdbcType=INTEGER},
+      </if>
+      <if test="probeSaveInterval != null" >
+        probe_save_interval = #{probeSaveInterval,jdbcType=INTEGER},
+      </if>
+      <if test="probeUploadInterval != null" >
+        probe_upload_interval = #{probeUploadInterval,jdbcType=INTEGER},
+      </if>
+      <if test="lastuploadtime != null" >
+        lastupload_time = #{lastuploadtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="probeWanIp != null" >
+        probe_wan_ip = #{probeWanIp,jdbcType=VARCHAR},
+      </if>
+      <if test="probeLanIp != null" >
+        probe_lan_ip = #{probeLanIp,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where shop_probe_id = #{shopProbeId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.owl.wifi.web.entity.Shopprobe" >
+    update t_shop_probe
+    set shop_id = #{shopId,jdbcType=INTEGER},
+      install_date = #{installDate,jdbcType=DATE},
+      active_ind = #{activeInd,jdbcType=TINYINT},
+      rssi_filter = #{rssiFilter,jdbcType=INTEGER},
+      probe_mac = #{probeMac,jdbcType=CHAR},
+      probe_name = #{probeName,jdbcType=VARCHAR},
+      probe_sn = #{probeSn,jdbcType=VARCHAR},
+      probe_type = #{probeType,jdbcType=VARCHAR},
+      probe_hardware_version = #{probeHardwareVersion,jdbcType=VARCHAR},
+      probe_software_version = #{probeSoftwareVersion,jdbcType=VARCHAR},
+      probe_datetime = #{probeDatetime,jdbcType=TIMESTAMP},
+      probe_activity_interval = #{probeActivityInterval,jdbcType=INTEGER},
+      probe_save_interval = #{probeSaveInterval,jdbcType=INTEGER},
+      probe_upload_interval = #{probeUploadInterval,jdbcType=INTEGER},
+      lastupload_time = #{lastuploadtime,jdbcType=TIMESTAMP},
+      probe_wan_ip = #{probeWanIp,jdbcType=VARCHAR},
+      probe_lan_ip = #{probeLanIp,jdbcType=VARCHAR}
+    where shop_probe_id = #{shopProbeId,jdbcType=INTEGER}
+  </update>
+  
+  <select id="findByParam" resultMap="BaseResultMap" >
+    select * from t_shop_probe
+    <where>
+    <if test="shopId!=null">
+      and  shop_id = #{shopId}
+      </if>
+      <if test="probemac!=null and probemac!=''">
+      and   probe_mac = #{probemac}
+      </if>
+      <if test="shopIds!=null">
+       and shop_id in
+	      <foreach item="item" index="index" collection="shopIds" open="(" separator="," close=")">  
+		  #{item}  
+		 </foreach>  
+      </if>
+      
+    </where>
+    <if test="startRow!=null">
+    limit #{startRow},#{pageSize}
+    </if>
+    </select>
+    <select id="countByParam" resultType="int" >
+    select 
+    count(*)
+    from t_shop_probe
+    <where>
+    <if test="shopId!=null">
+      and  shop_id = #{shopId}
+      </if>
+      <if test="probemac!=null and probemac!=''">
+      and   probe_mac = #{probemac}
+      </if>
+       <if test="shopIds!=null">
+       and shop_id in
+	      <foreach item="item" index="index" collection="shopIds" open="(" separator="," close=")">  
+		  #{item}  
+		 </foreach>  
+      </if>
+    </where>
+  </select>
+  
+   <select id="selectByProbemac" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_shop_probe
+    where probe_mac = #{probemac,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="deviceStatus" resultType="java.util.Map">
+  <![CDATA[
+       select t2.name_txt, t1.lastupload_time from t_shop_probe t1 , t_shop t2 where t1.shop_id = t2.shop_id
+		 and t1.shop_id in (select t.shop_id from t_user_shop t where t.user_id = #{userId, jdbcType=INTEGER}) 
+		 and ( ( UNIX_TIMESTAMP() - UNIX_TIMESTAMP(t1.lastupload_time) ) >= 600 or t1.lastupload_time is NULL )
+		 
+    ]]>
+  </select>
+</mapper>

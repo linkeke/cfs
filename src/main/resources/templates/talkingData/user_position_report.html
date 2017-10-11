@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:tiles="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <link rel="icon" href="images/favicon.ico"/>
+    <!-- Bootstrap -->
+    <link href="vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet"/>
+    <!-- Font Awesome -->
+    <link href="vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet"/>
+    <!-- NProgress -->
+    <link href="vendors/nprogress/nprogress.css" rel="stylesheet"/>
+    <!-- jQuery custom content scroller -->
+    <link href="vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.min.css" rel="stylesheet"/>
+
+    <link rel="stylesheet" href="vendors/layui/css/layui.css" />
+    <!-- Custom Theme Style -->
+    <link href="build/css/custom.min.css" rel="stylesheet"/>
+    <link href="css/index.css" rel="stylesheet"/>
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?134c98453bebb63118c0338599528041";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&amp;ak=136a0c1063fcd5642df9618ddf29a973"></script>
+   <script type="text/javascript" src="http://api.map.baidu.com/library/Heatmap/2.0/src/Heatmap_min.js"></script>
+    <title>热力图统计</title>
+    <style type="text/css">
+        html{height:100%}
+        body{height:100%;margin:0px;padding:0px;font-family:"微软雅黑";}
+        #container{height:768px;width:85%;}
+    </style>
+</head>
+
+<body class="nav-md">
+<div class="container body">
+    <div class="main_container">
+        <div th:include="common/header::header">
+
+        </div>
+
+        <div class="col-md-offset-3">
+            <div class="layui-tab-item layui-show">
+                    <div class="layui-form-item">
+                        <div class="layui-input-inline"><select class="span2"  style="height: 32px"></select></div>
+                        &nbsp;&nbsp;<input type="button" class="layui-btn" value="查询" onclick="showHeatMap();" />
+                    </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="container" style="left: 230px"></div>
+<!-- jQuery -->
+<!-- -->
+
+<footer th:include="common/footer::copy"></footer>
+</body>
+</html>
+<script src="vendors/jquery/dist/jquery.min.js"></script>
+<!-- Bootstrap -->
+<script src="vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+<!-- FastClick -->
+<script src="vendors/fastclick/lib/fastclick.js"></script>
+<!-- NProgress -->
+<script src="vendors/nprogress/nprogress.js"></script>
+<!-- jQuery custom content scroller -->
+<script src="vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script>
+
+<!-- Custom Theme Scripts -->
+<script src="build/js/custom.min.js"></script>
+<script src="common/owl.js"></script>
+<script type="text/javascript" src="common/echarts.min.js"></script>
+<script type="text/javascript" src="vendors/layui/layui.js"></script>
+<script type="text/javascript" src="vendors/layer-v2.4/layer/layer.js"></script>
+<script type="text/javascript" src="vendors/layui/lay/modules/laydate.js"></script>
+<script type="text/javascript" src="talkingData/javascript/echartData.js"></script>
+<script src="system/basicInfo.js"></script>
+<script type="text/javascript" src="talkingData/javascript/map.js"></script>
+<script type="text/javascript">
+    //<![CDATA[
+
+    $(document).ready(function(e) {
+        // 初始化店铺列表
+        owl.ajaxRequest("/userShopList.do", "", function(result) {
+            if(result.status == -1) {
+                alert("获取数据失败！");
+                return;
+            }
+            var list = result.data;
+            for(var i = 0; i < list.length; i++) {
+                $(".span2").append("<option value='" + list[i].shopId + "'>" + list[i].shopName + "</option>");
+                if(i == 0) {
+                    // 在线数据初始化
+                    initHeatMap(list[i].shopId);
+                }
+            }
+        });
+    });
+
+    function showHeatMap(){
+        var shopId = $(".span2").eq(0).val();
+        initHeatMap(shopId);
+    }
+    //]]>
+</script>

@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.owl.wifi.web.dao.RoleMapper" >
+  <resultMap id="BaseResultMap" type="com.owl.wifi.web.entity.Role" >
+    <id column="n_role_id" property="nRoleId" jdbcType="BIGINT" />
+    <result column="n_role_code" property="nRoleCode" jdbcType="BIGINT" />
+    <result column="c_role_name" property="cRoleName" jdbcType="VARCHAR" />
+    <result column="c_role_desc" property="cRoleDesc" jdbcType="VARCHAR" />
+    <result column="n_system_role" property="nSystemRole" jdbcType="BIT" />
+    <result column="t_create_time" property="tCreateTime" jdbcType="TIMESTAMP" />
+    <result column="t_update_time" property="tUpdateTime" jdbcType="TIMESTAMP" />
+    <result column="n_status" property="nStatus" jdbcType="BIT" />
+    <result column="n_create_by" property="nCreateBy" jdbcType="BIGINT" />
+    <result column="n_update_by" property="nUpdateBy" jdbcType="BIGINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    n_role_id, n_role_code,c_role_name,c_role_desc, n_system_role, t_create_time, t_update_time, n_status, n_create_by, 
+    n_update_by
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_role
+    where n_role_id = #{nRoleId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from t_role
+    where n_role_id = #{nRoleId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.owl.wifi.web.entity.Role" useGeneratedKeys="true" keyProperty="nRoleId">
+    insert into t_role (n_role_id, n_role_code,c_role_name,c_role_desc, n_system_role, 
+      t_create_time, t_update_time, n_status, 
+      n_create_by, n_update_by)
+    values (#{nRoleId,jdbcType=BIGINT},#{nRoleCode,jdbcType=BIGINT}, #{cRoleName,jdbcType=VARCHAR},#{cRoleDesc,jdbcType=VARCHAR}, #{nSystemRole,jdbcType=BIT}, 
+      #{tCreateTime,jdbcType=TIMESTAMP}, #{tUpdateTime,jdbcType=TIMESTAMP}, #{nStatus,jdbcType=BIT}, 
+      #{nCreateBy,jdbcType=BIGINT}, #{nUpdateBy,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.owl.wifi.web.entity.Role" useGeneratedKeys="true" keyProperty="nRoleId">
+    insert into t_role
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="nRoleId != null" >
+        n_role_id,
+      </if>
+      <if test="nRoleCode != null" >
+        n_role_code,
+      </if>
+      <if test="cRoleName != null" >
+        c_role_name,
+      </if>
+      <if test="cRoleDesc != null" >
+        c_role_desc,
+      </if>
+      <if test="nSystemRole != null" >
+        n_system_role,
+      </if>
+      <if test="tCreateTime != null" >
+        t_create_time,
+      </if>
+      <if test="tUpdateTime != null" >
+        t_update_time,
+      </if>
+      <if test="nStatus != null" >
+        n_status,
+      </if>
+      <if test="nCreateBy != null" >
+        n_create_by,
+      </if>
+      <if test="nUpdateBy != null" >
+        n_update_by,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="nRoleId != null" >
+        #{nRoleId,jdbcType=BIGINT},
+      </if>
+      <if test="nRoleCode != null" >
+        #{nRoleCode,jdbcType=BIGINT},
+      </if>
+      <if test="cRoleName != null" >
+        #{cRoleName,jdbcType=VARCHAR},
+      </if>
+      <if test="cRoleDesc != null" >
+        #{cRoleDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="nSystemRole != null" >
+        #{nSystemRole,jdbcType=BIT},
+      </if>
+      <if test="tCreateTime != null" >
+        #{tCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="tUpdateTime != null" >
+        #{tUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="nStatus != null" >
+        #{nStatus,jdbcType=BIT},
+      </if>
+      <if test="nCreateBy != null" >
+        #{nCreateBy,jdbcType=BIGINT},
+      </if>
+      <if test="nUpdateBy != null" >
+        #{nUpdateBy,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.owl.wifi.web.entity.Role" >
+    update t_role
+    <set >
+      <if test="nRoleCode != null" >
+        n_role_code = #{nRoleCode,jdbcType=BIGINT},
+      </if>
+      <if test="cRoleName != null" >
+        c_role_name = #{cRoleName,jdbcType=VARCHAR},
+      </if>
+      <if test="cRoleDesc != null" >
+        c_role_desc = #{cRoleDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="nSystemRole != null" >
+        n_system_role = #{nSystemRole,jdbcType=BIT},
+      </if>
+      <if test="tCreateTime != null" >
+        t_create_time = #{tCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="tUpdateTime != null" >
+        t_update_time = #{tUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="nStatus != null" >
+        n_status = #{nStatus,jdbcType=BIT},
+      </if>
+      <if test="nCreateBy != null" >
+        n_create_by = #{nCreateBy,jdbcType=BIGINT},
+      </if>
+      <if test="nUpdateBy != null" >
+        n_update_by = #{nUpdateBy,jdbcType=BIGINT},
+      </if>
+    </set>
+    where n_role_id = #{nRoleId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.owl.wifi.web.entity.Role" >
+    update t_role
+    set
+       n_role_code = #{nRoleCode,jdbcType=BIGINT},
+      c_role_name = #{cRoleName,jdbcType=VARCHAR},
+      c_role_desc = #{cRoleDesc,jdbcType=VARCHAR},
+      n_system_role = #{nSystemRole,jdbcType=BIT},
+      t_create_time = #{tCreateTime,jdbcType=TIMESTAMP},
+      t_update_time = #{tUpdateTime,jdbcType=TIMESTAMP},
+      n_status = #{nStatus,jdbcType=BIT},
+      n_create_by = #{nCreateBy,jdbcType=BIGINT},
+      n_update_by = #{nUpdateBy,jdbcType=BIGINT}
+    where n_role_id = #{nRoleId,jdbcType=BIGINT}
+  </update>
+  <select id="findRoleNamesByUserId" resultType="java.lang.String">
+  select c_role_name from t_role where n_status =1 and n_role_code in(select n_role_code from t_user_role where n_user_id=#{userId})
+  </select>
+  <select id="findByUserId" resultMap="BaseResultMap">
+  select * from t_role where n_status =1 and n_role_code in(select n_role_code from t_user_role where n_user_id=#{userId})
+  </select>
+  <select id="findByName" resultMap="BaseResultMap">
+   select * from t_role where c_role_name=#{roleName} and n_status =1 
+  </select>
+   <select id="maxRoleCode" resultType="java.lang.Integer">
+   select max(n_role_code) from t_role where n_status =1 
+  </select>
+  <select id="findAdminGroupByParam" resultMap="BaseResultMap">
+   select * from t_role 
+	<where>
+	   n_status =1 
+	 <if test="startRow!=null">
+   	   limit #{startRow},#{pageSize}
+     </if>
+	</where>
+ 
+  </select>
+  <select id="countAdminGroupByParam" resultType="java.lang.Integer">
+  select count(*) from t_role where n_status =1 
+  </select>
+</mapper>

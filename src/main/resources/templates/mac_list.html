@@ -1,0 +1,342 @@
+﻿<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:tiles="http://www.thymeleaf.org">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <!-- Meta, title, CSS, favicons, etc. -->
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        
+        <title>猫投鹰大数据精准营销系统</title>
+        <meta name="keywords" content="猫投鹰,客流,客流统计系统" />
+        <meta name="description" content="猫投鹰客流统计系统" />
+        <link rel="icon" href="images/favicon.ico"/>
+        <!-- Bootstrap -->
+        <link href="vendors/bootstrap/dist/css/bootstrap.min.css"
+            rel="stylesheet" />
+        <!-- Font Awesome -->
+        <link href="vendors/font-awesome/css/font-awesome.min.css"
+            rel="stylesheet" />
+        <!-- NProgress -->
+        <link href="vendors/nprogress/nprogress.css" rel="stylesheet" />
+        <!-- jQuery custom content scroller -->
+        <link
+            href="vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.min.css"
+            rel="stylesheet" />
+        
+        <!-- Custom Theme Style -->
+        <link href="build/css/custom.min.css" rel="stylesheet" />
+        
+        <link rel="stylesheet" href="vendors/layui/css/layui.css" />
+        <link rel="stylesheet"
+            href="bootstrapvalidator-master/dist/css/bootstrapValidator.css" />
+        <link rel="stylesheet" href="vendors/layer/skin/layer.css" />
+        <link rel="stylesheet" type="text/css" href="talkingData/css/style.css" />
+        <style type="text/css">
+			.shop-list{min-width:200px; padding:6px; display:block !important;}
+			.layui-tab-title li {padding:0 30px}
+		</style>
+	</head>
+
+<body class="nav-md">
+	<div class="container body">
+		<div class="main_container">
+        	<div th:include="common/header::header"></div>
+
+			<!-- page content -->
+			<div class="right_col" role="main">
+				<div class="container body">
+					<div class="main_container">
+						
+						<!-- page content -->
+						<div role="main">
+							<div class="">
+								<div class="clearfix"></div>
+								<div class="row">
+									<div class="col-md-12 col-sm-12 col-xs-12">
+										<div class="x_panel">
+
+											<div class="x_content">
+												<div class="layui-form">
+                                                    <div class="layui-tab">
+                                                      <ul class="layui-tab-title">
+                                                        <li class="layui-this">在线人员</li>
+                                                        <li>离线人员</li>
+                                                      </ul>
+                                                      <div class="layui-tab-content">
+                                                        <div class="layui-tab-item layui-show">
+                                                        	<form class="layui-form">
+                                                                <div class="layui-form-item">
+                                                                    <div class="layui-input-inline"><select class="shop-list"></select></div>
+                                                                    &nbsp;&nbsp;<input type="button" class="layui-btn" value="查询" onclick="selectOnlineMac();" />
+                                                                </div>
+                                                            </form>
+                                                            <!-- 在线MAC -->
+                                                            <table class="layui-table">
+                                                                <thead>
+                                                                  <tr>
+                                                                    <th width="100">序号</th>
+                                                                    <th>MAC地址</th>
+                                                                    <th>进入时间</th>
+                                                                    <th width="150">操作</th>
+                                                                  </tr> 
+                                                                </thead>
+                                                                <tbody id="onlinemaclist-tbody"></tbody>
+                                                            </table>
+                                                           <!-- END -->
+                                                        </div>
+                                                        <div class="layui-tab-item">
+                                                        	<form class="layui-form">
+                                                                <div class="layui-form-item">
+                                                                    <div class="layui-inline" style="padding-left:10px;">
+                                                                        <input id="startDate" name="startDate" class="layui-input" th:value="${startDate}" placeholder="开始日" 
+                                                                            onclick="layui.laydate({elem: this, istime: false, format: 'YYYY-MM-DD'})" />
+                                                                    </div>
+                                                                    <div class="layui-inline">-</div>
+                                                                    <div class="layui-inline">
+                                                                        <input id="endDate" name="endDate" class="layui-input" th:value="${endDate}" placeholder="截止日" 
+                                                                            onclick="layui.laydate({elem: this, istime: false, format: 'YYYY-MM-DD'})" />
+                                                                    </div>
+                                                                    <div class="layui-input-inline"><select class="shop-list"></select></div>
+                                                                    <input type="button" class="layui-btn" value="查询" onclick="selectOfflineMac();" />
+                                                                </div>
+                                                            </form>
+                                                        	<!-- 离线MAC -->
+                                                            <table class="layui-table">
+                                                                <thead>
+                                                                  <tr>
+                                                                    <th width="100">序号</th>
+                                                                    <th>MAC地址</th>
+                                                                    <th>进入 / 离开时间</th>
+                                                                    <th>停留时间(单位：分钟)</th>
+                                                                    <th width="150">操作</th>
+                                                                  </tr> 
+                                                                </thead>
+                                                                <tbody id="offlinemaclist-tbody"></tbody>                                                        
+                                                            </table>
+                                                            <div id="maclistpage"></div>
+                                                            <div id="demoPage"></div>
+                                                           <!-- END -->
+                                                        </div>
+                                                      </div>
+                                                    </div>
+                                                	
+                                                </div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- /page content -->
+
+			<!-- footer content -->
+			<footer th:include="common/footer::copy"></footer>
+			<!-- /footer content -->
+		</div>
+	</div>
+
+	<!-- jQuery -->
+	<script src="vendors/jquery/dist/jquery.min.js"></script>
+	<!-- Bootstrap -->
+	<script src="vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+	<!-- FastClick -->
+	<script src="vendors/fastclick/lib/fastclick.js"></script>
+	<!-- NProgress -->
+	<script src="vendors/nprogress/nprogress.js"></script>
+	<!-- jQuery custom content scroller -->
+	<script
+		src="vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script>
+
+	<!-- ECharts -->
+	<script src="common/echarts.min.js"></script>
+	<!-- Custom Theme Scripts -->
+	<script src="build/js/custom.min.js"></script>
+
+	<script type="text/javascript" src="common/jquery.tmpl.min.js"></script>
+	<script type="text/javascript" src="vendors/layer-v2.4/layer/layer.js"></script>
+	<script src="vendors/layui/layui.js" charset="utf-8"></script>
+    <script type="text/javascript" src="vendors/layui/lay/modules/laydate.js"></script>
+	<script type="text/javascript" src="common/owl.js"></script>
+	<script src="system/basicInfo.js"></script>
+	<script language="javascript" type="text/javascript">
+	<!--
+		layui.use('element', function(){
+		  var $ = layui.jquery,element = layui.element(); //Tab的切换功能，切换事件监听等，需要依赖element模块
+		});
+		
+		layui.use('laydate', function(){
+		  var laydate = layui.laydate;
+		  var date_param = {
+			 max : $("#endDate").val(),
+			 istoday : true
+		  };
+		  document.getElementById("startDate").onclick = function(){
+			  date_param.elem = this;
+			  laydate(date_param);
+		  };
+		  document.getElementById("endDate").onclick = function(){
+			  date_param.elem = this;
+			  laydate(date_param);
+		  };
+		});
+		
+		$(document).ready(function(e) {
+			basicObject.initIndustryPic();
+			
+			// 初始化店铺列表			
+			owl.ajaxRequest("/userShopList.do", "", function(result) {
+				if(result.status == -1) {
+					alert("获取数据失败！");
+					return;	
+				}
+				var list = result.data;
+				for(var i = 0; i < list.length; i++) {
+					$(".shop-list").append("<option value='" + list[i].shopId + "'>" + list[i].shopName + "</option>");
+					if(i == 0) {
+						// 在线数据初始化	
+						initOnlineData(list[i].shopId);
+						
+						// 离线数据初始化
+						loadOfflineData(list[i].shopId);
+					}
+				}
+			});
+		 });
+		 
+		 function selectOnlineMac() {
+			 var shopId = $(".shop-list").eq(0).val();
+			 initOnlineData(shopId);
+		 }
+		 
+		 function selectOfflineMac() {
+			 var shopId = $(".shop-list").eq(1).val();
+			 loadOfflineData(shopId);
+		 }
+		 
+		 function initOnlineData(shopId) {
+			 var param = {
+				shopId: shopId
+			 };
+			$("#onlinemaclist-tbody tr").remove();
+			owl.ajaxRequest("/get_online_maclist.do", param, function(result) {
+				if(result.status == -1) {
+					alert("获取数.据失败！");
+					return;	
+				}
+				var onlineMacList = result.data;
+				if(onlineMacList.length == 0) {
+					$("#onlinemaclist-tbody").html("<tr><td colspan='5'>暂时没有查询到相关数据！</td></tr>");
+					return;
+				}
+				
+				for(var i = 0; i < onlineMacList.length; i++) {
+					var rowObj = onlineMacList[i];
+					var new_mac = operate_mac(rowObj.customer_mac);
+					var staytime = Math.round(rowObj.staytime * 100) / 100;
+					
+					var bathPathHref = getBasePath()+"/useronedata.do?mac="+new_mac;
+					var hrefHtml="<td><a href="+bathPathHref+" class='layui-btn'>查看用户画像</a></td>";
+					
+					var html = "<tr><td>" + (i + 1) + "</td><td> " + new_mac + " </td>";
+						html += "<td>" + rowObj.start_time + "</td>";
+						html += hrefHtml;
+						html += "</tr>";
+					$("#onlinemaclist-tbody").append(html);
+				}
+			});
+		 }
+		 
+		  function loadOfflineData(shopId) {
+			 var param = {
+				shopId: shopId,
+				startDate: $("#startDate").val(),
+				endDate: $("#endDate").val()
+			 };
+			 // Page
+			 owl.ajaxRequest("/get_offline_maclist_pages.do", param, function(result) {
+				if(result.status == -1) {
+					alert("获取数据失败！");
+					return;	
+				}
+				// Layui page
+				$("#maclistpage").html("");
+				var totalPages = result.data;
+				if(totalPages > 1) {
+					layui.use(['laypage', 'layer'], function(){
+					  var laypage = layui.laypage,layer = layui.layer;
+					  laypage({
+						cont: 'maclistpage',
+						pages: totalPages, //总页数
+						groups: 10, //连续显示分页数
+						jump: function(obj, first) {
+							if(!first) {
+								initOfflineData(shopId, obj.curr);
+								window.location.href="#";
+							}
+						}
+					  });
+					});	
+				}
+			 });
+			 
+			 // Mac List
+			initOfflineData(shopId, 1);
+		 }
+		 
+		 function initOfflineData(shopId, page) {
+			 var param = {
+				shopId: shopId,
+				startDate: $("#startDate").val(),
+				endDate: $("#endDate").val(),
+				page: page
+			 };
+			$("#offlinemaclist-tbody tr").remove();
+			owl.ajaxRequest("/get_offline_maclist.do", param, function(result) {
+				if(result.status == -1) {
+					alert("获取数据失败！");
+					return;	
+				}
+				var offlineMacList = result.data;
+				if(offlineMacList.length == 0) {
+					$("#offlinemaclist-tbody").html("<tr><td colspan='5'>暂时没有查询到相关数据！</td></tr>");
+					return;
+				}
+				
+				for(var i = 0; i < offlineMacList.length; i++) {
+					var rowObj = offlineMacList[i];
+					var new_mac = operate_mac(rowObj.customer_mac);
+					var staytime = Math.round(rowObj.staytime * 100) / 100;
+					var bathPathHref = getBasePath()+"/useronedata.do?mac="+new_mac;
+					var hrefHtml="<td><a href="+bathPathHref+" class='layui-btn'>查看用户画像</a></td>";
+					var html = "<tr><td>" + (i + 1) + "</td><td> " + new_mac + " </td>";
+						html += "<td> " + rowObj.visit_date + " ( " + rowObj.start_time + " - " + rowObj.end_time + " )" + "</td>";
+						html += "<td>" + staytime + "</td>";
+						html += hrefHtml;
+						html += "</tr>";
+					$("#offlinemaclist-tbody").append(html);
+				}
+			});
+		 }
+		 
+		 function operate_mac(macaddr) {
+			if(macaddr.indexOf(":") != -1) {
+				return macaddr;
+			}
+			var new_mac = "";
+			for(var j = 1; j <= macaddr.length; j++){
+				var c = macaddr.charAt(j - 1);
+				new_mac += c;
+				if(j % 2 == 0 && j < macaddr.length) {
+					new_mac += ":";
+				}
+			} 
+			return new_mac;
+		 }
+	-->
+	</script>
+</body>
+</html>

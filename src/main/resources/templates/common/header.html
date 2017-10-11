@@ -1,0 +1,84 @@
+<header th:fragment="header">
+    <div class="col-md-3 left_col menu_fixed">
+          <div class="left_col scroll-view">
+            <div class="navbar nav_title" style="border: 0;">
+              <a href="" class="site_title">
+                <!-- <i class="fa fa-paw"></i>  -->
+                <!-- <span>猫投鹰</span> -->
+                <img alt="" src="images/logo.png"/>
+              </a>
+            </div>
+            <div class="clearfix"></div>
+            <br />
+
+            <!-- sidebar menu -->
+            <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+                <div class="menu_section">
+			      <ul class="nav side-menu">
+			        <li th:each="menu:${session.sys_menu}">
+			          <a><i th:class="${'fa ' + menu.menuIcon}"></i><span th:text="${menu.menuName}"></span><span class="fa fa-chevron-down"></span></a>
+			          <ul class="nav child_menu">
+			              <li th:each="menu_child:${menu.subMenus}">
+                          	<a th:href="${menu_child.menuUrl == 'digital.do' ? 'javascript:void(0);' : menu_child.menuUrl}" th:target="${menu_child.menuUrl == 'digital.do' ? '_blank' : '_self'}">
+                            	<span th:text="${menu_child.menuName}"></span>
+                            </a>
+                          </li>
+			          </ul>
+			        </li>
+			      </ul>
+			    </div>
+            </div>
+            <!-- /sidebar menu -->
+
+            <!-- /menu footer buttons -->
+            <div class="sidebar-footer hidden-small">
+              <a data-toggle="tooltip" data-placement="top" title="系统消息">
+                <span class="glyphicon glyphicon-comment" aria-hidden="false"></span>
+              </a>
+              <a data-toggle="tooltip" data-placement="top" title="FullScreen">
+                <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
+              </a>
+              <a data-toggle="tooltip" data-placement="top" title="Lock">
+                <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
+              </a>
+              <a data-toggle="tooltip" data-placement="top" title="退出系统" href="/logout.do">
+                <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
+              </a>
+            </div>
+            <!-- /menu footer buttons -->
+          </div>
+        </div>
+
+    <!-- top navigation -->
+   <div class="top_nav">
+      <input id="industryPic" type="hidden" th:value="${session.user != null ? session.user.industryPic : ''}"/>
+    <div class="nav_menu">
+      <nav>
+        <div class="nav toggle">
+          <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+        </div>
+        <ul class="nav navbar-nav navbar-right">
+          <li class="">
+            <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+             <!--  <img src="images/img.jpg" alt=""/> -->
+              <label th:text="${session.user != null ? session.user.userName : ''}"></label>
+              <span class=" fa fa-angle-down"></span>
+            </a>
+            <ul class="dropdown-menu dropdown-usermenu pull-right">
+             <!--  <li><a href="javascript:;"> Profile</a></li>
+              <li>
+                <a href="javascript:;">
+                  <span class="badge bg-red pull-right">50%</span>
+                  <span>Settings</span>
+                </a>
+              </li>
+              <li><a href="javascript:;">Help</a></li> -->
+              <li><a id="logout" href="logout.do"><i class="fa fa-sign-out pull-right"></i> 退出</a></li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+  <input id="hik_account" type="hidden" th:value="${session.user != null ? session.user.hikAccount : ''}" />
+</header>

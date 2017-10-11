@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.owl.wifi.web.dao.MenuMapper" >
+  <resultMap id="BaseResultMap" type="com.owl.wifi.web.entity.Menu" >
+    <id column="n_menu_id" property="nMenuId" jdbcType="BIGINT" />
+    <result column="c_menu_icon" property="cMenuIcon" jdbcType="VARCHAR" />
+    <result column="c_menu_name" property="cMenuName" jdbcType="VARCHAR" />
+    <result column="c_menu_url" property="cMenuUrl" jdbcType="VARCHAR" />
+    <result column="n_menu_level" property="nMenuLevel" jdbcType="INTEGER" />
+    <result column="n_parent_menu_id" property="nParentMenuId" jdbcType="BIGINT" />
+    <result column="n_status" property="nStatus" jdbcType="INTEGER" />
+    <result column="t_create_time" property="tCreateTime" jdbcType="TIMESTAMP" />
+    <result column="t_update_time" property="tUpdateTime" jdbcType="TIMESTAMP" />
+    <result column="n_create_by" property="nCreateBy" jdbcType="BIGINT" />
+    <result column="n_update_by" property="nUpdateBy" jdbcType="BIGINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    n_menu_id, c_menu_name, c_menu_icon,c_menu_url, n_menu_level, n_parent_menu_id, n_status, t_create_time, 
+    t_update_time, n_create_by, n_update_by
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_menu
+    where n_menu_id = #{nMenuId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from t_menu
+    where n_menu_id = #{nMenuId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.owl.wifi.web.entity.Menu" >
+    insert into t_menu (n_menu_id, c_menu_icon,c_menu_name, c_menu_url, 
+      n_menu_level, n_parent_menu_id, n_status, 
+      t_create_time, t_update_time, n_create_by, 
+      n_update_by)
+    values (#{nMenuId,jdbcType=BIGINT},#{cMenuIcon,jdbcType=VARCHAR}, #{cMenuName,jdbcType=VARCHAR}, #{cMenuUrl,jdbcType=VARCHAR}, 
+      #{nMenuLevel,jdbcType=INTEGER}, #{nParentMenuId,jdbcType=BIGINT}, #{nStatus,jdbcType=INTEGER}, 
+      #{tCreateTime,jdbcType=TIMESTAMP}, #{tUpdateTime,jdbcType=TIMESTAMP}, #{nCreateBy,jdbcType=BIGINT}, 
+      #{nUpdateBy,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.owl.wifi.web.entity.Menu" >
+    insert into t_menu
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="nMenuId != null" >
+        n_menu_id,
+      </if>
+      <if test="cMenuName != null" >
+        c_menu_name,
+      </if>
+      <if test="cMenuIcon != null" >
+        c_menu_icon,
+      </if>
+      <if test="cMenuUrl != null" >
+        c_menu_url,
+      </if>
+      <if test="nMenuLevel != null" >
+        n_menu_level,
+      </if>
+      <if test="nParentMenuId != null" >
+        n_parent_menu_id,
+      </if>
+      <if test="nStatus != null" >
+        n_status,
+      </if>
+      <if test="tCreateTime != null" >
+        t_create_time,
+      </if>
+      <if test="tUpdateTime != null" >
+        t_update_time,
+      </if>
+      <if test="nCreateBy != null" >
+        n_create_by,
+      </if>
+      <if test="nUpdateBy != null" >
+        n_update_by,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="nMenuId != null" >
+        #{nMenuId,jdbcType=BIGINT},
+      </if>
+      <if test="cMenuName != null" >
+        #{cMenuName,jdbcType=VARCHAR},
+      </if>
+      <if test="cMenuIcon != null" >
+        #{cMenuIcon,jdbcType=VARCHAR},
+      </if>
+      <if test="cMenuUrl != null" >
+        #{cMenuUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="nMenuLevel != null" >
+        #{nMenuLevel,jdbcType=INTEGER},
+      </if>
+      <if test="nParentMenuId != null" >
+        #{nParentMenuId,jdbcType=BIGINT},
+      </if>
+      <if test="nStatus != null" >
+        #{nStatus,jdbcType=INTEGER},
+      </if>
+      <if test="tCreateTime != null" >
+        #{tCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="tUpdateTime != null" >
+        #{tUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="nCreateBy != null" >
+        #{nCreateBy,jdbcType=BIGINT},
+      </if>
+      <if test="nUpdateBy != null" >
+        #{nUpdateBy,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.owl.wifi.web.entity.Menu" >
+    update t_menu
+    <set >
+      <if test="cMenuName != null" >
+        c_menu_name = #{cMenuName,jdbcType=VARCHAR},
+      </if>
+      <if test="cMenuIcon != null" >
+        c_menu_icon = #{cMenuIcon,jdbcType=VARCHAR},
+      </if>
+      <if test="cMenuUrl != null" >
+        c_menu_url = #{cMenuUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="nMenuLevel != null" >
+        n_menu_level = #{nMenuLevel,jdbcType=INTEGER},
+      </if>
+      <if test="nParentMenuId != null" >
+        n_parent_menu_id = #{nParentMenuId,jdbcType=BIGINT},
+      </if>
+      <if test="nStatus != null" >
+        n_status = #{nStatus,jdbcType=INTEGER},
+      </if>
+      <if test="tCreateTime != null" >
+        t_create_time = #{tCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="tUpdateTime != null" >
+        t_update_time = #{tUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="nCreateBy != null" >
+        n_create_by = #{nCreateBy,jdbcType=BIGINT},
+      </if>
+      <if test="nUpdateBy != null" >
+        n_update_by = #{nUpdateBy,jdbcType=BIGINT},
+      </if>
+    </set>
+    where n_menu_id = #{nMenuId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.owl.wifi.web.entity.Menu" >
+    update t_menu
+    set c_menu_name = #{cMenuName,jdbcType=VARCHAR},
+    c_menu_icon = #{cMenuIcon,jdbcType=VARCHAR},
+      c_menu_url = #{cMenuUrl,jdbcType=VARCHAR},
+      n_menu_level = #{nMenuLevel,jdbcType=INTEGER},
+      n_parent_menu_id = #{nParentMenuId,jdbcType=BIGINT},
+      n_status = #{nStatus,jdbcType=INTEGER},
+      t_create_time = #{tCreateTime,jdbcType=TIMESTAMP},
+      t_update_time = #{tUpdateTime,jdbcType=TIMESTAMP},
+      n_create_by = #{nCreateBy,jdbcType=BIGINT},
+      n_update_by = #{nUpdateBy,jdbcType=BIGINT}
+    where n_menu_id = #{nMenuId,jdbcType=BIGINT}
+  </update>
+  <select id="findUserMenusByUserId" resultMap="BaseResultMap" >
+  SELECT * FROM t_menu WHERE n_status=1 and n_menu_id IN(SELECT n_menu_id FROM t_role_menu WHERE n_role_code IN( SELECT n_role_code FROM t_role WHERE n_role_code IN (SELECT n_role_code FROM t_user_role WHERE n_user_id=#{userId})))
+  </select>
+  <select id="findUserMenusByRoleCode" resultMap="BaseResultMap" >
+  SELECT * FROM t_menu WHERE n_status=1 and n_menu_id IN(SELECT n_menu_id FROM t_role_menu WHERE n_role_code =#{roleCode})
+  </select>
+   <select id="findAll" resultMap="BaseResultMap" >
+  SELECT * FROM t_menu WHERE n_status=1
+  </select>
+</mapper>

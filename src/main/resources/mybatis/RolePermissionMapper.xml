@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.owl.wifi.web.dao.RolePermissionMapper" >
+  <resultMap id="BaseResultMap" type="com.owl.wifi.web.entity.RolePermission" >
+    <id column="n_role_permission" property="nRolePermission" jdbcType="BIGINT" />
+    <result column="n_role_code" property="nRoleCode" jdbcType="BIGINT" />
+    <result column="n_permission_id" property="nPermissionId" jdbcType="BIGINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    n_role_permission, n_role_code, n_permission_id
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_role_permission
+    where n_role_permission = #{nRolePermission,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from t_role_permission
+    where n_role_permission = #{nRolePermission,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.owl.wifi.web.entity.RolePermission" >
+    insert into t_role_permission (n_role_permission, n_role_code, n_permission_id
+      )
+    values (#{nRolePermission,jdbcType=BIGINT}, #{nRoleCode,jdbcType=BIGINT}, #{nPermissionId,jdbcType=BIGINT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.owl.wifi.web.entity.RolePermission" >
+    insert into t_role_permission
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="nRolePermission != null" >
+        n_role_permission,
+      </if>
+      <if test="nRoleCode != null" >
+        n_role_code,
+      </if>
+      <if test="nPermissionId != null" >
+        n_permission_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="nRolePermission != null" >
+        #{nRolePermission,jdbcType=BIGINT},
+      </if>
+      <if test="nRoleCode != null" >
+        #{nRoleCode,jdbcType=BIGINT},
+      </if>
+      <if test="nPermissionId != null" >
+        #{nPermissionId,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.owl.wifi.web.entity.RolePermission" >
+    update t_role_permission
+    <set >
+      <if test="nRoleCode != null" >
+        n_role_code = #{nRoleCode,jdbcType=BIGINT},
+      </if>
+      <if test="nPermissionId != null" >
+        n_permission_id = #{nPermissionId,jdbcType=BIGINT},
+      </if>
+    </set>
+    where n_role_permission = #{nRolePermission,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.owl.wifi.web.entity.RolePermission" >
+    update t_role_permission
+    set n_role_code = #{nRoleCode,jdbcType=BIGINT},
+      n_permission_id = #{nPermissionId,jdbcType=BIGINT}
+    where n_role_permission = #{nRolePermission,jdbcType=BIGINT}
+  </update>
+  <delete id="deleteByRoleCode">
+  delete from t_role_permission where n_role_code=#{roleCode}
+  </delete>
+</mapper>

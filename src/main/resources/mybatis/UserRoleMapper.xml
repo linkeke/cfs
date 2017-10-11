@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.owl.wifi.web.dao.UserRoleMapper" >
+  <resultMap id="BaseResultMap" type="com.owl.wifi.web.entity.UserRole" >
+    <id column="n_user_role_id" property="nUserRoleId" jdbcType="BIGINT" />
+    <result column="n_user_id" property="nUserId" jdbcType="BIGINT" />
+    <result column="n_role_code" property="nRoleCode" jdbcType="BIGINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    n_user_role_id, n_user_id, n_role_code
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_user_role
+    where n_user_role_id = #{nUserRoleId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from t_user_role
+    where n_user_role_id = #{nUserRoleId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.owl.wifi.web.entity.UserRole" >
+    insert into t_user_role (n_user_role_id, n_user_id, n_role_code
+      )
+    values (#{nUserRoleId,jdbcType=BIGINT}, #{nUserId,jdbcType=BIGINT}, #{nRoleCode,jdbcType=BIGINT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.owl.wifi.web.entity.UserRole" >
+    insert into t_user_role
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="nUserRoleId != null" >
+        n_user_role_id,
+      </if>
+      <if test="nUserId != null" >
+        n_user_id,
+      </if>
+      <if test="nRoleCode != null" >
+        n_role_code,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="nUserRoleId != null" >
+        #{nUserRoleId,jdbcType=BIGINT},
+      </if>
+      <if test="nUserId != null" >
+        #{nUserId,jdbcType=BIGINT},
+      </if>
+      <if test="nRoleCode != null" >
+        #{nRoleCode,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.owl.wifi.web.entity.UserRole" >
+    update t_user_role
+    <set >
+      <if test="nUserId != null" >
+        n_user_id = #{nUserId,jdbcType=BIGINT},
+      </if>
+      <if test="nRoleCode != null" >
+        n_role_code = #{nRoleCode,jdbcType=BIGINT},
+      </if>
+    </set>
+    where n_user_role_id = #{nUserRoleId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.owl.wifi.web.entity.UserRole" >
+    update t_user_role
+    set n_user_id = #{nUserId,jdbcType=BIGINT},
+      n_role_code = #{nRoleCode,jdbcType=BIGINT}
+    where n_user_role_id = #{nUserRoleId,jdbcType=BIGINT}
+  </update>
+  <delete id="deleteByRoleCode">
+    delete from t_user_role where n_role_code=#{roleCode}
+  </delete>
+  <delete id="deleteByUserId">
+   delete from t_user_role where n_user_id=#{userId}
+  </delete>
+  <select id="selectRoleId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_user_role
+    where n_user_id = #{userId,jdbcType=INTEGER}
+  </select>
+  
+</mapper>

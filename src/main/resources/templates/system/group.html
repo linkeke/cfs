@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:tiles="http://www.thymeleaf.org">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+     <link rel="icon" href="images/favicon.ico"/>
+    <title>猫投鹰大数据精准营销系统</title>
+    <meta name="keywords" content="猫投鹰,客流,客流统计系统"/>
+    <meta name="description" content="猫投鹰客流统计系统"/>
+
+    <!-- Bootstrap -->
+    <link href="vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet"/>
+    <!-- Font Awesome -->
+    <link href="vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet"/>
+    <!-- NProgress -->
+    <link href="vendors/nprogress/nprogress.css" rel="stylesheet"/>
+    <!-- jQuery custom content scroller -->
+    <link href="vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.min.css" rel="stylesheet"/>
+
+    <!-- Custom Theme Style -->
+    <link href="build/css/custom.min.css" rel="stylesheet"/>
+    
+    <link rel="stylesheet" href="vendors/layui/css/layui.css"/>
+    <link rel="stylesheet" href="bootstrapvalidator-master/dist/css/bootstrapValidator.css"/>
+    <link rel="stylesheet" href="vendors/layer/skin/layer.css"/>
+      <script>
+          var _hmt = _hmt || [];
+          (function() {
+              var hm = document.createElement("script");
+              hm.src = "https://hm.baidu.com/hm.js?134c98453bebb63118c0338599528041";
+              var s = document.getElementsByTagName("script")[0];
+              s.parentNode.insertBefore(hm, s);
+          })();
+      </script>
+
+  </head>
+
+  <body class="nav-md">
+    <div class="container body">
+      <div class="main_container">
+        <div th:include="common/header::header"></div>
+
+        <!-- page content -->
+        <div class="right_col" role="main">
+          <div class="container body">
+      <div class="main_container">
+
+        <!-- page content -->
+        <div role="main">
+          <div class="">
+            <div class="clearfix"></div>
+            <div class="row">
+              <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                  <div class="x_title">
+                    <h2>角色管理</h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                      </li>
+                      <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                        <ul class="dropdown-menu" role="menu">
+                          <li><a href="#">Settings 1</a>
+                          </li>
+                          <li><a href="#">Settings 2</a>
+                          </li>
+                        </ul>
+                      </li>
+                      <li><a class="close-link"><i class="fa fa-close"></i></a>
+                      </li>
+                    </ul>
+                    <div class="clearfix"></div>
+                  </div>
+                  
+                  <div class="x_title">
+                  	<div class="layui-btn-group">
+					  <button class="layui-btn" id="addGroup"><i class="layui-icon">&#xe608;</i> 增加管理组</button>
+					  <!-- <button class="layui-btn" id="editBtn"><i class="layui-icon">&#xe642;</i> 编辑</button> -->
+					  <!-- <button class="layui-btn" id="delBtn"><i class="layui-icon">&#xe640;</i> 删除</button> -->
+					  <button class="layui-btn" id="flushBtn"><i class="layui-icon">&#x1002;</i> 刷新</button>
+					</div>
+                  </div>
+                  
+                  <div class="x_content">
+                    <br />
+                    	
+                    	<div class="layui-form">
+						  <table class="layui-table">
+						    <colgroup>
+						      <col width="50"/>
+						      <col width="100"/>
+						      <col width="350"/>
+						      <col width="350"/>
+						      <col width="200"/>
+						    </colgroup>
+						    <thead>
+						      <tr>
+						        <th><input type="checkbox" name="" lay-skin="primary" lay-filter="allChoose"/></th>
+						        <th>序号</th>
+						        <th>管理组名称</th>
+						        <th>描述</th>
+						        <th>操作</th>
+						      </tr> 
+						    </thead>
+						    <tbody id="groupList">
+					   
+						  	</tbody>
+						  
+				   <script id="groupTemplate" type="text/x-jquery-tmpl"> 
+						{{each(i,group) dataList}}
+ 						<tr>
+						  <td><input type="checkbox" name="" lay-skin="primary"/></td>
+					      <td>{{= i+1}}</td>
+						  <td>{{= group.groupName}}</td>
+						  <td>{{= group.groupDesc}}</td>
+					      <td>
+							<button class="layui-btn updateRole" groupid="{{= groupId}}"><i class="layui-icon">&#xe642;</i> 编辑</button>
+							<button class="layui-btn delRole" groupid="{{= groupId}}"><i class="layui-icon">&#xe640;</i> 删除</button>							
+						  </td>
+					    </tr>
+						{{/each}}
+					</script> 
+						  </table>
+						  
+						  <div id="pageDiv"></div>
+						  
+						</div>
+                    	
+
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            
+            
+            
+          </div>
+        </div>
+        <!-- /page content -->
+
+      </div>
+    </div>
+        </div>
+        <!-- /page content -->
+
+        <!-- footer content -->
+        <footer th:include="common/footer::copy"></footer>
+        <!-- /footer content -->
+      </div>
+    </div>
+
+    <!-- jQuery -->
+    <script src="vendors/jquery/dist/jquery.min.js"></script>
+    <!-- Bootstrap -->
+    <script src="vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- FastClick -->
+    <script src="vendors/fastclick/lib/fastclick.js"></script>
+    <!-- NProgress -->
+    <script src="vendors/nprogress/nprogress.js"></script>
+    <!-- jQuery custom content scroller -->
+    <script src="vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script>
+
+    <!-- Custom Theme Scripts -->
+    <script src="build/js/custom.min.js"></script>
+    
+    <script type="text/javascript" src="common/jquery.tmpl.min.js"></script>
+	<script type="text/javascript" src="vendors/layer-v2.4/layer/layer.js"></script>
+	<script src="vendors/layui/layui.js" charset="utf-8"></script>
+	<script type="text/javascript" src="common/owl.js"></script> 
+	<script src="system/basicInfo.js" charset="utf-8"></script>
+  	<script src="system/group.js" charset="utf-8"></script>
+    
+  </body>
+</html>

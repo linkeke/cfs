@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.owl.wifi.web.dao.UserShopMapper" >
+  <resultMap id="BaseResultMap" type="com.owl.wifi.web.entity.UserShopKey" >
+    <id column="shop_id" property="shopId" jdbcType="INTEGER" />
+    <id column="user_id" property="userId" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    shop_id, user_id
+  </sql>
+  
+  <select id="shopListByUser" resultType="java.util.Map">
+  	select t2.shop_id as shopId, t2.name_txt as shopName from t_user_shop t, t_shop t2 
+  			where t.shop_id = t2.shop_id and t.user_id = #{userId, jdbcType=INTEGER}
+  			order by t2.shop_id asc	
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="com.owl.wifi.web.entity.UserShopKey" >
+    delete from t_user_shop
+    where shop_id = #{shopId,jdbcType=INTEGER}
+      and user_id = #{userId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByShopOrUserId" parameterType="com.owl.wifi.web.entity.UserShopKey" >
+    delete from t_user_shop
+     <where>
+    <if test="shopId!=null">
+      and  shop_id = #{shopId,jdbcType=INTEGER}
+      </if>
+      <if test="userId!=null">
+      and   user_id = #{userId}
+      </if>
+    </where>
+  </delete>
+  <insert id="insert" parameterType="com.owl.wifi.web.entity.UserShopKey" >
+    insert into t_user_shop (shop_id, user_id)
+    values (#{shopId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.owl.wifi.web.entity.UserShopKey" >
+    insert into t_user_shop
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="shopId != null" >
+        shop_id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="shopId != null" >
+        #{shopId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByUserId" parameterType="com.owl.wifi.web.entity.UserShopKey" >
+    update t_user_shop
+    set shop_id = #{shopId,jdbcType=INTEGER}
+    where user_id = #{userId,jdbcType=INTEGER}
+  </update>
+  <select id="findByParam" resultMap="BaseResultMap" >
+    select * from t_user_shop
+    <where>
+    <if test="shopId!=null">
+      and  shop_id = #{shopId}
+      </if>
+      <if test="userId!=null">
+      and   user_id = #{userId}
+      </if>
+    </where>
+    order by user_id desc
+    <if test="startRow!=null">
+    limit #{startRow},#{pageSize}
+    </if>
+    </select>
+    <select id="countByParam" resultType="int" >
+    select 
+    count(*)
+    from t_user_shop
+    <where>
+     <if test="shopId!=null">
+      and  shop_id = #{shopId}
+      </if>
+      <if test="userId!=null">
+      and   user_id = #{userId}
+      </if>
+    </where>
+  </select>
+</mapper>

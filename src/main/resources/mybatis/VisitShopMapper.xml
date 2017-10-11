@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.owl.wifi.web.dao.VisitShopMapper">
+	<resultMap id="BaseResultMap" type="com.owl.wifi.web.entity.VisitShop">
+		<id column="visit_id" property="visitId" jdbcType="INTEGER" />
+		<result column="visit_date" property="visitDate" jdbcType="DATE" />
+		<result column="customer_mac" property="customerMac" jdbcType="CHAR" />
+		<result column="start_time" property="startTime" jdbcType="TIME" />
+		<result column="end_time" property="endTime" jdbcType="TIME" />
+	</resultMap>
+	<resultMap id="TalkingdataResultMap" type="com.owl.wifi.web.entity.TalkingdataMore">
+		<id column="label" property="label" jdbcType="CHAR" />
+		<id column="mac" property="mac" jdbcType="CHAR" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="weight" property="weight" jdbcType="CHAR" />
+		<association property="mac" javaType="com.owl.wifi.web.entity.VisitShop"
+			resultMap="BaseResultMap" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		visit_date, visit_id, customer_mac, start_time, end_time
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="com.owl.wifi.web.entity.VisitShopKey">
+		select
+		<include refid="Base_Column_List" />
+		from t_visit_shop
+		where visit_id = #{visitId,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="com.owl.wifi.web.entity.VisitShopKey">
+		delete from t_visit_shop
+		where visit_id = #{visitId,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="com.owl.wifi.web.entity.VisitShop">
+		insert into t_visit_shop (visit_date, shop_id, customer_mac,
+		start_time, end_time)
+		values (#{visitDate,jdbcType=DATE}, #{shopId ,jdbcType=INTEGER},
+		#{customerMac,jdbcType=CHAR},
+		#{startTime,jdbcType=TIME}, #{endTime,jdbcType=TIME})
+	</insert>
+	<insert id="insertSelective" parameterType="com.owl.wifi.web.entity.VisitShop">
+		insert into t_visit_shop
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="visitDate != null">
+				visit_date,
+			</if>
+			<if test="shopId != null">
+				shop_id,
+			</if>
+			<if test="visitId != null">
+				visit_id,
+			</if>
+			<if test="customerMac != null">
+				customer_mac,
+			</if>
+			<if test="startTime != null">
+				start_time,
+			</if>
+			<if test="endTime != null">
+				end_time,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="visitDate != null">
+				#{visitDate,jdbcType=DATE},
+			</if>
+			<if test="shopId != null">
+				#{shop_id ,jdbcType=INTEGER},
+			</if>
+			<if test="visitId != null">
+				#{visitId,jdbcType=INTEGER},
+			</if>
+			<if test="customerMac != null">
+				#{customerMac,jdbcType=CHAR},
+			</if>
+			<if test="startTime != null">
+				#{startTime,jdbcType=TIME},
+			</if>
+			<if test="endTime != null">
+				#{endTime,jdbcType=TIME},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.owl.wifi.web.entity.VisitShop">
+		update t_visit_shop
+		<set>
+			<if test="customerMac != null">
+				customer_mac = #{customerMac,jdbcType=CHAR},
+			</if>
+			<if test="startTime != null">
+				start_time = #{startTime,jdbcType=TIME},
+			</if>
+			<if test="endTime != null">
+				end_time = #{endTime,jdbcType=TIME},
+			</if>
+		</set>
+		where visit_id = #{visitId,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.owl.wifi.web.entity.VisitShop">
+		update t_visit_shop
+		set customer_mac = #{customerMac,jdbcType=CHAR},
+		start_time = #{startTime,jdbcType=TIME},
+		end_time = #{endTime,jdbcType=TIME}
+		where visit_id = #{visitId,jdbcType=INTEGER}
+	</update>
+
+
+	<select id="countFlowUser" resultType="java.lang.Integer">
+		SELECT COUNT(DISTINCT customer_mac) FROM t_visit_shop
+		<where>
+			<if test="shopId!=null">
+				and shop_id=#{shopId}
+			</if>
+			<if test="startDate!=null and startDate!=''">
+		  	<![CDATA[
+		      and DATE_FORMAT(visit_date, '%Y-%m-%d') >=  DATE_FORMAT(#{startDate}, '%Y-%m-%d')
+			]]>
+			</if>
+			<if test="endDate!=null and endDate!=''">
+		  <![CDATA[
+		      and DATE_FORMAT(visit_date, '%Y-%m-%d') <=  DATE_FORMAT(#{endDate}, '%Y-%m-%d')
+			]]>
+			</if>
+		</where>
+	</select>
+	<select id="countFlowUserLabel" resultType="java.lang.Integer">
+		SELECT COUNT(DISTINCT tvs.`customer_mac`) FROM t_visit_shop tvs LEFT
+		JOIN t_talkingdata_more ttm ON tvs.`customer_mac`=ttm.`mac`
+		<where>
+			<if test="shopId!=null">
+				and tvs.shop_id=#{shopId}
+			</if>
+			<if test="startDate!=null and startDate!=''">
+		  	<![CDATA[
+		      and DATE_FORMAT(tvs.visit_date, '%Y-%m-%d') >=  DATE_FORMAT(#{startDate}, '%Y-%m-%d')
+			]]>
+			</if>
+			<if test="endDate!=null and endDate!=''">
+		  <![CDATA[
+		      and DATE_FORMAT(tvs.visit_date, '%Y-%m-%d') <=  DATE_FORMAT(#{endDate}, '%Y-%m-%d')
+			]]>
+			</if>
+			<if test="label!=null">
+				and ttm.label=#{label}
+			</if>
+		</where>
+	</select>
+
+	<select id="klByDate" resultType="java.util.Map">
+    <![CDATA[
+        select count(t.customer_mac) as countKL from (
+            select t.customer_mac from t_visit_shop t 
+                where t.shop_id = #{shopId, jdbcType=INTEGER} and t.visit_date = #{myDate, jdbcType=DATE}
+                    and t.start_time between #{startTime, jdbcType=VARCHAR} and #{endTime, jdbcType=VARCHAR}
+                    and ( TIME_TO_SEC(t.end_time) - TIME_TO_SEC(t.start_time) ) >= 30
+            group by t.customer_mac       
+        ) t
+    ]]>
+	</select>
+	
+	<select id="timeKlByDate" resultType="java.util.Map">
+    <![CDATA[
+        select date_format(t.start_time, '%H') as hour, count(distinct t.customer_mac) as klCount from t_visit_shop t 
+            where t.shop_id = #{shopId, jdbcType=INTEGER} and t.visit_date = #{myDate, jdbcType=DATE}
+                and ( TIME_TO_SEC(t.end_time) - TIME_TO_SEC(t.start_time) ) >= 30
+        group by hour
+    ]]>
+    </select>
+
+	<select id="stayTimeByDate" resultType="java.util.Map">
+    <![CDATA[
+        select AVG(t.minutes) as minutes from (
+            select (SUM(TIME_TO_SEC(t.end_time))  - SUM(TIME_TO_SEC(t.start_time)) ) / 60 as minutes FROM t_visit_shop t 
+                where t.shop_id = #{shopId, jdbcType=INTEGER} and t.visit_date = #{myDate, jdbcType=DATE}
+                      and ( TIME_TO_SEC(t.end_time) - TIME_TO_SEC(t.start_time) ) >= 30
+                group by t.customer_mac
+         ) t 
+     ]]>
+	</select>
+
+	<select id="stayTimeKL" resultType="java.util.Map">
+    <![CDATA[
+        select count(t.customer_mac) as count_kl from (
+            select t.customer_mac, ( SUM(TIME_TO_SEC(t.end_time))  - SUM(TIME_TO_SEC(t.start_time)) ) / 60 as minutes  FROM t_visit_shop t 
+                where t.shop_id = #{shopId, jdbcType=INTEGER} and t.visit_date = #{myDate, jdbcType=DATE}
+                      and ( TIME_TO_SEC(t.end_time) - TIME_TO_SEC(t.start_time) ) >= 30
+                      group by t.customer_mac
+        ) t where t.minutes >= #{startMinute, jdbcType=INTEGER} and t.minutes < #{endMinute, jdbcType=INTEGER}
+    ]]>
+	</select>
+
+	<select id="avgKlByEveryday" resultType="java.util.Map">
+    <![CDATA[
+       select avg(t.kl) as avg_kl from (
+        select  t.visit_date, count(distinct t.customer_mac) as kl from t_visit_shop t 
+            where t.shop_id = #{shopId, jdbcType=INTEGER} and ( TIME_TO_SEC(t.end_time) - TIME_TO_SEC(t.start_time) ) >= 30
+            group by t.visit_date 
+       ) t
+    ]]>
+	</select>
+
+	<select id="avgTimeKl" resultType="java.util.Map">
+    <![CDATA[
+         select t.hour, avg(kl) as kl from (
+           select date_format(t.start_time, '%H') as hour, count(distinct t.customer_mac) as kl from t_visit_shop t 
+               where t.shop_id = #{shopId, jdbcType=INTEGER} and ( TIME_TO_SEC(t.end_time) - TIME_TO_SEC(t.start_time) ) >= 30
+               group by t.visit_date, hour
+        ) t group by t.hour
+    ]]>
+	</select>
+
+	<select id="repeatCustomer" resultType="java.util.Map">
+    <![CDATA[
+        select count(t.customer_mac) as kl_count from (
+            select t.customer_mac, count(t.customer_mac) as kl_count, min(t.start_time) as minStartTime, max(t.start_time) as maxStartTime from t_visit_shop t 
+                where t.shop_id = #{shopId, jdbcType=INTEGER} and t.visit_date = #{myDate, jdbcType=DATE} 
+                      and ( TIME_TO_SEC(t.end_time) - TIME_TO_SEC(t.start_time) ) >= 30
+                group by t.customer_mac
+        ) t  
+            where kl_count >= 2 and ( TIME_TO_SEC(t.maxStartTime) - TIME_TO_SEC(t.minStartTime) ) / 60 >= 60
+    ]]>
+	</select>
+	<insert id="batchInsert" parameterType="java.util.List">
+		insert into t_visit_shop (visit_date, shop_id, customer_mac,
+		start_time, end_time)
+		values
+		<foreach collection="list" item="item" index="index"
+			separator=",">
+			(#{item.visitDate,jdbcType=DATE}, #{item.shopId
+			,jdbcType=INTEGER}, #{item.customerMac,jdbcType=CHAR},
+			#{item.startTime,jdbcType=TIME}, #{item.endTime,jdbcType=TIME})
+		</foreach>
+	</insert>
+	
+	<select id="shopMacList" resultType="java.util.Map">
+	<![CDATA[
+	   select t.customer_mac, t.visit_date, t.start_time, t.end_time, (TIME_TO_SEC(t.end_time) - TIME_TO_SEC(t.start_time)) / 60 as staytime from t_visit_shop t
+	       where t.shop_id = #{shopId, jdbcType=INTEGER} and t.visit_date between #{startDate, jdbcType=DATE} and #{endDate, jdbcType=DATE} 
+                 and ( TIME_TO_SEC(t.end_time) - TIME_TO_SEC(t.start_time) ) >= 30
+           order by staytime desc      
+           limit #{startRow, jdbcType=INTEGER}, #{endRow, jdbcType=INTEGER}                 
+	]]> 
+	</select>
+    <select id="getShopMacList" resultType="java.util.Map">
+        <![CDATA[
+       select t.customer_mac, t.visit_date, t.start_time, t.end_time, (TIME_TO_SEC(t.end_time) - TIME_TO_SEC(t.start_time)) / 60 as staytime from t_visit_shop t
+           where t.shop_id = #{shopId, jdbcType=INTEGER} and t.visit_date = #{myDate, jdbcType=DATE}
+                 and ( TIME_TO_SEC(t.end_time) - TIME_TO_SEC(t.start_time) ) >= 30 ORDER by t.end_time DESC
+    ]]>
+    </select>
+	<select id="count_shopMacList" resultType="java.lang.Long">
+    <![CDATA[
+       select count(t.visit_id) as records from t_visit_shop t
+           where t.shop_id = #{shopId, jdbcType=INTEGER} and t.visit_date between #{startDate, jdbcType=DATE} and #{endDate, jdbcType=DATE}
+                 and ( TIME_TO_SEC(t.end_time) - TIME_TO_SEC(t.start_time) ) >= 30           
+    ]]> 
+    </select>
+
+    <select id="getCurrentCustomerAmount" resultType="java.lang.Long">
+        <![CDATA[
+       select count(DISTINCT t.customer_mac) as records from t_visit_shop t
+           where t.shop_id = #{shopId, jdbcType=INTEGER} and t.visit_date = #{myDate, jdbcType=DATE}
+                 and ( TIME_TO_SEC(t.end_time) - TIME_TO_SEC(t.start_time) ) >= 30
+    ]]>
+    </select>
+    <select id="getTodayBeforeCustomerAmount" resultType="java.lang.Long">
+        <![CDATA[
+       select count(DISTINCT t.customer_mac) as records from t_visit_shop t
+           where t.shop_id = #{shopId, jdbcType=INTEGER} and t.visit_date < #{myDate, jdbcType=DATE}
+                 and ( TIME_TO_SEC(t.end_time) - TIME_TO_SEC(t.start_time) ) >= 30
+    ]]>
+    </select>
+
+    <select id="getTotalCustomerAmount" resultType="java.lang.Long">
+        <![CDATA[
+       select count(DISTINCT t.customer_mac) as records from t_visit_shop t
+           where t.shop_id = #{shopId, jdbcType=INTEGER} and t.visit_date <= #{myDate, jdbcType=DATE}
+                 and ( TIME_TO_SEC(t.end_time) - TIME_TO_SEC(t.start_time) ) >= 30
+    ]]>
+    </select>
+    
+    <select id="getRepeatKL" resultType="java.lang.Long">
+        <![CDATA[
+    select count(*) as repeatCount from (SELECT DISTINCT(shop1.customer_mac) as mac1 FROM `t_visit_shop` as shop1 where shop1.shop_id =#{shopId1, jdbcType=DATE} AND shop1.visit_date =#{date, jdbcType=DATE}) a
+    INNER   JOIN
+    (SELECT DISTINCT(shop2.customer_mac)as mac2 FROM `t_visit_shop` as shop2 where shop2.shop_id =#{shopId2, jdbcType=DATE} and shop2.visit_date =#{date, jdbcType=DATE}) b
+    on
+    a.mac1=b.mac2
+
+         ]]>
+    </select>
+</mapper>

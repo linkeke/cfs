@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:tiles="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>猫投鹰大数据精准营销系统</title>
+    <meta name="keywords" content="猫投鹰,客流,客流统计系统" />
+    <meta name="description" content="猫投鹰客流统计系统" />
+    <link rel="icon" href="images/favicon.ico"/>
+    <!-- Bootstrap -->
+    <link href="vendors/bootstrap/dist/css/bootstrap.min.css"
+          rel="stylesheet" />
+    <!-- Font Awesome -->
+    <link href="vendors/font-awesome/css/font-awesome.min.css"
+          rel="stylesheet" />
+    <!-- NProgress -->
+    <link href="vendors/nprogress/nprogress.css" rel="stylesheet" />
+    <!-- jQuery custom content scroller -->
+    <link
+            href="vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.min.css"
+            rel="stylesheet" />
+
+    <!-- Custom Theme Style -->
+    <link href="build/css/custom.min.css" rel="stylesheet" />
+
+    <link rel="stylesheet" href="vendors/layui/css/layui.css" />
+    <link rel="stylesheet"
+          href="bootstrapvalidator-master/dist/css/bootstrapValidator.css" />
+    <link rel="stylesheet" href="vendors/layer/skin/layer.css" />
+    <link rel="stylesheet" type="text/css" href="talkingData/css/style.css" />
+    <style type="text/css">
+        .shop-list{min-width:200px; padding:6px; display:block !important;}
+        .layui-tab-title li {padding:0 30px}
+    </style>
+</head>
+
+<body class="nav-md">
+<div class="container body">
+    <div class="main_container">
+        <div th:include="common/header::header"></div>
+
+        <!-- page content -->
+        <div class="right_col" role="main">
+            <div class="container body">
+                <div class="main_container">
+
+                    <!-- page content -->
+                    <div role="main">
+                        <div class="">
+                            <div class="clearfix"></div>
+                            <div class="row">
+                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                    <div class="x_panel">
+
+                                        <div class="x_content">
+                                            <div class="layui-form">
+                                                <div class="layui-tab">
+                                                    <ul class="layui-tab-title">
+                                                        <li class="layui-this">wifi探针管理</li>
+                                                        <li>摄像头管理</li>
+                                                    </ul>
+                                                    <div class="layui-tab-content">
+                                                        <!--<div class="x_title">-->
+                                                            <!--<div class="layui-btn-group">-->
+                                                                <!--<button class="layui-btn" id="addBtn"><i class="layui-icon">&#xe608;</i> 增加</button>-->
+                                                                <!--&lt;!&ndash; <button class="layui-btn" id="editBtn"><i class="layui-icon">&#xe642;</i> 编辑</button> &ndash;&gt;-->
+                                                                <!--&lt;!&ndash; <button class="layui-btn" id="delBtn"><i class="layui-icon">&#xe640;</i> 删除</button> &ndash;&gt;-->
+                                                                <!--<button class="layui-btn" id="flushBtn"><i class="layui-icon">&#x1002;</i> 刷新</button>-->
+                                                            <!--</div>-->
+                                                        <!--</div>-->
+                                                        <div class="layui-tab-item layui-show">
+                                                            <div class="x_title">
+                                                                <div class="layui-btn-group">
+                                                                    <button class="layui-btn" id="addBtn"><i class="layui-icon">&#xe608;</i> 增加</button>
+                                                                    <!-- <button class="layui-btn" id="editBtn"><i class="layui-icon">&#xe642;</i> 编辑</button> -->
+                                                                    <!-- <button class="layui-btn" id="delBtn"><i class="layui-icon">&#xe640;</i> 删除</button> -->
+                                                                    <button class="layui-btn" id="flushBtn"><i class="layui-icon">&#x1002;</i> 刷新</button>
+                                                                </div>
+                                                            </div>
+                                                            <table class="layui-table">
+                                                                <colgroup>
+                                                                    <col width="50"/>
+                                                                    <col width="60"/>
+                                                                    <col width="200"/>
+                                                                    <col width="200"/>
+                                                                    <col width="300"/>
+                                                                    <col width="150"/>
+                                                                </colgroup>
+                                                                <thead>
+                                                                <tr>
+                                                                    <th><input type="checkbox" name="" lay-skin="primary" lay-filter="allChoose"/></th>
+                                                                    <th>序号</th>
+                                                                    <th>设备序列号</th>
+                                                                    <th>设备MAC</th>
+                                                                    <th>所属门店</th>
+                                                                    <th>操作</th>
+                                                                </tr>
+                                                                </thead>
+                                                                <tbody id="device-tbody">
+
+                                                                </tbody>
+
+                                                                <script id="deviceListTemplate" type="text/x-jquery-tmpl">
+                                                                    {{each(i,device) dataList}}
+                                                                    <tr>
+                                                                      <td><input type="checkbox" name="" lay-skin="primary"/></td>
+                                                                      <td>{{= i+1}}</td>
+                                                                      <td>{{= probeSn}}</td>
+                                                                      <td>{{= probeMac}}</td>
+                                                                      <td>{{= shopName}}</td>
+                                                                      <td>
+                                                                        <button class="layui-btn updateBtn" id="editBtn_{{= shopprobeId}}"><i class="layui-icon">&#xe642;</i> 编辑</button>
+                                                                        <button class="layui-btn delBtn" id="delBtn_{{= shopprobeId}}"><i class="layui-icon">&#xe640;</i> 删除</button>
+                                                                      </td>
+                                                                    </tr>
+                                                                    {{/each}}
+					                                             </script>
+                                                            </table>
+                                                            <!-- END -->
+                                                        </div>
+                                                        <div class="layui-tab-item">
+                                                            <div class="x_title">
+                                                                <div class="layui-btn-group">
+                                                                    <button class="layui-btn" id="addCameraBtn"><i class="layui-icon">&#xe608;</i> 增加</button>
+                                                                    <!-- <button class="layui-btn" id="editBtn"><i class="layui-icon">&#xe642;</i> 编辑</button> -->
+                                                                    <!-- <button class="layui-btn" id="delBtn"><i class="layui-icon">&#xe640;</i> 删除</button> -->
+                                                                    <button class="layui-btn" id="flushCameraBtn"><i class="layui-icon">&#x1002;</i> 刷新</button>
+                                                                </div>
+                                                            </div>
+                                                            <table class="layui-table">
+                                                                <colgroup>
+                                                                    <col width="50"/>
+                                                                    <col width="60"/>
+                                                                    <col width="100"/>
+                                                                    <col width="100"/>
+                                                                    <col width="100"/>
+                                                                    <col width="100"/>
+                                                                    <col width="100"/>
+                                                                    <col width="100"/>
+                                                                    <col width="150"/>
+                                                                </colgroup>
+                                                                <thead>
+                                                                <tr>
+                                                                    <th><input type="checkbox" name="" lay-skin="primary" lay-filter="allChoose"/></th>
+                                                                    <th>序号</th>
+                                                                    <th>设备id</th>
+                                                                    <th>安装时间</th>
+                                                                    <th>硬件版本号</th>
+                                                                    <th>软件版本号</th>
+                                                                    <th>所属门店</th>
+                                                                    <th>连接状态</th>
+                                                                    <th>操作</th>
+                                                                </tr>
+                                                                </thead>
+                                                                <tbody id="device-tbody1">
+
+                                                                </tbody>
+
+                                                                <script id="deviceListTemplate1" type="text/x-jquery-tmpl">
+                                                                    {{each(i,device) dataList}}
+                                                                    <tr>
+                                                                      <td><input type="checkbox" name="" lay-skin="primary"/></td>
+                                                                      <td>{{= i+1}}</td>
+                                                                      <td>{{= cameraMac}}</td>
+                                                                      <input type="hidden" name="shopCameraId" value="{{= shopCameraId}}"/>
+                                                                      <td>{{= installDate}}</td>
+                                                                      <td>{{= handwareVersion}}</td>
+                                                                      <td>{{= softwareVersion}}</td>
+                                                                      <td>{{= shopName}}</td>
+                                                                      <td>
+                                                                      {{if activeInd==1}}
+                                                                      <button class="btn btn-success" >连接正常</button>
+                                                                       {{/if}}
+                                                                        {{if activeInd==0}}
+                                                                       <button class="btn btn-warning">连接异常</button>
+                                                                       {{/if}}
+                                                                      </td>
+                                                                      <td>
+                                                                        <button class="layui-btn updateCameraDeviceBtn" id="editCameraBtn_{{= shopCameraId}}"><i class="layui-icon">&#xe642;</i> 编辑</button>
+                                                                        <button class="layui-btn delCameraBtn" id="delCameraBtn_{{= shopCameraId}}"><i class="layui-icon">&#xe640;</i> 删除</button>
+                                                                      </td>
+                                                                    </tr>
+                                                                    {{/each}}
+					                                             </script>
+                                                            </table>
+                                                            <!-- END -->
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /page content -->
+
+        <!-- footer content -->
+        <footer th:include="common/footer::copy"></footer>
+        <!-- /footer content -->
+    </div>
+</div>
+
+<!-- jQuery -->
+<script src="vendors/jquery/dist/jquery.min.js"></script>
+<!-- Bootstrap -->
+<script src="vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+<!-- FastClick -->
+<script src="vendors/fastclick/lib/fastclick.js"></script>
+<!-- NProgress -->
+<script src="vendors/nprogress/nprogress.js"></script>
+<!-- jQuery custom content scroller -->
+<script
+        src="vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script>
+
+<!-- ECharts -->
+<script src="common/echarts.min.js"></script>
+<!-- Custom Theme Scripts -->
+<script src="build/js/custom.min.js"></script>
+
+<script type="text/javascript" src="common/jquery.tmpl.min.js"></script>
+<script type="text/javascript" src="vendors/layer-v2.4/layer/layer.js"></script>
+<script src="vendors/layui/layui.js" charset="utf-8"></script>
+<script type="text/javascript" src="vendors/layui/lay/modules/laydate.js"></script>
+<script type="text/javascript" src="common/owl.js"></script>
+<script src="system/basicInfo.js"></script>
+<script src="system/device.js" charset="utf-8"></script>
+<script language="javascript" type="text/javascript">
+    <!--
+    layui.use('element', function(){
+        var $ = layui.jquery,element = layui.element(); //Tab的切换功能，切换事件监听等，需要依赖element模块
+    });
+
+    layui.use('laydate', function(){
+        var laydate = layui.laydate;
+
+    });
+
+//    -->
+</script>
+</body>
+</html>

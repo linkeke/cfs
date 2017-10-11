@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.owl.wifi.web.dao.PermissionMapper" >
+  <resultMap id="BaseResultMap" type="com.owl.wifi.web.entity.Permission" >
+    <id column="n_permission_id" property="nPermissionId" jdbcType="BIGINT" />
+    <result column="c_permission_name" property="cPermissionName" jdbcType="VARCHAR" />
+    <result column="c_permission_url" property="cPermissionUrl" jdbcType="VARCHAR" />
+    <result column="t_create_time" property="tCreateTime" jdbcType="TIMESTAMP" />
+    <result column="t_update_time" property="tUpdateTime" jdbcType="TIMESTAMP" />
+    <result column="n_create_by" property="nCreateBy" jdbcType="BIGINT" />
+    <result column="n_update_by" property="nUpdateBy" jdbcType="BIGINT" />
+    <result column="n_status" property="nStatus" jdbcType="BIT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    n_permission_id, c_permission_name, c_permission_url, t_create_time, t_update_time, 
+    n_create_by, n_update_by, n_status
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_permission
+    where n_permission_id = #{nPermissionId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from t_permission
+    where n_permission_id = #{nPermissionId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.owl.wifi.web.entity.Permission" >
+    insert into t_permission (n_permission_id, c_permission_name, c_permission_url, 
+      t_create_time, t_update_time, n_create_by, 
+      n_update_by, n_status)
+    values (#{nPermissionId,jdbcType=BIGINT}, #{cPermissionName,jdbcType=VARCHAR}, #{cPermissionUrl,jdbcType=VARCHAR}, 
+      #{tCreateTime,jdbcType=TIMESTAMP}, #{tUpdateTime,jdbcType=TIMESTAMP}, #{nCreateBy,jdbcType=BIGINT}, 
+      #{nUpdateBy,jdbcType=BIGINT}, #{nStatus,jdbcType=BIT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.owl.wifi.web.entity.Permission" >
+    insert into t_permission
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="nPermissionId != null" >
+        n_permission_id,
+      </if>
+      <if test="cPermissionName != null" >
+        c_permission_name,
+      </if>
+      <if test="cPermissionUrl != null" >
+        c_permission_url,
+      </if>
+      <if test="tCreateTime != null" >
+        t_create_time,
+      </if>
+      <if test="tUpdateTime != null" >
+        t_update_time,
+      </if>
+      <if test="nCreateBy != null" >
+        n_create_by,
+      </if>
+      <if test="nUpdateBy != null" >
+        n_update_by,
+      </if>
+      <if test="nStatus != null" >
+        n_status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="nPermissionId != null" >
+        #{nPermissionId,jdbcType=BIGINT},
+      </if>
+      <if test="cPermissionName != null" >
+        #{cPermissionName,jdbcType=VARCHAR},
+      </if>
+      <if test="cPermissionUrl != null" >
+        #{cPermissionUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="tCreateTime != null" >
+        #{tCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="tUpdateTime != null" >
+        #{tUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="nCreateBy != null" >
+        #{nCreateBy,jdbcType=BIGINT},
+      </if>
+      <if test="nUpdateBy != null" >
+        #{nUpdateBy,jdbcType=BIGINT},
+      </if>
+      <if test="nStatus != null" >
+        #{nStatus,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.owl.wifi.web.entity.Permission" >
+    update t_permission
+    <set >
+      <if test="cPermissionName != null" >
+        c_permission_name = #{cPermissionName,jdbcType=VARCHAR},
+      </if>
+      <if test="cPermissionUrl != null" >
+        c_permission_url = #{cPermissionUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="tCreateTime != null" >
+        t_create_time = #{tCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="tUpdateTime != null" >
+        t_update_time = #{tUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="nCreateBy != null" >
+        n_create_by = #{nCreateBy,jdbcType=BIGINT},
+      </if>
+      <if test="nUpdateBy != null" >
+        n_update_by = #{nUpdateBy,jdbcType=BIGINT},
+      </if>
+      <if test="nStatus != null" >
+        n_status = #{nStatus,jdbcType=BIT},
+      </if>
+    </set>
+    where n_permission_id = #{nPermissionId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.owl.wifi.web.entity.Permission" >
+    update t_permission
+    set c_permission_name = #{cPermissionName,jdbcType=VARCHAR},
+      c_permission_url = #{cPermissionUrl,jdbcType=VARCHAR},
+      t_create_time = #{tCreateTime,jdbcType=TIMESTAMP},
+      t_update_time = #{tUpdateTime,jdbcType=TIMESTAMP},
+      n_create_by = #{nCreateBy,jdbcType=BIGINT},
+      n_update_by = #{nUpdateBy,jdbcType=BIGINT},
+      n_status = #{nStatus,jdbcType=BIT}
+    where n_permission_id = #{nPermissionId,jdbcType=BIGINT}
+  </update>
+  <select id="findPermissionsByUserId" resultType="java.lang.String">
+   SELECT c_permission_url FROM t_permission WHERE n_status=1 and n_permission_id IN(SELECT n_permission_id FROM t_role_permission WHERE n_role_code IN (SELECT n_role_code FROM t_role WHERE n_status=1 and n_role_code IN(SELECT n_role_code FROM t_user_role WHERE n_user_id=#{userId}))) 
+  </select>
+</mapper>

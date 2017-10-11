@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.owl.wifi.web.dao.TalkingdataDeviceMapper" >
+  <resultMap id="BaseResultMap" type="com.owl.wifi.web.entity.TalkingdataDevice" >
+    <id column="mac" property="mac" jdbcType="CHAR" />
+    <result column="imei" property="imei" jdbcType="VARCHAR" />
+    <result column="tdid" property="tdid" jdbcType="VARCHAR" />
+    <result column="idfa" property="idfa" jdbcType="VARCHAR" />
+    <result column="android_id" property="androidId" jdbcType="VARCHAR" />
+    <result column="standard_brand" property="standardBrand" jdbcType="VARCHAR" />
+    <result column="standard_model" property="standardModel" jdbcType="VARCHAR" />
+    <result column="device_type" property="deviceType" jdbcType="VARCHAR" />
+    <result column="screen" property="screen" jdbcType="VARCHAR" />
+    <result column="price" property="price" jdbcType="VARCHAR" />
+    <result column="function_type" property="functionType" jdbcType="VARCHAR" />
+    <result column="hardware_type" property="hardwareType" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    mac, imei, tdid, idfa, android_id, standard_brand, standard_model, device_type, screen, 
+    price, function_type, hardware_type
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_talkingdata_device
+    where mac = #{mac,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_talkingdata_device
+    where mac = #{mac,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="com.owl.wifi.web.entity.TalkingdataDevice" >
+    insert into t_talkingdata_device (mac, imei, tdid, 
+      idfa, android_id, standard_brand, 
+      standard_model, device_type, screen, 
+      price, function_type, hardware_type
+      )
+    values (#{mac,jdbcType=CHAR}, #{imei,jdbcType=VARCHAR}, #{tdid,jdbcType=VARCHAR}, 
+      #{idfa,jdbcType=VARCHAR}, #{androidId,jdbcType=VARCHAR}, #{standardBrand,jdbcType=VARCHAR}, 
+      #{standardModel,jdbcType=VARCHAR}, #{deviceType,jdbcType=VARCHAR}, #{screen,jdbcType=VARCHAR}, 
+      #{price,jdbcType=VARCHAR}, #{functionType,jdbcType=VARCHAR}, #{hardwareType,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.owl.wifi.web.entity.TalkingdataDevice" >
+    insert into t_talkingdata_device
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="mac != null" >
+        mac,
+      </if>
+      <if test="imei != null" >
+        imei,
+      </if>
+      <if test="tdid != null" >
+        tdid,
+      </if>
+      <if test="idfa != null" >
+        idfa,
+      </if>
+      <if test="androidId != null" >
+        android_id,
+      </if>
+      <if test="standardBrand != null" >
+        standard_brand,
+      </if>
+      <if test="standardModel != null" >
+        standard_model,
+      </if>
+      <if test="deviceType != null" >
+        device_type,
+      </if>
+      <if test="screen != null" >
+        screen,
+      </if>
+      <if test="price != null" >
+        price,
+      </if>
+      <if test="functionType != null" >
+        function_type,
+      </if>
+      <if test="hardwareType != null" >
+        hardware_type,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="mac != null" >
+        #{mac,jdbcType=CHAR},
+      </if>
+      <if test="imei != null" >
+        #{imei,jdbcType=VARCHAR},
+      </if>
+      <if test="tdid != null" >
+        #{tdid,jdbcType=VARCHAR},
+      </if>
+      <if test="idfa != null" >
+        #{idfa,jdbcType=VARCHAR},
+      </if>
+      <if test="androidId != null" >
+        #{androidId,jdbcType=VARCHAR},
+      </if>
+      <if test="standardBrand != null" >
+        #{standardBrand,jdbcType=VARCHAR},
+      </if>
+      <if test="standardModel != null" >
+        #{standardModel,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceType != null" >
+        #{deviceType,jdbcType=VARCHAR},
+      </if>
+      <if test="screen != null" >
+        #{screen,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=VARCHAR},
+      </if>
+      <if test="functionType != null" >
+        #{functionType,jdbcType=VARCHAR},
+      </if>
+      <if test="hardwareType != null" >
+        #{hardwareType,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.owl.wifi.web.entity.TalkingdataDevice" >
+    update t_talkingdata_device
+    <set >
+      <if test="imei != null" >
+        imei = #{imei,jdbcType=VARCHAR},
+      </if>
+      <if test="tdid != null" >
+        tdid = #{tdid,jdbcType=VARCHAR},
+      </if>
+      <if test="idfa != null" >
+        idfa = #{idfa,jdbcType=VARCHAR},
+      </if>
+      <if test="androidId != null" >
+        android_id = #{androidId,jdbcType=VARCHAR},
+      </if>
+      <if test="standardBrand != null" >
+        standard_brand = #{standardBrand,jdbcType=VARCHAR},
+      </if>
+      <if test="standardModel != null" >
+        standard_model = #{standardModel,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceType != null" >
+        device_type = #{deviceType,jdbcType=VARCHAR},
+      </if>
+      <if test="screen != null" >
+        screen = #{screen,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null" >
+        price = #{price,jdbcType=VARCHAR},
+      </if>
+      <if test="functionType != null" >
+        function_type = #{functionType,jdbcType=VARCHAR},
+      </if>
+      <if test="hardwareType != null" >
+        hardware_type = #{hardwareType,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where mac = #{mac,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.owl.wifi.web.entity.TalkingdataDevice" >
+    update t_talkingdata_device
+    set imei = #{imei,jdbcType=VARCHAR},
+      tdid = #{tdid,jdbcType=VARCHAR},
+      idfa = #{idfa,jdbcType=VARCHAR},
+      android_id = #{androidId,jdbcType=VARCHAR},
+      standard_brand = #{standardBrand,jdbcType=VARCHAR},
+      standard_model = #{standardModel,jdbcType=VARCHAR},
+      device_type = #{deviceType,jdbcType=VARCHAR},
+      screen = #{screen,jdbcType=VARCHAR},
+      price = #{price,jdbcType=VARCHAR},
+      function_type = #{functionType,jdbcType=VARCHAR},
+      hardware_type = #{hardwareType,jdbcType=VARCHAR}
+    where mac = #{mac,jdbcType=CHAR}
+  </update>
+</mapper>

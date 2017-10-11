@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.owl.wifi.web.dao.TalkingdataMoreMapper" >
+  <resultMap id="BaseResultMap" type="com.owl.wifi.web.entity.TalkingdataMore" >
+    <id column="label" property="label" jdbcType="CHAR" />
+    <id column="mac" property="mac" jdbcType="CHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="weight" property="weight" jdbcType="CHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    label, mac, name, weight
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.owl.wifi.web.entity.TalkingdataMoreKey" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_talkingdata_more
+    where label = #{label,jdbcType=CHAR}
+      and mac = #{mac,jdbcType=CHAR}
+  </select>
+  <select id="selectByMACgroupByPort" resultMap="BaseResultMap">
+    select 
+   	t_talkingdata_port_label.label, mac, NAME, weight
+    from t_talkingdata_more
+      inner join t_talkingdata_port_label on t_talkingdata_port_label.label = t_talkingdata_more.label
+    where mac = #{mac,jdbcType=CHAR} AND port_id = #{portid,jdbcType=VARCHAR}
+    Order by t_talkingdata_port_label.port_id 
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.owl.wifi.web.entity.TalkingdataMoreKey" >
+    delete from t_talkingdata_more
+    where label = #{label,jdbcType=CHAR}
+      and mac = #{mac,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="com.owl.wifi.web.entity.TalkingdataMore" >
+    insert into t_talkingdata_more (label, mac, name, weight
+      )
+    values (#{label,jdbcType=CHAR}, #{mac,jdbcType=CHAR}, #{name,jdbcType=VARCHAR}, #{weight,jdbcType=CHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.owl.wifi.web.entity.TalkingdataMore" >
+    insert into t_talkingdata_more
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="label != null" >
+        label,
+      </if>
+      <if test="mac != null" >
+        mac,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="weight != null" >
+        weight,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="label != null" >
+        #{label,jdbcType=CHAR},
+      </if>
+      <if test="mac != null" >
+        #{mac,jdbcType=CHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="weight != null" >
+        #{weight,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.owl.wifi.web.entity.TalkingdataMore" >
+    update t_talkingdata_more
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="weight != null" >
+        weight = #{weight,jdbcType=CHAR},
+      </if>
+    </set>
+    where label = #{label,jdbcType=CHAR}
+      and mac = #{mac,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.owl.wifi.web.entity.TalkingdataMore" >
+    update t_talkingdata_more
+    set name = #{name,jdbcType=VARCHAR},
+      weight = #{weight,jdbcType=CHAR}
+    where label = #{label,jdbcType=CHAR}
+      and mac = #{mac,jdbcType=CHAR}
+  </update>
+  
+
+  <select id="gameReportByLabel" resultType="java.util.Map">
+    <![CDATA[
+	    select count(t.mac) as labelRecords from ( 
+	        select t.mac FROM t_talkingdata_more t inner join t_visit_shop t2 
+	            on t.mac = t2.customer_mac and t2.shop_id = #{shopId, jdbcType=INTEGER} 
+	               and t2.visit_date between #{startDate, jdbcType=DATE} and #{endDate, jdbcType=DATE}
+	               and ( TIME_TO_SEC(t2.end_time) - TIME_TO_SEC(t2.start_time) ) >= 30 
+	               and t.label = #{label, jdbcType=VARCHAR} 
+	            group by t.mac
+	    ) t
+    ]]>
+  </select>
+</mapper>

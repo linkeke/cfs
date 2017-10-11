@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.owl.wifi.web.dao.TalkingdataPositionMapper" >
+  <resultMap id="BaseResultMap" type="com.owl.wifi.web.entity.TalkingdataPosition" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="mac" property="mac" jdbcType="CHAR" />
+      <result column="lat" property="lat" jdbcType="DECIMAL" />
+      <result column="lng" property="lng" jdbcType="DECIMAL" />
+      <result column="count" property="count" jdbcType="INTEGER" />
+  </resultMap>
+    <sql id="Base_Column_List" >
+        id, mac,lat,lng,count
+    </sql>
+    <insert id="insert" parameterType="com.owl.wifi.web.entity.TalkingdataPosition" useGeneratedKeys="true" keyProperty="id">
+        insert into t_talkingdata_position (mac,lat,lng,count
+        )
+        values (#{mac,jdbcType=CHAR}, #{lat,jdbcType=DECIMAL}, #{lng,jdbcType=DECIMAL},
+         #{count,jdbcType=INTEGER}
+        )
+    </insert>
+
+    <select id="getLngLatCount" resultType="java.util.Map">
+        <![CDATA[
+SELECT lat as lat, lng as lng,count(*) as count FROM t_talkingdata_position as ttp
+ where ttp.mac in (select DISTINCT(customer_mac) from t_visit_shop where shop_id = #{shopId,jdbcType=INTEGER}) GROUP BY ttp.lat,ttp.lng
+    ]]>
+    </select>
+
+</mapper>

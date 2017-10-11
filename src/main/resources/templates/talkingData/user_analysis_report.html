@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:tiles="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8" />
+    <meta name="renderer" content="webkit|ie-comp|ie-stand" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <title>猫投鹰大数据精准营销系统 </title>
+    <link rel="icon" href="images/favicon.ico"/>
+    <!-- Bootstrap -->
+    <link href="vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet"/>
+    <!-- Font Awesome -->
+    <link href="vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet"/>
+    <!-- NProgress -->
+    <link href="vendors/nprogress/nprogress.css" rel="stylesheet"/>
+    <!-- jQuery custom content scroller -->
+    <link href="vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.min.css" rel="stylesheet"/>
+
+    <link rel="stylesheet" href="vendors/layui/css/layui.css" />
+
+    <!-- Custom Theme Style -->
+    <link href="build/css/custom.min.css" rel="stylesheet"/>
+    <link href="css/index.css" rel="stylesheet"/>
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?134c98453bebb63118c0338599528041";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+    <style type="text/css">
+        <!--
+
+
+        /* Clear fix */
+        .clearfix {
+            *zoom: 1;
+        }
+        .clearfix:before,
+        .clearfix:after {
+            display: table;
+            line-height: 0;
+            content: "";
+        }
+        .clearfix:after {
+            clear: both;
+        }
+        /* END */
+        #context {padding:5px; min-width:1024px;}
+
+        #today-info {text-align:center; margin-top:20px;}
+        #today-info .info {width:23%; height:110px; background-color:#2A3F54; float:left; margin-left:1%; border:1px dotted #FFF;}
+        #today-info .info dt:first-child{background-color:#2A3F54; height:70px;}
+        #today-info .info dt:first-child span{height:70px; line-height:70px;}
+        #today-info .info dt:last-child{background-color:#32B9B9; height:40px; line-height:40px; font-size:12pt; color:#FFF; text-align:left; padding-left:5px;}
+
+        #today-info .info dt .img {float:left;}
+        #today-info .info dt .data {float:right; font-size:25pt; color:#FFF; margin-right:10px;}
+
+        .photoinfo {height:240px; float:left; width:33%; margin-bottom:20px; border-bottom:2px solid #DFDFDF;}
+        .onlineImg { cursor:pointer; cursor: hand; }
+
+        #shopId1 {min-width:200px; padding:6px;}
+        #shopId2 {min-width:200px; padding:6px;}
+        -->
+    </style>
+</head>
+
+<body class="nav-md">
+<div class="container body">
+    <div class="main_container">
+        <div th:include="common/header::header"></div>
+
+        <!-- page content -->
+        <div class="right_col" role="main">
+            <div id="context1">
+                <form id="myFrm" name="myFrm" role="myFrm" accept-charset="UTF-8" method="post">
+                    <div class="clearfix" style="border-bottom:1px solid #CCC; padding-bottom:10px;">
+                    <span style="float:left; margin-left:20px;">
+                    	<input id="dateStr" name="dateStr" class="layui-input" placeholder="~ 请选择日期 ~" onclick="layui.laydate({elem: this, istime: false, format: 'YYYY-MM-DD'})"
+                               th:value="${edate}" style="height:30px; line-height:30px;" />
+                    </span>
+                        <span style="float:left; margin-left:50px;"><input type="button" class="layui-btn" value="查询" onclick="searchInfo();" />(统计所有分店铺流量)</span>
+                    </div>
+                </form>
+
+                <div class="row tile_count">
+                    <div class="col-md-3 col-sm-4 col-xs-6 tile_stats_count">
+                        <span class="count_top"><i class="fa fa-user"></i> 当日客流统计</span>
+                        <div class="icon count green" ><span id="totalCount" class="count">0</span><i></i></div>
+                    </div>
+
+                    <div class="col-md-3 col-sm-4 col-xs-6 tile_stats_count">
+                        <span class="count_top"><i class="fa fa-user"></i> 当日最高店铺流量</span>
+                        <div class="count green" ><span id="maxCount" class="count">0</span><i></i></div>
+                        <span class="count_bottom" id="maxShopName"></span>
+                    </div>
+                    <div class="col-md-3 col-sm-4 col-xs-6 tile_stats_count">
+                        <span class="count_top"><i class="fa fa-user"></i> 当日最低店铺流量</span>
+                        <div class="count green" ><span id="minCount" class="count">0</span><i></i></div>
+                        <span class="count_bottom" id="minShopName"></span>
+                    </div>
+                    <div class="col-md-3 col-sm-4 col-xs-6 tile_stats_count">
+                        <span class="count_top"><i class="fa fa-user"></i> 当日店铺流量平均值</span>
+                        <div class="icon count green" ><span id="avgCount" class="count">0</span><i></i></div>
+                    </div>
+                </div>
+                <!-- /top tiles -->
+            </div>
+            <div id="context">
+                <form id="myFrm1" name="myFrm" role="myFrm" accept-charset="UTF-8" method="post">
+                    <div class="clearfix" style="border-bottom:1px solid #CCC; padding-bottom:10px;">
+                        <span style="float:left">分店<select id="shopId1" name="shopId1"></select></span>
+                        <span style="float:left">分店<select id="shopId2" name="shopId2"></select></span>
+                    <span style="float:left; margin-left:20px;">
+                    	<input id="sdate" name="myDate" class="layui-input" placeholder="~ 请选择日期 ~" onclick="layui.laydate({elem: this, istime: false, format: 'YYYY-MM-DD'})"
+                               th:value="${sdate}" style="height:30px; line-height:30px;" />
+                    </span>
+                         <span style="float:left; margin-left:20px;">
+                    	<input id="edate" name="myDate" class="layui-input" placeholder="~ 请选择日期 ~" onclick="layui.laydate({elem: this, istime: false, format: 'YYYY-MM-DD'})"
+                               th:value="${edate}" style="height:30px; line-height:30px;" />
+                    </span>
+                        <span style="float:left; margin-left:50px;"><input type="button" class="layui-btn" value="对比" onclick="doSelect();" /></span>
+                    </div>
+                </form>
+
+                <!-- 实时客流情况 -->
+                <div style="border:1px solid #2A3F54; margin-top:20px;">
+                    <div style="background-color:#2A3F54; font-size:12pt; color:#FFF; padding:6px;">分店客流对比分析</div>
+                    <div id="klAnalysis" style="height:300px;"></div>
+                </div>
+
+                <!--&lt;!&ndash; 客流停留情况 &ndash;&gt;-->
+                <!--<div style="border:1px solid #2A3F54; margin-top:20px;">-->
+                <!--<div style="background-color:#2A3F54; font-size:12pt; color:#FFF; padding:6px;">客流停留时长统计图</div>-->
+                <!--<div id="stayTimeReport" style="height:300px;"></div>-->
+                <!--</div>-->
+
+
+                <!-- 30天客流情况 -->
+                <div style="border:1px solid #2A3F54; margin-top:20px;">
+                    <div style="background-color:#2A3F54; font-size:12pt; color:#FFF; padding:6px;">分店重复客流对比</div>
+                    <div id="klRepeat" style="height:300px;"></div>
+                </div>
+            </div>
+
+
+        </div>
+        <!-- /page content -->
+
+        <!-- footer content -->
+        <footer th:include="common/footer::copy"></footer>
+        <!-- /footer content -->
+    </div>
+</div>
+
+<!-- jQuery -->
+<script src="vendors/jquery/dist/jquery.min.js"></script>
+<!-- Bootstrap -->
+<script src="vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+<!-- FastClick -->
+<script src="vendors/fastclick/lib/fastclick.js"></script>
+<!-- NProgress -->
+<script src="vendors/nprogress/nprogress.js"></script>
+<!-- jQuery custom content scroller -->
+<script src="vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script>
+
+<!-- Custom Theme Scripts -->
+<script src="build/js/custom.min.js"></script>
+<script src="common/owl.js"></script>
+<script type="text/javascript" src="common/echarts.min.js"></script>
+<script type="text/javascript" src="vendors/layui/layui.js"></script>
+<script type="text/javascript" src="vendors/layer-v2.4/layer/layer.js"></script>
+<script type="text/javascript" src="vendors/layui/lay/modules/laydate.js"></script>
+<script type="text/javascript" src="talkingData/javascript/echartData.js"></script>
+<script src="system/basicInfo.js"></script>
+</body>
+</html>
+<script type="text/javascript">
+    //<![CDATA[
+    $(document).ready(function(e) {
+        // 初始化店铺列表
+        owl.ajaxRequest("/userShopList.do", "", function(result) {
+            if(result.status == -1) {
+                alert("获取数据失败！");
+                return;
+            }
+            var list = result.data;
+            for(var i = 0; i < list.length; i++) {
+                if(i == 0) {
+                    initTotalData($("#dateStr").val());
+                    initData(list[i].shopId,list[i].shopId,$("#sdate").val(),$("#edate").val());
+                }
+                $("#shopId1").append("<option value='" + list[i].shopId + "'>" + list[i].shopName + "</option>");
+                $("#shopId2").append("<option value='" + list[i].shopId + "'>" + list[i].shopName + "</option>");
+            }
+        });
+    });
+
+    function doSelect() {
+        var shop1 = $("#shopId1").val();
+        var shop2 = $("#shopId2").val();
+        var sdate = $("#sdate").val();
+        var edate = $("#edate").val();
+        initTotalData($("#dateStr").val());
+        initData(shop1,shop2,sdate,edate);
+    }
+    function searchInfo(){
+        var dateStr = $("#dateStr").val();
+        // 初始化店铺列表
+        initTotalData(dateStr);
+
+    }
+    function initTotalData(dateStr){
+        var param = {
+            dateStr: dateStr
+        };
+        owl.ajaxRequest("/getKLCount.do", param, function(result) {
+            if(result.status == -1) {
+                alert("获取数据失败！");
+                return;
+            }
+            $("#totalCount").html(result.data.totalCount);
+            $("#maxShopName").html(result.data.maxShopName);
+            $("#minShopName").html(result.data.minShopName);
+            $("#maxCount").html(result.data.maxCount);
+            $("#minCount").html(result.data.minCount);
+            $("#avgCount").html(result.data.avgCount);
+        });
+
+
+    }
+    function initData(shop1,shop2,sdate,edate){
+        var param = {
+            shopId1: shop1,
+            shopId2: shop2,
+            sdate: sdate,
+            edate: edate
+        };
+        // 实时客流量统计图
+        owl.ajaxRequest("/getAllShopKL.do", param, function(result) {
+            if(result.status == -1) {
+                alert("获取数据失败！");
+                return;
+            }
+            var shopname = result.data.shop1Name;
+            var analysisReport = echarts.init(document.getElementById("klAnalysis"), echartsParam);
+            var option = {
+                title : {
+                    text: '店铺流量对比',
+                    subtext: ''
+                },
+                tooltip : {
+                    trigger: 'axis'
+                },
+                legend: {
+                    data:[result.data.shop1Name,result.data.shop2Name]
+                },
+                toolbox: {
+                    show : true,
+                    feature : {
+                        mark : {show: true},
+                        dataView : {show: true, readOnly: false},
+                        magicType : {show: true, type: ['line', 'bar']},
+                        restore : {show: true},
+                        saveAsImage : {show: true}
+                    }
+                },
+                calculable : true,
+                xAxis : [
+                    {
+                        type : 'category',
+                        data : result.data.xaxis
+                    }
+                ],
+                yAxis : [
+                    {
+                        type : 'value'
+                    }
+                ],
+                series : [
+                    {
+                        name:result.data.shop1Name,
+                        type:'bar',
+                        data:result.data.shop1KL,
+                        markPoint : {
+                            data : [
+                                {type : 'max', name: '最大值'},
+                                {type : 'min', name: '最小值'}
+                            ]
+                        },
+                        markLine : {
+                            data : [
+                                {type : 'average', name: '平均值'}
+                            ]
+                        }
+                    },
+                    {
+                        name:result.data.shop2Name,
+                        type:'bar',
+                        data:result.data.shop2KL,
+                        markPoint : {
+                            data : [
+                                {name : '年最高', value : 182.2, xAxis: 7, yAxis: 183, symbolSize:18},
+                                {name : '年最低', value : 2.3, xAxis: 11, yAxis: 3}
+                            ]
+                        },
+                        markLine : {
+                            data : [
+                                {type : 'average', name : '平均值'}
+                            ]
+                        }
+                    }
+                ]
+            };
+            analysisReport.setOption(option);
+        });
+        // END
+         // 实时客流量统计图
+        owl.ajaxRequest("/getRepeatKL.do", param, function(result) {
+            if(result.status == -1) {
+                alert("获取数据失败！");
+                return;
+            }
+            var repeatReport = echarts.init(document.getElementById("klRepeat"), echartsParam);
+            var option = {
+                title: {
+                    text: "重复客流分析"
+                },
+                tooltip: {
+                    trigger: "axis",
+                    show: true
+                },
+                legend:{
+                    data: ['客流量']
+                },
+                xAxis: {
+                    data: result.data.xaxis
+                },
+                yAxis: {
+                    name: "客流量(人次)",
+                    nameLocation: "end"
+                },
+                series: [{
+                    name: "客流量",
+                    type: "bar",
+                    animation: true,
+                    animationEasing: "bounceOut",
+                    data: result.data.repeatKL
+                }]
+            };
+            repeatReport.setOption(option);
+        });
+
+
+
+    }
+    //]]>
+</script>

@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.owl.wifi.web.dao.ShopMapper">
+	<resultMap id="BaseResultMap" type="com.owl.wifi.web.entity.Shop">
+		 <id column="shop_id" property="shopId" jdbcType="INTEGER" />
+	    <result column="name_txt" property="nameTxt" jdbcType="VARCHAR" />
+	    <result column="industry_id" property="industryId" jdbcType="INTEGER" />
+	    <result column="business_start_time" property="businessStartTime" jdbcType="INTEGER" />
+	    <result column="business_end_time" property="businessEndTime" jdbcType="INTEGER" />
+	    <result column="contact" property="contact" jdbcType="VARCHAR" />
+	    <result column="tel" property="tel" jdbcType="VARCHAR" />
+	    <result column="address" property="address" jdbcType="VARCHAR" />
+	    <result column="lat" property="lat" jdbcType="DECIMAL" />
+	    <result column="lng" property="lng" jdbcType="DECIMAL" />
+	    <result column="talkingdata_flag" property="talkingdataflag" jdbcType="INTEGER" />
+	    
+	</resultMap>
+	<sql id="Base_Column_List">
+		shop_id, industry_id, name_txt, business_start_time, business_end_time, contact, tel, address, lat, lng, talkingdata_flag
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from t_shop
+		where shop_id = #{shopId,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from t_shop
+		where shop_id = #{shopId,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="com.owl.wifi.web.entity.Shop"
+		useGeneratedKeys="true" keyProperty="shopId">
+		 insert into t_shop (shop_id, name_txt, industry_id, 
+      business_start_time, business_end_time, contact, 
+      tel, address, lat, 
+      lng,talkingdata_flag)
+    	values (#{shopId,jdbcType=INTEGER}, #{nameTxt,jdbcType=VARCHAR}, #{industryId,jdbcType=INTEGER}, 
+      #{businessStartTime,jdbcType=INTEGER}, #{businessEndTime,jdbcType=INTEGER}, #{contact,jdbcType=VARCHAR}, 
+      #{tel,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, #{lat,jdbcType=DECIMAL}, 
+      #{lng,jdbcType=DECIMAL},#{talkingdataflag,jdbcType=INTEGER})
+	</insert>
+	<insert id="insertSelective" parameterType="com.owl.wifi.web.entity.Shop"
+		useGeneratedKeys="true" keyProperty="shopId">
+		insert into t_shop
+		<trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="shopId != null" >
+        shop_id,
+      </if>
+      <if test="nameTxt != null" >
+        name_txt,
+      </if>
+      <if test="industryId != null" >
+        industry_id,
+      </if>
+      <if test="businessStartTime != null" >
+        business_start_time,
+      </if>
+      <if test="businessEndTime != null" >
+        business_end_time,
+      </if>
+      <if test="contact != null" >
+        contact,
+      </if>
+      <if test="tel != null" >
+        tel,
+      </if>
+      <if test="address != null" >
+        address,
+      </if>
+      <if test="lat != null" >
+        lat,
+      </if>
+      <if test="lng != null" >
+        lng,
+      </if>
+       <if test="talkingdataflag != null" >
+        talkingdata_flag,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="shopId != null" >
+        #{shopId,jdbcType=INTEGER},
+      </if>
+      <if test="nameTxt != null" >
+        #{nameTxt,jdbcType=VARCHAR},
+      </if>
+      <if test="industryId != null" >
+        #{industryId,jdbcType=INTEGER},
+      </if>
+      <if test="businessStartTime != null" >
+        #{businessStartTime,jdbcType=INTEGER},
+      </if>
+      <if test="businessEndTime != null" >
+        #{businessEndTime,jdbcType=INTEGER},
+      </if>
+      <if test="contact != null" >
+        #{contact,jdbcType=VARCHAR},
+      </if>
+      <if test="tel != null" >
+        #{tel,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="lat != null" >
+        #{lat,jdbcType=DECIMAL},
+      </if>
+      <if test="lng != null" >
+        #{lng,jdbcType=DECIMAL},
+      </if>
+      <if test="talkingdataflag != null" >
+        #{talkingdataflag,jdbcType=INTEGER},
+      </if>
+    </trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.owl.wifi.web.entity.Shop">
+		update t_shop
+		<set>
+			<if test="nameTxt != null" >
+	        name_txt = #{nameTxt,jdbcType=VARCHAR},
+	      </if>
+	      <if test="industryId != null" >
+	        industry_id = #{industryId,jdbcType=INTEGER},
+	      </if>
+	      <if test="businessStartTime != null" >
+	        business_start_time = #{businessStartTime,jdbcType=INTEGER},
+	      </if>
+	      <if test="businessEndTime != null" >
+	        business_end_time = #{businessEndTime,jdbcType=INTEGER},
+	      </if>
+	      <if test="contact != null" >
+	        contact = #{contact,jdbcType=VARCHAR},
+	      </if>
+	      <if test="tel != null" >
+	        tel = #{tel,jdbcType=VARCHAR},
+	      </if>
+	      <if test="address != null" >
+	        address = #{address,jdbcType=VARCHAR},
+	      </if>
+	      <if test="lat != null" >
+	        lat = #{lat,jdbcType=DECIMAL},
+	      </if>
+	      <if test="lng != null" >
+	        lng = #{lng,jdbcType=DECIMAL},
+	      </if>
+	      <if test="talkingdataflag != null" >
+	        talkingdata_flag = #{talkingdataflag,jdbcType=INTEGER},
+	      </if>
+		</set>
+		where shop_id = #{shopId,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.owl.wifi.web.entity.Shop">
+		update t_shop
+		 set name_txt = #{nameTxt,jdbcType=VARCHAR},
+		 industry_id = #{industryId,jdbcType=INTEGER},
+	      business_start_time = #{businessStartTime,jdbcType=INTEGER},
+	      business_end_time = #{businessEndTime,jdbcType=INTEGER},
+	      contact = #{contact,jdbcType=VARCHAR},
+	      tel = #{tel,jdbcType=VARCHAR},
+	      address = #{address,jdbcType=VARCHAR},
+	      lat = #{lat,jdbcType=DECIMAL},
+	      lng = #{lng,jdbcType=DECIMAL},
+	      talkingdata_flag = #{talkingdataflag,jdbcType=INTEGER}
+	    where shop_id = #{shopId,jdbcType=INTEGER}	
+	</update>
+
+
+	<select id="findByParam" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select * from t_shop
+		<where>
+			<if test="shopId!=null">
+				and shop_id = #{shopId}
+			</if>
+			<if test="nameTxt!=null">
+				and name_txt = #{nameTxt}
+			</if>
+			<if test="shopIds!=null">
+				and shop_id in
+				<foreach item="item" index="index" collection="shopIds"
+					open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+		</where>
+
+		<if test="startRow!=null">
+			limit #{startRow},#{pageSize}
+		</if>
+	</select>
+
+	<select id="countByParam" resultType="java.lang.Integer"
+		parameterType="java.util.Map">
+		select count(*) from t_shop
+		<where>
+			<if test="shopId!=null">
+				and shop_id = #{shopId}
+			</if>
+			<if test="nameTxt!=null">
+				and name_txt = #{nameTxt}
+			</if>
+			<if test="shopIds!=null">
+				and shop_id in
+				<foreach item="item" index="index" collection="shopIds"
+					open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+		</where>
+	</select>
+
+</mapper>

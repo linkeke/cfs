@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:tiles="http://www.thymeleaf.org">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+     <link rel="icon" href="images/favicon.ico"/>
+    <title>猫投鹰大数据精准营销系统</title>
+    <meta name="keywords" content="猫投鹰,客流,客流统计系统"/>
+    <meta name="description" content="猫投鹰客流统计系统"/>
+
+    <!-- Bootstrap -->
+    <link href="vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet"/>
+    <!-- Font Awesome -->
+    <link href="vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet"/>
+    <!-- NProgress -->
+    <link href="vendors/nprogress/nprogress.css" rel="stylesheet"/>
+    <!-- jQuery custom content scroller -->
+    <link href="vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.min.css" rel="stylesheet"/>
+
+    <!-- Custom Theme Style -->
+    <link href="build/css/custom.min.css" rel="stylesheet"/>
+    
+    <link rel="stylesheet" href="vendors/layui/css/layui.css"/>
+    <link rel="stylesheet" href="bootstrapvalidator-master/dist/css/bootstrapValidator.css"/>
+    <link rel="stylesheet" href="vendors/layer/skin/layer.css"/>
+    
+    <link rel="stylesheet" href="vendors/Swiper/dist/css/swiper.min.css"/>
+
+
+	<style>
+	
+	.swiper-container {
+        width: 100%;
+        height: 300px;
+        margin: 20px auto;
+    }
+    .swiper-slide {
+        text-align: center;
+        font-size: 18px;
+        background: #fff;
+        
+        /* Center slide text vertically */
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: -webkit-flex;
+        display: flex;
+        -webkit-box-pack: center;
+        -ms-flex-pack: center;
+        -webkit-justify-content: center;
+        justify-content: center;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        -webkit-align-items: center;
+        align-items: center;
+    }
+    .append-buttons {
+        text-align: center;
+        margin-top: 20px;
+    }
+    .append-buttons a {
+        display: inline-block;
+        border: 1px solid #007aff;
+        color: #007aff;
+        text-decoration: none;
+        padding: 4px 10px;
+        border-radius: 4px;
+        margin: 0 10px;
+        font-size: 13px;
+    }
+    .realtime{
+    	padding-left:10px;
+    }
+    
+	.realtime img{
+    	border: 2px solid #EDEDED;
+    }
+	
+	#desc div{
+		color:#000;
+	}
+	.faceh3{
+	    margin: 10px;
+    	font-size: 16px;
+	}
+	.title-h2{
+		font-size:18px;
+		font-weight:bold;
+		text-align:center;
+	}
+	.row-span{
+		border: 1px solid  #EDEDED;
+		margin-top:10px;
+		margin-left:10px;
+		padding: 5px 20px;
+	}
+	.row-des{
+		padding-left: 20px;
+		margin-top: 10px;
+	}
+	.row-faceshop{
+		padding-top:10px;
+		text-align:center;
+	}
+	.title-swiper{
+		margin-top:60px;
+		font-size:18px;
+		font-weight:bold;
+		text-align:center;
+	}
+	.name-div{
+		margin-bottom:10px;
+	}
+	</style>
+
+  </head>
+
+  <body class="nav-md">
+    <div class="container body">
+      <div class="main_container">
+        <div th:include="common/header::header"></div>
+
+        <!-- page content -->
+        <div class="right_col" role="main">
+          <div class="container body">
+      <div class="main_container">
+
+        <!-- page content -->
+        <div role="main">
+          <div class="">
+            <div class="clearfix"></div>
+            <div class="row">
+              <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                  <div class="row x_title">
+	                  <div class="col-md-1">
+	                    <h3 class="faceh3">人脸识别</h3>
+	                  </div>
+	                   <div class="col-md-2">
+	                   		<select class="form-control" id="shop-select" name="shopId">
+							</select>
+							
+							<script id="shopListTemplate" type="text/x-jquery-tmpl"> 
+						{{each(i,shop) dataList}}
+ 							<option value="{{= shopId}}">{{= shopName}}</option>
+						{{/each}}
+							</script> 
+	                   </div>
+				    
+                    <ul class="nav navbar-right panel_toolbox">
+                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                      </li>
+                      <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                        <ul class="dropdown-menu" role="menu">
+                          <li><a href="#">Settings 1</a>
+                          </li>
+                          <li><a href="#">Settings 2</a>
+                          </li>
+                        </ul>
+                      </li>
+                      <li><a class="close-link"><i class="fa fa-close"></i></a>
+                      </li>
+                    </ul>
+                    <div class="clearfix"></div>
+                  </div>
+                  
+                 
+                  
+                  <div class="x_content">
+                    <br />
+                    
+                    
+                    	
+                    <div class="realtime">
+                    
+                    <div class="row" >
+                     	<div class="col-xs-6">
+							<div><h2 class="title-h2">实时人物（显示四张）</h2></div>
+						</div>
+					  	<div class="col-xs-6">
+							<div><h2 class="title-h2">此人最近4次参观过的地方</h2></div>
+						</div>
+                     </div>
+                     <br/>
+                    <div class="row" >
+                    	<div class="col-xs-6" id="faceTemp">
+							<div class="col-xs-3 col-md-3">
+								<img id="realtimeimg" src="facePhotos/7_0.jpg"  alt="猫投鹰人脸识别" height="190" width="190"/>
+							</div>
+							  <div class="col-xs-3 col-md-3">
+							  	<img id="realtimeimg" src="facePhotos/7_0.jpg"  alt="猫投鹰人脸识别" height="190" width="190"/>
+							  </div>
+							  <div class="col-xs-3 col-md-3">
+							  	<img id="realtimeimg" src="facePhotos/7_0.jpg"  alt="猫投鹰人脸识别" height="190" width="190"/>
+							  </div>
+							  <div class="col-xs-3 col-md-3">
+							  	<img id="realtimeimg" src="facePhotos/7_0.jpg"  alt="猫投鹰人脸识别" height="190" width="190"/>
+							  </div>
+						</div>
+					  	<div class="col-xs-6 row-faceshop" id="faceShopTemp">
+						</div>
+                    </div>
+                     <div class="row" >
+                     	<div class="col-xs-6 row-des">
+                     	
+                     		<span class="row-span">
+                     			<span id="sex"></span>
+                     		</span>
+                     		
+                     		<span class="row-span">
+                     			<span id="age"></span>岁
+                     		</span>
+                     		
+                     		<span class="row-span">
+                     			<span id="race"></span>
+                     		</span>
+                     		<span class="row-span">
+                     			<span id="lips"></span>
+                     		</span>
+                     		<span class="row-span">
+                     			<span id="glass"></span>
+                     		</span>
+                     		<span class="row-span">
+                     			<span>时间：</span><span id="date"></span>
+                     		</span>
+                     		
+                     		
+						</div>
+					  	<div class="col-xs-6 row-des" id="faceShopDesTemp">
+						</div>
+                     </div>
+                    
+                    	
+                    	
+                    </div>	
+                    	
+					 <!-- Swiper -->
+					<div><h2 class="title-swiper">此门店最近10个人照片</h2></div>
+				    <div class="swiper-container">
+				        <div class="swiper-wrapper" id="rencentFace">
+				          <!--   <div class="swiper-slide">
+								<img src="images/prod-1.jpg"  alt="猫投鹰人脸识别" width="100%"/>
+							</div> -->
+				        </div>
+				        <!-- Add Pagination -->
+				        <div class="swiper-pagination"></div>
+				        <!-- Add Arrows -->
+				        <div class="swiper-button-next"></div>
+				        <div class="swiper-button-prev"></div>
+				    </div>
+
+					<div style="float:right;"><a href="faceHistoryVisitor"  target="_blank">查看更多</a></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            
+            
+            
+          </div>
+        </div>
+        <!-- /page content -->
+
+      </div>
+    </div>
+        </div>
+        <!-- /page content -->
+
+        <!-- footer content -->
+        <footer th:include="common/footer::copy"></footer>
+        <!-- /footer content -->
+      </div>
+    </div>
+
+    <!-- jQuery -->
+    <script src="vendors/jquery/dist/jquery.min.js"></script>
+    <!-- Bootstrap -->
+    <script src="vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- FastClick -->
+    <script src="vendors/fastclick/lib/fastclick.js"></script>
+    <!-- NProgress -->
+    <script src="vendors/nprogress/nprogress.js"></script>
+
+    <!-- Custom Theme Scripts -->
+    <script src="build/js/custom.min.js"></script>
+    <script type="text/javascript" src="vendors/layer-v2.4/layer/layer.js"></script>
+    <script type="text/javascript" src="common/jquery.tmpl.min.js"></script>
+    <script type="text/javascript" src="common/owl.js"></script> 
+    <script src="vendors/Swiper/dist/js/swiper.min.js"></script>
+    <script src="common/sockjs.min.js"></script>
+    <script src="common/zdstPush.js"></script>
+    <script src="face/face.js"></script>
+  </body>
+</html>

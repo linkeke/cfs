@@ -1,0 +1,298 @@
+﻿<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:tiles="http://www.thymeleaf.org">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+    <title>猫投鹰大数据精准营销系统</title>
+    <meta name="keywords" content="猫投鹰,客流,客流统计系统"/>
+    <meta name="description" content="猫投鹰客流统计系统"/>
+    <link rel="icon" href="images/favicon.ico"/>
+    <!-- Bootstrap -->
+    <link href="vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet"/>
+    <!-- Font Awesome -->
+    <link href="vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet"/>
+    <!-- NProgress -->
+    <link href="vendors/nprogress/nprogress.css" rel="stylesheet"/>
+    <!-- jQuery custom content scroller -->
+    <link href="vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.min.css" rel="stylesheet"/>
+
+    <!-- Custom Theme Style -->
+    <link href="build/css/custom.min.css" rel="stylesheet"/>
+    
+    <link rel="stylesheet" href="vendors/layui/css/layui.css"/>
+    <link rel="stylesheet" href="bootstrapvalidator-master/dist/css/bootstrapValidator.css"/>
+    <link rel="stylesheet" href="vendors/layer/skin/layer.css"/>
+
+   <link href="css/index.css" rel="stylesheet"/>
+    
+  </head>
+
+  <body class="nav-md">
+    <div class="container body">
+      <div class="main_container">
+        <div th:include="common/header::header"></div>
+        
+        <!-- page content -->
+        <div class="right_col" role="main">
+          
+           <div class="container body">
+      <div class="main_container">
+
+        <!-- page content -->
+        <div role="main">
+          <div class="">
+            <div class="clearfix"></div>
+            <div class="row">
+              <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                  <div class="x_title">
+                    <h2>人口属性查询，设备属性，游戏兴趣，线下消费偏好，应用兴趣，金融信息等数据测试接口</h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                    
+                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                      </li>
+                      <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                        <ul class="dropdown-menu" role="menu">
+                          <li><a href="#">Settings 1</a>
+                          </li>
+                          <li><a href="#">Settings 2</a>
+                          </li>
+                        </ul>
+                      </li>
+                      <li><a class="close-link"><i class="fa fa-close"></i></a>
+                      </li>
+                    </ul>
+                    <div class="clearfix"></div>
+                  </div>
+                  
+                  <div class="x_title">
+					<label>id类型： imei国际移动设备标识 idfa苹果体系内设备唯一标识 tdidTalkingData设备唯一标识 androidid安卓体系内设备唯一标识 macMAC地址
+                     </label>					
+                  </div>
+                  
+                  <div class="x_content">
+                    <br />
+                   	<form id="demo-form"  class="form-horizontal form-label-left"  action="" accept-charset="UTF-8" method="post">
+                      <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">设备id*
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                          <input type="text" id="first-name" name="id" required="required" th:value="${mac}" class="form-control col-md-7 col-xs-12"/>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">id类型*
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                          <input type="text" id="last-name" name="type" required="required" th:value="${idtype}" class="form-control col-md-7 col-xs-12"/>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                          <input id="submit-userone" type="submit" name="submit" value="提交" class="btn btn-success" data-disable-with="提交"/>
+                          <input type="reset" name="reset" value="重置" class="btn btn-primary" data-disable-with="重置"/>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                  
+                  
+                  
+                  
+                  <div class="x_content">
+                    <br />
+                    <label>个人用户画像(输入相关数据点击提交，输出个人用户画像)</label>
+
+        <table border="0" style="position:relative;">
+        <tr>
+        <td id="sex-container" style="vertical-align:top; display:none;">
+
+			<img id="sexImg" class="sexImg" alt="" src="images/male.gif" style="position:absolute; top:15px; left:18px;" />
+	        <table class="layui-table">
+	            <thead>
+	            <tr>
+	                <th style="width:135px;">&nbsp;</th>
+	            </tr>
+	            </thead>
+	            <tbody>
+	            <tr><td>
+	            	<div id="sex-tbody">&nbsp;</div>
+	            </td></tr>
+	            </tbody>
+	        </table>
+
+        </td>
+        <td id="userTag-container" style="vertical-align:top; display:none;">
+
+            <table class="layui-table">
+                <thead>
+                <tr>
+                    <th style="min-width:200px; border-left:0px;">人口基本属性</th>
+                </tr>
+                </thead>
+                <tbody>
+                	<tr>
+				      	<td style="border-left:0px;">
+				      		<div id="userTag-tbody"></div>
+				      	</td>
+				    </tr>
+                </tbody>
+                <script id="userTagTemplate" type="text/x-jquery-tmpl">
+					{{each(i,device) demographicTag}}
+				      <div>{{= name}}</div>
+					{{/each}}
+				</script>
+            </table>
+
+        </td>
+        <td id="gameTag-container" style="vertical-align:top; display:none;">
+
+            <table class="layui-table">
+                <thead>
+                <tr>
+                    <th style="min-width:200px; border-left:0px;">游戏兴趣</th>
+                </tr>
+                </thead>
+                <tbody>
+					<tr>
+				      	<td style="border-left:0px;">
+				      		<div id="gameTag-tbody"></div>
+				      	</td>
+				    </tr>
+                </tbody>
+                <script id="gameTagTemplate" type="text/x-jquery-tmpl">
+					{{each(i,device) gameTag}}
+					 <div>{{= name}}</div>
+					{{/each}}
+							</script>
+            </table>
+
+        </td>
+        <td id="consumeTag-container" style="vertical-align:top; display:none;">
+
+            <table class="layui-table">
+                <thead>
+                <tr>
+                    <th style="min-width:200px; border-left:0px;">线下消费偏好</th>
+                </tr>
+                </thead>
+                <tbody>
+                	<tr>
+				      	<td style="border-left:0px;">
+				      		<div id="consumeTag-tbody"></div>
+				      	</td>
+				    </tr>
+                </tbody>
+                <script id="consumeTagTemplate" type="text/x-jquery-tmpl">
+					{{each(i,device) consumeTag}}
+					 <div>{{= name}}</div>
+					{{/each}}
+							</script>
+            </table>
+
+        </td>
+        <td id="appTag-container" style="vertical-align:top; display:none;">
+
+            <table class="layui-table">
+                <thead>
+                <tr>
+                    <th style="min-width:200px; border-left:0px;">应用兴趣</th>
+                </tr>
+                </thead>
+                <tbody>
+                	<tr>
+				      	<td style="border-left:0px;">
+				      		<div id="appTag-tbody"></div>
+				      	</td>
+				    </tr>
+                </tbody>
+                <script id="appTagTemplate" type="text/x-jquery-tmpl">
+					{{each(i,device) appTag}}
+					 <div>{{= name}}</div>
+					{{/each}}
+							</script>
+            </table>
+
+        </td>
+        <td id="financeTag-container" style="vertical-align:top; display:none;">
+
+            <table class="layui-table">
+                <thead>
+                <tr>
+                    <th style="min-width:200px; border-left:0px;">金融属性</th>
+                </tr>
+                </thead>
+                <tbody>
+                	<tr>
+				      	<td style="border-left:0px;">
+				      		<div id="financeTag-tbody"></div>
+				      	</td>
+				    </tr>
+                </tbody>
+                <script id="financeTagTemplate" type="text/x-jquery-tmpl">
+					{{each(i,device) financeTag}}
+					 <div>{{= name}}</div>
+					{{/each}}
+							</script>
+            </table>
+
+		</td></tr></table>
+                    		
+      </div>
+    </div>
+  </div>
+</div>
+
+            
+            
+            
+          </div>
+        </div>
+        <!-- /page content -->
+
+      </div>
+    </div>
+          
+          
+        </div>
+        <!-- /page content -->
+
+        <!-- footer content -->
+        <footer th:include="common/footer::copy"></footer>
+        <!-- /footer content -->
+      </div>
+    </div>
+
+    <!-- jQuery -->
+    <script src="vendors/jquery/dist/jquery.min.js"></script>
+    <!-- Bootstrap -->
+    <script src="vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- FastClick -->
+    <script src="vendors/fastclick/lib/fastclick.js"></script>
+    <!-- NProgress -->
+    <script src="vendors/nprogress/nprogress.js"></script>
+    <!-- jQuery custom content scroller -->
+    <script src="vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script>
+
+	<!-- ECharts -->
+    <script src="common/echarts.min.js"></script>
+    <!-- Custom Theme Scripts -->
+   	<script src="build/js/custom.min.js"></script>
+    
+    <script type="text/javascript" src="common/jquery.tmpl.min.js"></script>
+	<script type="text/javascript" src="vendors/layer-v2.4/layer/layer.js"></script>
+	<script src="vendors/layui/layui.js" charset="utf-8"></script>
+	<script type="text/javascript" src="common/owl.js"></script> 
+	<script type="text/javascript" src="bootstrapvalidator-master/dist/js/bootstrapValidator.js"></script>
+	<script src="talkingData/javascript/echartData.js" charset="utf-8"></script>
+	<script src="system/basicInfo.js" charset="utf-8"></script>
+	<script src="talkingData/javascript/userone_report.js" charset="utf-8"></script>
+    
+    
+  </body>
+</html>

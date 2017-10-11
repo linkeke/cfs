@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.owl.wifi.web.dao.ShopFaceMapper">
+	<resultMap id="BaseResultMap" type="com.owl.wifi.web.entity.ShopFace">
+		<id column="visit_date" jdbcType="DATE" property="visitDate" />
+		<id column="visit_id" jdbcType="INTEGER" property="visitId" />
+		<result column="shop_camera_id" jdbcType="INTEGER" property="shopCameraId" />
+		<result column="visit_time" jdbcType="TIME" property="visitTime" />
+		<result column="face_id" jdbcType="INTEGER" property="faceId" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		visit_date, visit_id, shop_camera_id, visit_time, face_id
+	</sql>
+	<select id="selectByPrimaryKey" parameterType="com.owl.wifi.web.entity.ShopFaceKey"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from t_shop_face
+		where visit_date = #{visitDate,jdbcType=DATE}
+		and
+		visit_id = #{visitId,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="com.owl.wifi.web.entity.ShopFaceKey">
+		delete from
+		t_shop_face
+		where visit_date = #{visitDate,jdbcType=DATE}
+		and visit_id =
+		#{visitId,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="com.owl.wifi.web.entity.ShopFace">
+		insert into t_shop_face
+		(visit_date, visit_id, shop_camera_id,
+		visit_time, face_id)
+		values
+		(#{visitDate,jdbcType=DATE}, #{visitId,jdbcType=INTEGER},
+		#{shopCameraId,jdbcType=INTEGER},
+		#{visitTime,jdbcType=TIME},
+		#{faceId,jdbcType=INTEGER})
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.owl.wifi.web.entity.ShopFace">
+		update t_shop_face
+		<set>
+			<if test="shopCameraId != null">
+				shop_camera_id = #{shopCameraId,jdbcType=INTEGER},
+			</if>
+			<if test="visitTime != null">
+				visit_time = #{visitTime,jdbcType=TIME},
+			</if>
+			<if test="faceId != null">
+				face_id = #{faceId,jdbcType=INTEGER},
+			</if>
+		</set>
+		where visit_date = #{visitDate,jdbcType=DATE}
+		and visit_id =
+		#{visitId,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.owl.wifi.web.entity.ShopFace">
+		update t_shop_face
+		set shop_camera_id = #{shopCameraId,jdbcType=INTEGER},
+		visit_time =
+		#{visitTime,jdbcType=TIME},
+		face_id = #{faceId,jdbcType=INTEGER}
+		where
+		visit_date = #{visitDate,jdbcType=DATE}
+		and visit_id =
+		#{visitId,jdbcType=INTEGER}
+	</update>
+
+	<select id="count_shopFaceList" resultType="java.lang.Long">
+       select count(t1.face_id) as records from t_shop_face t1, t_face t2 
+        where t1.face_id = t2.face_id and 
+            t1.shop_camera_id in (select sc.shop_camera_id from t_shop_camera sc where sc.shop_id = #{shopId})
+        <if test="startDate != null">
+                and t1.visit_date >= #{startDate}
+        </if>
+        <if test="endDate != null">
+                and t1.visit_date &lt;= #{endDate}
+        </if>
+	</select>
+
+	<select id="shopFaceList" resultType="java.util.Map">
+       select t2.face_id, t2.images_txt, t2.age_val, t2.male_ind, t1.visit_date, t1.visit_time, t2.glasses_ind, 
+            (select flc.lips_txt from t_face_lips_code flc where flc.lips_id = t2.lips_id) as lipsCode,
+            (select frc.race_txt from t_face_race_code frc where frc.race_id = t2.race_id) as raceCode
+        from t_shop_face t1, t_face t2 
+        where t1.face_id = t2.face_id and 
+            t1.shop_camera_id in (select sc.shop_camera_id from t_shop_camera sc where sc.shop_id = #{shopId})
+        <if test="startDate != null">
+                and t1.visit_date >= #{startDate}
+        </if>
+	    <if test="endDate != null">
+                and t1.visit_date &lt;= #{endDate}
+        </if>
+         order by t1.visit_date desc, t1.visit_time desc limit #{startRow}, #{pageSize} 
+	</select>
+	
+	 <select id="findByParam" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_shop_face
+    <where>
+    <if test="faceId != null" >
+      face_id = #{faceId,jdbcType=INTEGER}
+    </if>
+    </where>
+    <if test="startRow!=null">
+	limit #{startRow},#{pageSize}
+	</if>
+    </select>
+    <select id="countByParam" resultType="int" >
+    select 
+    count(*)
+    from t_shop_face
+    <where>
+      <if test="faceId != null" >
+      face_id = #{faceId,jdbcType=INTEGER}
+    </if>
+    </where>
+  </select>
+</mapper>

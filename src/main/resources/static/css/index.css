@@ -1,0 +1,25 @@
+.iframe-content{
+	width:100%;
+	min-height:970px;
+}
+
+body{
+	background-color: #fff;
+}
+
+.sexImg{
+	max-width:200px;
+	float:right;
+}
+.nav_menu{
+	background-image: url("/owl_wifi/images/head_internet.jpg");
+    background-color: rgb(255, 255, 255);
+    background-repeat: no-repeat;
+}
+#userTag-tbody,#gameTag-tbody,#consumeTag-tbody,#appTag-tbody,#sex-tbody,#financeTag-tbody {
+	height: 230px;
+    overflow: auto;
+}
+#totalshow{
+	display:none;
+}

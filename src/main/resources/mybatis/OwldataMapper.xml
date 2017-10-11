@@ -1,0 +1,308 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.owl.wifi.web.dao.OwldataMapper" >
+  <resultMap id="BaseResultMap" type="com.owl.wifi.web.entity.Owldata" >
+    <id column="mac" property="mac" jdbcType="CHAR" />
+    <result column="imei" property="imei" jdbcType="VARCHAR" />
+    <result column="idfa" property="idfa" jdbcType="VARCHAR" />
+    <result column="android_id" property="androidId" jdbcType="VARCHAR" />
+    <result column="sex_ind" property="sexInd" jdbcType="TINYINT" />
+    <result column="age_txt" property="ageTxt" jdbcType="VARCHAR" />
+    <result column="work_txt" property="workTxt" jdbcType="VARCHAR" />
+    <result column="married_ind" property="marriedInd" jdbcType="TINYINT" />
+    <result column="car_ind" property="carInd" jdbcType="TINYINT" />
+    <result column="baby_txt" property="babyTxt" jdbcType="VARCHAR" />
+    <result column="usual_place_type_txt" property="usualPlaceTypeTxt" jdbcType="VARCHAR" />
+    <result column="usual_night_address_txt" property="usualNightAddressTxt" jdbcType="VARCHAR" />
+    <result column="leisure_activity_txt" property="leisureActivityTxt" jdbcType="VARCHAR" />
+    <result column="consumption_habits_txt" property="consumptionHabitsTxt" jdbcType="VARCHAR" />
+    <result column="interests_txt" property="interestsTxt" jdbcType="VARCHAR" />
+    <result column="financial_products_txt" property="financialProductsTxt" jdbcType="VARCHAR" />
+    <result column="device_brand" property="deviceBrand" jdbcType="VARCHAR" />
+    <result column="device_model" property="deviceModel" jdbcType="VARCHAR" />
+    <result column="device_type" property="deviceType" jdbcType="VARCHAR" />
+    <result column="device_screen" property="deviceScreen" jdbcType="VARCHAR" />
+    <result column="device_price" property="devicePrice" jdbcType="VARCHAR" />
+    <result column="device_special_function" property="deviceSpecialFunction" jdbcType="VARCHAR" />
+    <result column="device_hardware" property="deviceHardware" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    mac, imei, idfa, android_id, sex_ind, age_txt, work_txt, married_ind, car_ind, baby_txt, 
+    usual_place_type_txt, usual_night_address_txt, leisure_activity_txt, consumption_habits_txt, 
+    interests_txt, financial_products_txt, device_brand, device_model, device_type, device_screen, 
+    device_price, device_special_function, device_hardware
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_owl_data
+    where mac = #{mac,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_owl_data
+    where mac = #{mac,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="com.owl.wifi.web.entity.Owldata" >
+    insert into t_owl_data (mac, imei, idfa, 
+      android_id, sex_ind, age_txt, 
+      work_txt, married_ind, car_ind, 
+      baby_txt, usual_place_type_txt, usual_night_address_txt, 
+      leisure_activity_txt, consumption_habits_txt, 
+      interests_txt, financial_products_txt, device_brand, 
+      device_model, device_type, device_screen, 
+      device_price, device_special_function, device_hardware
+      )
+    values (#{mac,jdbcType=CHAR}, #{imei,jdbcType=VARCHAR}, #{idfa,jdbcType=VARCHAR}, 
+      #{androidId,jdbcType=VARCHAR}, #{sexInd,jdbcType=TINYINT}, #{ageTxt,jdbcType=VARCHAR}, 
+      #{workTxt,jdbcType=VARCHAR}, #{marriedInd,jdbcType=TINYINT}, #{carInd,jdbcType=TINYINT}, 
+      #{babyTxt,jdbcType=VARCHAR}, #{usualPlaceTypeTxt,jdbcType=VARCHAR}, #{usualNightAddressTxt,jdbcType=VARCHAR}, 
+      #{leisureActivityTxt,jdbcType=VARCHAR}, #{consumptionHabitsTxt,jdbcType=VARCHAR}, 
+      #{interestsTxt,jdbcType=VARCHAR}, #{financialProductsTxt,jdbcType=VARCHAR}, #{deviceBrand,jdbcType=VARCHAR}, 
+      #{deviceModel,jdbcType=VARCHAR}, #{deviceType,jdbcType=VARCHAR}, #{deviceScreen,jdbcType=VARCHAR}, 
+      #{devicePrice,jdbcType=VARCHAR}, #{deviceSpecialFunction,jdbcType=VARCHAR}, #{deviceHardware,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.owl.wifi.web.entity.Owldata" >
+    insert into t_owl_data
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="mac != null" >
+        mac,
+      </if>
+      <if test="imei != null" >
+        imei,
+      </if>
+      <if test="idfa != null" >
+        idfa,
+      </if>
+      <if test="androidId != null" >
+        android_id,
+      </if>
+      <if test="sexInd != null" >
+        sex_ind,
+      </if>
+      <if test="ageTxt != null" >
+        age_txt,
+      </if>
+      <if test="workTxt != null" >
+        work_txt,
+      </if>
+      <if test="marriedInd != null" >
+        married_ind,
+      </if>
+      <if test="carInd != null" >
+        car_ind,
+      </if>
+      <if test="babyTxt != null" >
+        baby_txt,
+      </if>
+      <if test="usualPlaceTypeTxt != null" >
+        usual_place_type_txt,
+      </if>
+      <if test="usualNightAddressTxt != null" >
+        usual_night_address_txt,
+      </if>
+      <if test="leisureActivityTxt != null" >
+        leisure_activity_txt,
+      </if>
+      <if test="consumptionHabitsTxt != null" >
+        consumption_habits_txt,
+      </if>
+      <if test="interestsTxt != null" >
+        interests_txt,
+      </if>
+      <if test="financialProductsTxt != null" >
+        financial_products_txt,
+      </if>
+      <if test="deviceBrand != null" >
+        device_brand,
+      </if>
+      <if test="deviceModel != null" >
+        device_model,
+      </if>
+      <if test="deviceType != null" >
+        device_type,
+      </if>
+      <if test="deviceScreen != null" >
+        device_screen,
+      </if>
+      <if test="devicePrice != null" >
+        device_price,
+      </if>
+      <if test="deviceSpecialFunction != null" >
+        device_special_function,
+      </if>
+      <if test="deviceHardware != null" >
+        device_hardware,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="mac != null" >
+        #{mac,jdbcType=CHAR},
+      </if>
+      <if test="imei != null" >
+        #{imei,jdbcType=VARCHAR},
+      </if>
+      <if test="idfa != null" >
+        #{idfa,jdbcType=VARCHAR},
+      </if>
+      <if test="androidId != null" >
+        #{androidId,jdbcType=VARCHAR},
+      </if>
+      <if test="sexInd != null" >
+        #{sexInd,jdbcType=TINYINT},
+      </if>
+      <if test="ageTxt != null" >
+        #{ageTxt,jdbcType=VARCHAR},
+      </if>
+      <if test="workTxt != null" >
+        #{workTxt,jdbcType=VARCHAR},
+      </if>
+      <if test="marriedInd != null" >
+        #{marriedInd,jdbcType=TINYINT},
+      </if>
+      <if test="carInd != null" >
+        #{carInd,jdbcType=TINYINT},
+      </if>
+      <if test="babyTxt != null" >
+        #{babyTxt,jdbcType=VARCHAR},
+      </if>
+      <if test="usualPlaceTypeTxt != null" >
+        #{usualPlaceTypeTxt,jdbcType=VARCHAR},
+      </if>
+      <if test="usualNightAddressTxt != null" >
+        #{usualNightAddressTxt,jdbcType=VARCHAR},
+      </if>
+      <if test="leisureActivityTxt != null" >
+        #{leisureActivityTxt,jdbcType=VARCHAR},
+      </if>
+      <if test="consumptionHabitsTxt != null" >
+        #{consumptionHabitsTxt,jdbcType=VARCHAR},
+      </if>
+      <if test="interestsTxt != null" >
+        #{interestsTxt,jdbcType=VARCHAR},
+      </if>
+      <if test="financialProductsTxt != null" >
+        #{financialProductsTxt,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceBrand != null" >
+        #{deviceBrand,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceModel != null" >
+        #{deviceModel,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceType != null" >
+        #{deviceType,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceScreen != null" >
+        #{deviceScreen,jdbcType=VARCHAR},
+      </if>
+      <if test="devicePrice != null" >
+        #{devicePrice,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceSpecialFunction != null" >
+        #{deviceSpecialFunction,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceHardware != null" >
+        #{deviceHardware,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.owl.wifi.web.entity.Owldata" >
+    update t_owl_data
+    <set >
+      <if test="imei != null" >
+        imei = #{imei,jdbcType=VARCHAR},
+      </if>
+      <if test="idfa != null" >
+        idfa = #{idfa,jdbcType=VARCHAR},
+      </if>
+      <if test="androidId != null" >
+        android_id = #{androidId,jdbcType=VARCHAR},
+      </if>
+      <if test="sexInd != null" >
+        sex_ind = #{sexInd,jdbcType=TINYINT},
+      </if>
+      <if test="ageTxt != null" >
+        age_txt = #{ageTxt,jdbcType=VARCHAR},
+      </if>
+      <if test="workTxt != null" >
+        work_txt = #{workTxt,jdbcType=VARCHAR},
+      </if>
+      <if test="marriedInd != null" >
+        married_ind = #{marriedInd,jdbcType=TINYINT},
+      </if>
+      <if test="carInd != null" >
+        car_ind = #{carInd,jdbcType=TINYINT},
+      </if>
+      <if test="babyTxt != null" >
+        baby_txt = #{babyTxt,jdbcType=VARCHAR},
+      </if>
+      <if test="usualPlaceTypeTxt != null" >
+        usual_place_type_txt = #{usualPlaceTypeTxt,jdbcType=VARCHAR},
+      </if>
+      <if test="usualNightAddressTxt != null" >
+        usual_night_address_txt = #{usualNightAddressTxt,jdbcType=VARCHAR},
+      </if>
+      <if test="leisureActivityTxt != null" >
+        leisure_activity_txt = #{leisureActivityTxt,jdbcType=VARCHAR},
+      </if>
+      <if test="consumptionHabitsTxt != null" >
+        consumption_habits_txt = #{consumptionHabitsTxt,jdbcType=VARCHAR},
+      </if>
+      <if test="interestsTxt != null" >
+        interests_txt = #{interestsTxt,jdbcType=VARCHAR},
+      </if>
+      <if test="financialProductsTxt != null" >
+        financial_products_txt = #{financialProductsTxt,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceBrand != null" >
+        device_brand = #{deviceBrand,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceModel != null" >
+        device_model = #{deviceModel,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceType != null" >
+        device_type = #{deviceType,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceScreen != null" >
+        device_screen = #{deviceScreen,jdbcType=VARCHAR},
+      </if>
+      <if test="devicePrice != null" >
+        device_price = #{devicePrice,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceSpecialFunction != null" >
+        device_special_function = #{deviceSpecialFunction,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceHardware != null" >
+        device_hardware = #{deviceHardware,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where mac = #{mac,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.owl.wifi.web.entity.Owldata" >
+    update t_owl_data
+    set imei = #{imei,jdbcType=VARCHAR},
+      idfa = #{idfa,jdbcType=VARCHAR},
+      android_id = #{androidId,jdbcType=VARCHAR},
+      sex_ind = #{sexInd,jdbcType=TINYINT},
+      age_txt = #{ageTxt,jdbcType=VARCHAR},
+      work_txt = #{workTxt,jdbcType=VARCHAR},
+      married_ind = #{marriedInd,jdbcType=TINYINT},
+      car_ind = #{carInd,jdbcType=TINYINT},
+      baby_txt = #{babyTxt,jdbcType=VARCHAR},
+      usual_place_type_txt = #{usualPlaceTypeTxt,jdbcType=VARCHAR},
+      usual_night_address_txt = #{usualNightAddressTxt,jdbcType=VARCHAR},
+      leisure_activity_txt = #{leisureActivityTxt,jdbcType=VARCHAR},
+      consumption_habits_txt = #{consumptionHabitsTxt,jdbcType=VARCHAR},
+      interests_txt = #{interestsTxt,jdbcType=VARCHAR},
+      financial_products_txt = #{financialProductsTxt,jdbcType=VARCHAR},
+      device_brand = #{deviceBrand,jdbcType=VARCHAR},
+      device_model = #{deviceModel,jdbcType=VARCHAR},
+      device_type = #{deviceType,jdbcType=VARCHAR},
+      device_screen = #{deviceScreen,jdbcType=VARCHAR},
+      device_price = #{devicePrice,jdbcType=VARCHAR},
+      device_special_function = #{deviceSpecialFunction,jdbcType=VARCHAR},
+      device_hardware = #{deviceHardware,jdbcType=VARCHAR}
+    where mac = #{mac,jdbcType=CHAR}
+  </update>
+</mapper>
